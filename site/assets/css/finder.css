@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Route finder — "Can Genex make your part?"  (appended to site.css at build)
+   ========================================================================== */
+.finder { border-bottom: 1px solid var(--line-strong); background: var(--paper-2); }
+.finder__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); align-items: start; }
+.finder__intro { grid-column: 1 / span 4; position: sticky; top: calc(var(--header-h) + var(--s-6)); }
+.finder__card { grid-column: 6 / span 7; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--ink); background: var(--white); }
+.finder__fields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); padding: var(--s-5); align-content: start; border-right: 1px solid var(--line-strong); }
+.finder__fields .field--full { grid-column: 1 / -1; }
+.finder__ops { border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.finder__ops legend { margin-bottom: 8px; }
+.finder__result { padding: var(--s-5); display: grid; gap: var(--s-3); align-content: start; background: var(--white); }
+.finder__result h3 { font-size: var(--fs-h3); font-variation-settings: 'wdth' 108; letter-spacing: -0.03em; }
+.finder__result p { font-size: var(--fs-small); color: var(--text-2); }
+.pill-s { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: var(--fs-mono-xs); letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border: 1px solid currentColor; }
+.pill-s::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pill-s.ok { color: var(--ok); }
+.pill-s.warn { color: var(--warn); }
+.pill-s.no { color: var(--red); }
+.finder__facts { display: grid; grid-template-columns: 1fr 1fr; border-block: 1px solid var(--line); }
+.finder__facts div { padding: 10px 0; }
+.finder__facts div + div { border-left: 1px solid var(--line); padding-left: 12px; }
+.finder__facts dt { font-family: var(--font-mono); font-size: var(--fs-mono-xs); text-transform: uppercase; letter-spacing: .05em; color: var(--steel-600); }
+.finder__facts dd { margin: 2px 0 0; font-weight: 600; font-size: var(--fs-small); }
+.finder__notes { list-style: none; padding: 0; display: grid; gap: 6px; font-size: var(--fs-small); color: var(--text-2); }
+.finder__notes li { padding-left: 18px; position: relative; }
+.finder__notes li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 2px; background: var(--blue); }
+.finder__result.is-updating h3, .finder__result.is-updating [data-r-why] { animation: descIn var(--dur-std) var(--ease-enter); }
+@media (max-width: 1100px) { .finder__card { grid-template-columns: 1fr; } .finder__fields { border-right: 0; border-bottom: 1px solid var(--line-strong); } }
+@media (max-width: 960px) { .finder__intro, .finder__card { grid-column: 1 / -1; } .finder__intro { position: static; } }
+@media (max-width: 480px) { .finder__fields, .finder__ops { grid-template-columns: 1fr; } }
+
+/* home global band */
+.gband { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; gap: var(--gutter); align-items: end; }
+.gband__facts { list-style: none; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.gband__facts li { display: grid; grid-template-columns: 110px 1fr; gap: var(--s-3); padding: 10px 0; border-bottom: 1px solid var(--line); font-size: var(--fs-small); }
+.gband__facts b { font-family: var(--font-mono); font-size: var(--fs-mono-xs); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--blue-on-dark); padding-top: 2px; }
+@media (max-width: 960px) { .gband { grid-template-columns: 1fr; align-items: start; } }
+
+/* time-zone board placed on a light page */
+.tz--light { --line: rgb(243 241 236 / .14); background: var(--ink-2); color: var(--paper); margin-top: var(--s-4); }
+
+.finder__ops legend .opt { margin-left: 6px; }

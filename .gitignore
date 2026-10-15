@@ -1,0 +1,9 @@
+# generated / local only
+preview/
+site-v1/
+__pycache__/
+*.pyc
+
+# private client documents: never commit to a public repo
+genex-*.html
+WEBSITE-BENCHMARK.md

@@ -1,0 +1,87 @@
+/* ==========================================================================
+   GENEX UK — Design tokens
+   Direction: "Drawing Office" — Swiss-precision grid meets the engineering
+   drawing. Paper + graphite, Genex blue as the annotation colour, Genex red
+   reserved for action. Re-skin the whole site from this file.
+   ========================================================================== */
+
+/* Fonts are loaded in <head> (preconnect + stylesheet) — see _src/partials/head.html */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Type ---- */
+  --font-display: 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --fs-mono-xs: 0.75rem;                                    /* 12px labels — AA minimum */
+  --fs-mono: 0.8125rem;                                     /* 13px */
+  --fs-small: 0.875rem;
+  --fs-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-lead: clamp(1.125rem, 1rem + 0.55vw, 1.375rem);
+  --fs-h4: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --fs-h3: clamp(1.375rem, 1.1rem + 1.1vw, 2rem);
+  --fs-h2: clamp(2rem, 1.2rem + 3.2vw, 4rem);
+  --fs-h1: clamp(2.75rem, 1rem + 5.6vw, 6.25rem);
+  --fs-mega: clamp(4rem, 1rem + 15vw, 17rem);
+
+  --lh-tight: 0.92;
+  --lh-snug: 1.12;
+  --lh-body: 1.6;
+  --track-display: -0.035em;
+  --track-tight: -0.02em;
+  --track-mono: 0.06em;
+
+  /* ---- Colour (semantic) ---- */
+  --paper: #F3F1EC;          /* drafting paper */
+  --paper-2: #E8E5DE;        /* recessed panels */
+  --paper-3: #DCD8CF;
+  --white: #FBFAF7;
+  --ink: #111316;            /* graphite */
+  --ink-2: #191D22;          /* dark sections */
+  --ink-3: #242A31;
+  --steel-700: #3B4149;
+  --steel-600: #545B64;      /* secondary text on paper (7.0:1) */
+  --steel-400: #8C929A;
+  --steel-300: #AEB3BA;      /* secondary text on ink (8.6:1) */
+  --line: rgb(17 19 22 / 0.14);
+  --line-strong: rgb(17 19 22 / 0.32);
+  --line-dark: rgb(243 241 236 / 0.14);
+
+  --red: #D4211B;            /* Genex red — action only */
+  --red-hover: #B51914;
+  --red-ink: #FFFFFF;
+  --blue: #1F5BA6;           /* Genex blue — annotation / dimension lines */
+  --blue-soft: rgb(31 91 166 / 0.10);
+  --blue-on-dark: #7FA8E0;
+  --ok: #1E7A4C;
+  --warn: #A15C00;
+
+  --text: var(--ink);
+  --text-2: var(--steel-600);
+  --bg: var(--paper);
+  --focus: var(--blue);
+
+  /* ---- Space ---- */
+  --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem; --s-4: 1rem; --s-5: 1.5rem;
+  --s-6: 2rem; --s-7: 3rem; --s-8: 4rem; --s-9: 6rem; --s-10: 8rem;
+  --section: clamp(4rem, 2rem + 6vw, 7.5rem);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --maxw: 1440px;
+  --header-h: 72px;
+
+  /* ---- Shape ---- */
+  --radius: 2px;
+  --radius-pill: 999px;
+  --shadow-1: 0 1px 0 rgb(17 19 22 / 0.06), 0 1px 3px rgb(17 19 22 / 0.06);
+  --shadow-2: 0 2px 4px rgb(17 19 22 / 0.05), 0 12px 24px -8px rgb(17 19 22 / 0.18);
+
+  /* ---- Motion: mechanical, precise. Slides and steps, no bounce. ---- */
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-mech: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 140ms;
+  --dur-std: 260ms;
+  --dur-reveal: 560ms;
+}

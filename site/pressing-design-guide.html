@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metal Pressing Design Guide: Tooling Routes, Design Rules, PPAP | Genex UK</title>
+<meta name="description" content="Engineer's guide to pressed steel parts: when to choose laser, stage or progressive tooling, hole and bend design rules, material choice, what drives tool cost, and PPAP levels explained.">
+<link rel="canonical" href="https://genexuk.co.uk/pressing-design-guide.html">
+<link rel="alternate" hreflang="en-GB" href="https://genexuk.co.uk/pressing-design-guide.html">
+<link rel="alternate" hreflang="x-default" href="https://genexuk.co.uk/pressing-design-guide.html">
+<meta name="theme-color" content="#0D2541">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Genex UK">
+<meta property="og:title" content="Metal Pressing Design Guide: Tooling Routes, Design Rules, PPAP | Genex UK">
+<meta property="og:description" content="Engineer's guide to pressed steel parts: when to choose laser, stage or progressive tooling, hole and bend design rules, material choice, what drives tool cost, and PPAP levels explained.">
+<meta property="og:url" content="https://genexuk.co.uk/pressing-design-guide.html">
+<meta property="og:image" content="https://genexuk.co.uk/assets/img/og.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/finder.css">
+<link rel="stylesheet" href="/assets/css/corp.css">
+<script>/[?&]static/.test(location.search)||document.documentElement.classList.replace('no-js','js')</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://genexuk.co.uk/#org",
+  "name": "Genex UK",
+  "legalName": "Genex UK Limited",
+  "alternateName": ["Genex UK Ltd", "Genex"],
+  "url": "https://genexuk.co.uk/",
+  "identifier": {"@type": "PropertyValue", "propertyID": "UK Companies House", "value": "04157489"},
+  "naics": "332119",
+  "isicV4": "2591",
+  "slogan": "The tool. The part. The PPAP. Same team.",
+  "logo": "https://genexuk.co.uk/assets/img/apple-touch-icon.png",
+  "description": "Press tool design and build, high-volume metal pressings, laser cutting and folding, machining, welding and assembly for automotive, aerospace, defence and industrial programmes.",
+  "foundingDate": "2001",
+  "telephone": "+44 1922 710050",
+  "email": "sales@genexuk.co.uk",
+  "vatID": "GB775941484",
+  "address": { "@type": "PostalAddress", "streetAddress": "Fryers Road, Leamore Industrial Estate", "addressLocality": "Walsall", "addressRegion": "West Midlands", "postalCode": "WS2 7NA", "addressCountry": "GB" },
+  "areaServed": ["GB", "EU", "US"],
+  "knowsAbout": ["Progressive press tools", "Progressive stamping dies", "Stamping die build for export", "Metal stampings", "Metal stamping", "Metal pressings", "Laser cutting", "CNC press brake folding", "Projection welding", "Robotic welding", "CNC machining", "E-coating", "PPAP", "APQP"],
+  "sameAs": ["https://find-and-update.company-information.service.gov.uk/company/04157489", "https://www.linkedin.com/company/genex-uk-ltd/", "https://www.facebook.com/genexuk/"],
+  "location": {"@type": "Place", "name": "Genex UK factory, Walsall", "address": {"@type": "PostalAddress", "streetAddress": "Fryers Road, Leamore Industrial Estate", "addressLocality": "Walsall", "postalCode": "WS2 7NA", "addressCountry": "GB"}}
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebSite", "@id": "https://genexuk.co.uk/#website", "url": "https://genexuk.co.uk/", "name": "Genex UK", "publisher": {"@id": "https://genexuk.co.uk/#org"}, "inLanguage": "en-GB"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Metal pressing design guide: tooling routes, design rules and PPAP","author":{"@type":"Organization","@id":"https://genexuk.co.uk/#org","name":"Genex UK Ltd"},"publisher":{"@id":"https://genexuk.co.uk/#org"},"datePublished":"2026-10-15","dateModified":"2026-10-15","mainEntityOfPage":"https://genexuk.co.uk/pressing-design-guide.html","about":["Metal stamping","Progressive press tools","Sheet metal design for manufacture","PPAP"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"At what volume is progressive tooling worth it?","acceptedAnswer":{"@type":"Answer","text":"As a rule of thumb, progressive tooling starts to pay back from around 10,000 parts a year on a multi-year programme. Below roughly 2,000 parts a year, laser cutting and press brake folding is usually cheaper because there is no tooling cost. In between, single-stage or compound tooling is often the best balance. The exact crossover depends on part size, number of operations and programme life."}},
+{"@type":"Question","name":"What is the difference between progressive and compound tooling?","acceptedAnswer":{"@type":"Answer","text":"A progressive tool performs several operations at successive stations as a coil strip advances, producing a finished part on every press stroke. A compound tool performs several cutting operations, typically blanking and piercing, in a single station and stroke. Progressive tools cost more but give the lowest piece price at high volume; compound and stage tools suit lower volumes or larger parts."}},
+{"@type":"Question","name":"What drives the cost of a press tool?","acceptedAnswer":{"@type":"Answer","text":"The main cost drivers are the number of operations or stations, the strip width and part size, the strength and thickness of the material, the tolerances required, any in-die operations such as nut insertion, and the tool life needed over the programme. Checking fixtures and PPAP sampling are often included in the tooling price."}},
+{"@type":"Question","name":"What PPAP level do I need?","acceptedAnswer":{"@type":"Answer","text":"Level 3 is the automotive default: the Part Submission Warrant plus product samples and complete supporting data. Level 1 is the warrant only, Level 2 adds samples and limited data, Level 4 is the warrant plus requirements defined by the customer, and Level 5 is Level 3 with the data reviewed at the supplier's site."}},
+{"@type":"Question","name":"What should I send with a request for quotation for a pressed part?","acceptedAnswer":{"@type":"Answer","text":"Send a 3D model (STEP or IGES) and a 2D drawing with tolerances, the material specification and thickness, the annual volume and programme life, the finish or coating specification, any secondary operations, the PPAP level, packaging requirements and the delivery location."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://genexuk.co.uk/"},{"@type":"ListItem","position":2,"name":"Press tooling & pressings","item":"https://genexuk.co.uk/press-tooling.html"},{"@type":"ListItem","position":3,"name":"Pressing design guide","item":"https://genexuk.co.uk/pressing-design-guide.html"}]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="utility" role="region" aria-label="Contact bar">
+  <div class="wrap">
+    <div class="utility__l">
+      <span><span class="dot" aria-hidden="true"></span>Family-run since 2001</span>
+      <span>PPAP Level 3 as standard</span>
+      <span>Walsall, West Midlands — supplying UK, EU &amp; North America</span>
+    </div>
+    <div class="utility__r">
+      <a href="tel:+441922710050" class="num">+44 (0)1922 710050</a>
+      <a href="mailto:sales@genexuk.co.uk" class="hide-sm">sales@genexuk.co.uk</a>
+    </div>
+  </div>
+</div>
+
+<header class="header" id="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Genex UK — home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="7" fill="#D4211B"/><path d="M29 13.2A10.2 10.2 0 1 0 30.4 23H20.5" fill="none" stroke="#fff" stroke-width="5.2"/></svg>
+      <span class="brand__word">Genex <b>UK</b></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul class="nav__links">
+        <li class="has-mm">
+          <button class="mm-btn" type="button" aria-expanded="false" aria-controls="mm-cap">What we do <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          <div class="mm" id="mm-cap">
+            <a href="/press-tooling.html"><strong>Press tool design &amp; build</strong><span>Progressive, compound and stage tools from our own toolroom</span></a>
+            <a href="/press-tooling.html#pressings"><strong>Metal pressings</strong><span>0.5–3.0 mm, up to 250,000+ parts a year</span></a>
+            <a href="/capabilities.html#laser"><strong>Laser cut &amp; fold</strong><span>Prototypes and low volumes, up to 25 mm</span></a>
+            <a href="/capabilities.html#welding"><strong>Welding &amp; assembly</strong><span>Projection, spot, MIG and TIG; built and packed</span></a>
+            <a href="/capabilities.html#machining"><strong>Machining</strong><span>Turning, milling and grinding</span></a>
+            <a href="/export-dies.html"><strong>Dies for export</strong><span>Built and proven in the UK, run in your press shop</span></a>
+            <div class="mm__foot"><span>Not sure which process fits?</span><a href="/#check">Check your part →</a></div>
+          </div>
+        </li>
+        <li class="has-mm">
+          <button class="mm-btn" type="button" aria-expanded="false" aria-controls="mm-ind">Industries <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          <div class="mm" id="mm-ind">
+            <a href="/industries.html#automotive"><strong>Automotive &amp; EV</strong><span>Tier 1 interior, chassis and EV-systems programmes</span></a>
+            <a href="/industries.html#ev-startups"><strong>Vehicle start-ups</strong><span>Prototypes first, tooling when you're ready</span></a>
+            <a href="/industries.html#industrial"><strong>Industrial &amp; construction</strong><span>Brackets, fixings, enclosures and assemblies</span></a>
+            <a href="/global.html"><strong>Global supply</strong><span>UK, Europe and North America</span></a>
+          </div>
+        </li>
+        <li><a href="/quality.html">Quality</a></li>
+        <li class="has-mm">
+          <button class="mm-btn" type="button" aria-expanded="false" aria-controls="mm-res">Resources <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          <div class="mm" id="mm-res">
+            <a href="/pressing-design-guide.html"><strong>Pressing design guide</strong><span>Tooling routes, design rules and PPAP explained</span></a>
+            <a href="/assets/genex-capability-pack.pdf" download><strong>Capability pack (PDF)</strong><span>Two pages for your supplier file</span></a>
+            <a href="/quality.html#ppap"><strong>What's in our PPAP</strong><span>Every element of a Level 3 submission</span></a>
+            <a href="/export-dies.html#press-data"><strong>Press data checklist</strong><span>What we need to build a die for your press</span></a>
+          </div>
+        </li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+      <a class="btn btn--sm" href="/rfq.html">Request a quote
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a>
+      <details class="nav-toggle">
+        <summary aria-label="Menu"><span class="bars" aria-hidden="true"></span>Menu</summary>
+        <div class="nav-panel">
+          <ol>
+            <li><a href="/press-tooling.html">Press tooling &amp; pressings</a></li>
+            <li><a href="/capabilities.html">Capabilities</a></li>
+            <li><a href="/industries.html">Industries</a></li>
+            <li><a href="/quality.html">Quality</a></li>
+            <li><a href="/pressing-design-guide.html">Design guide</a></li>
+            <li><a href="/global.html">Global supply</a></li>
+            <li><a href="/about.html">About</a></li>
+          </ol>
+          <a class="btn btn--block" href="/rfq.html">Send us a drawing</a>
+          <div class="micro"><span><a class="link" href="tel:+441922710050">+44 (0)1922 710050</a></span><span><a class="link" href="mailto:sales@genexuk.co.uk">sales@genexuk.co.uk</a></span></div>
+        </div>
+      </details>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+
+<main id="main">
+<section class="phero">
+  <div class="wrap">
+    <nav aria-label="Breadcrumb" class="crumbs"><ol><li><a href="/">Home</a></li><li><a href="/press-tooling.html">Press tooling</a></li><li aria-current="page">Design guide</li></ol></nav>
+    <div class="phero__grid">
+      <div class="phero__t">
+        <p class="label label--line">Engineering guide</p>
+        <h1 class="display">Designing pressed steel parts that tool well and run well</h1>
+      </div>
+      <div class="phero__d">
+        <p class="lead">Practical rules from our toolroom: which manufacturing route suits your volume, how to design holes, bends and flanges, and what drives tooling cost.</p>
+        <p class="mono muted">Genex UK engineering · Updated 15 October 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <aside class="split__side">
+      <div class="sticky">
+        <ol class="toc">
+          <li><a href="#route"><span>01</span>Choosing a route by volume</a></li>
+          <li><a href="#rules"><span>02</span>Design rules</a></li>
+          <li><a href="#materials"><span>03</span>Material choice</a></li>
+          <li><a href="#cost"><span>04</span>What drives tool cost</a></li>
+          <li><a href="#ppap"><span>05</span>PPAP levels explained</a></li>
+          <li><a href="#rfq"><span>06</span>What to send with an RFQ</a></li>
+          <li><a href="#faq"><span>07</span>FAQ</a></li>
+        </ol>
+        <div class="side-card mt-5">
+          <h2>Want a second opinion?</h2>
+          <p class="muted" style="font-size:var(--fs-small);margin-bottom:var(--s-4)">Send the drawing and we'll mark up anything that will cost you in tooling, before you freeze the design.</p>
+          <a class="btn btn--sm" href="/rfq.html">Get a free DFM review</a>
+        </div>
+      </div>
+    </aside>
+    <div class="split__main">
+      <div class="answer">
+        <p class="label">Quick answer</p>
+        <p>Use laser cutting and folding below about 2,000 parts a year, stage or compound tooling from roughly 2,000 to 20,000, and progressive tooling from around 10,000 parts a year upwards on multi-year programmes. Design holes at least one material thickness in diameter and keep them at least 2× thickness from edges and bends.</p>
+      </div>
+
+      <article class="block" id="route">
+        <h2>Choosing a manufacturing route by volume</h2>
+        <div class="table-wrap"><table class="spec-table">
+          <caption>Typical routes for a steel bracket, 0.5–3.0 mm</caption>
+          <thead><tr><th scope="col">Route</th><th scope="col">Typical annual volume</th><th scope="col">Tooling</th><th scope="col">Piece price</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Laser cut &amp; press brake fold</th><td>1 – 2,000</td><td>None</td><td>Highest</td></tr>
+            <tr><th scope="row">Single-stage / compound tools</th><td>2,000 – 20,000</td><td>Moderate</td><td>Medium</td></tr>
+            <tr><th scope="row">Progressive tool</th><td>10,000 – 250,000+</td><td>Highest</td><td>Lowest</td></tr>
+          </tbody>
+        </table></div>
+        <div class="prose"><p>The bands overlap on purpose. The right answer depends on part size, the number of forming operations and programme life. A common, low-risk path is laser-cut prototypes for design validation, then production tooling once the design is frozen.</p></div>
+      </article>
+
+      <article class="block" id="rules">
+        <h2>Design rules for pressed parts</h2>
+        <div class="table-wrap"><table class="spec-table">
+          <caption>Starting guidelines, where t = material thickness</caption>
+          <thead><tr><th scope="col">Feature</th><th scope="col">Guideline</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Minimum pierced hole diameter</th><td>≥ 1.0 t (≥ 1.5 t for high-strength steels)</td></tr>
+            <tr><th scope="row">Hole to edge</th><td>≥ 1.5 t, 2 t preferred</td></tr>
+            <tr><th scope="row">Hole to bend</th><td>≥ 2 t + inside bend radius</td></tr>
+            <tr><th scope="row">Hole to hole</th><td>≥ 2 t</td></tr>
+            <tr><th scope="row">Inside bend radius</th><td>≥ 1 t mild steel · 1.5–2 t HSLA · check stainless &amp; aluminium temper</td></tr>
+            <tr><th scope="row">Minimum flange length</th><td>≥ 4 t</td></tr>
+            <tr><th scope="row">Bend relief</th><td>Width ≥ t, depth ≥ bend radius + t</td></tr>
+            <tr><th scope="row">Slot width</th><td>≥ 1.5 t</td></tr>
+            <tr><th scope="row">Burr direction</th><td>Specify the burr side on the drawing if it matters for fit or handling</td></tr>
+          </tbody>
+        </table></div>
+        <div class="prose"><p>These are starting points, not limits. With the right tooling we regularly go tighter. Tell us the function of the feature and we'll tell you what's achievable.</p></div>
+      </article>
+
+      <article class="block" id="materials">
+        <h2>Choosing a material</h2>
+        <div class="table-wrap"><table class="spec-table">
+          <thead><tr><th scope="col">Material</th><th scope="col">Nearest US grade</th><th scope="col">Use it for</th><th scope="col">Watch out for</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">DC01 cold-rolled</th><td>ASTM A1008 CS / SAE 1008</td><td>General brackets, good formability, low cost</td><td>Needs coating for corrosion</td></tr>
+            <tr><th scope="row">DC04 / DC05</th><td>ASTM A1008 DS / DDS</td><td>Deeper draws and tighter forms</td><td>Slightly higher cost</td></tr>
+            <tr><th scope="row">HC340LA – HC420LA</th><td>ASTM A1008 HSLAS Gr 50–60</td><td>Higher strength at lower weight</td><td>More springback, larger bend radii</td></tr>
+            <tr><th scope="row">S355</th><td>ASTM A572 Gr 50</td><td>Structural parts, thicker gauges</td><td>Not every grade is rolled in thin gauges</td></tr>
+            <tr><th scope="row">304 / 316 stainless</th><td>AISI 304 / 316</td><td>Corrosion resistance, medical, food</td><td>Springback, galling, tool wear</td></tr>
+            <tr><th scope="row">5xxx / 6xxx aluminium</th><td>AA 5052 / 6061</td><td>Weight-critical parts</td><td>Temper affects bendability</td></tr>
+          </tbody>
+        </table></div>
+        <div class="prose"><p class="muted" style="font-size:var(--fs-small)">US equivalents are nearest matches for orientation, not exact substitutions. Confirm the spec with us.</p><p><strong>Specify an equivalent you'd accept.</strong> Grades like S420 aren't rolled at 1.0 mm. Naming an equivalent (for example HC420LA) at RFQ stage avoids a re-quote later.</p></div>
+      </article>
+
+      <article class="block" id="cost">
+        <h2>What drives press tool cost</h2>
+        <ol class="steps">
+          <li><div><h3>Number of operations</h3><p>Each pierce, notch, form or insert adds a station or a separate tool.</p></div></li>
+          <li><div><h3>Part size and strip width</h3><p>Larger parts need bigger die sets and larger presses.</p></div></li>
+          <li><div><h3>Material strength and thickness</h3><p>High-strength steels need tougher tool steels and stronger dies.</p></div></li>
+          <li><div><h3>Tolerances</h3><p>Tight form tolerances may need extra restrike or calibration stations.</p></div></li>
+          <li><div><h3>In-die operations</h3><p>Nut and stud insertion in the tool raises tooling cost but removes a handling step from every part.</p></div></li>
+          <li><div><h3>Tool life</h3><p>Annual volume × programme years sets the tool steel grade and inserts.</p></div></li>
+        </ol>
+        <div class="prose"><p>Ask for tooling to be quoted tool by tool, with checking fixtures and PPAP sampling stated. That's how every Genex quote is laid out.</p></div>
+      </article>
+
+      <article class="block" id="ppap">
+        <h2>PPAP levels explained</h2>
+        <div class="table-wrap"><table class="spec-table">
+          <thead><tr><th scope="col">Level</th><th scope="col">What's submitted</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Level 1</th><td>Part Submission Warrant (PSW) only</td></tr>
+            <tr><th scope="row">Level 2</th><td>PSW + product samples + limited supporting data</td></tr>
+            <tr><th scope="row">Level 3</th><td>PSW + samples + complete supporting data (automotive default)</td></tr>
+            <tr><th scope="row">Level 4</th><td>PSW + other requirements defined by the customer</td></tr>
+            <tr><th scope="row">Level 5</th><td>PSW + samples + complete data, reviewed at the supplier's site</td></tr>
+          </tbody>
+        </table></div>
+        <div class="prose"><p>Genex includes Level 3 in tooling quotes as standard. See <a href="/quality.html">what's in our PPAP pack</a>.</p></div>
+      </article>
+
+      <article class="block" id="rfq">
+        <h2>What to send with an RFQ</h2>
+        <div class="prose"><ul>
+          <li>3D model (STEP or IGES) and 2D drawing with tolerances</li>
+          <li>Material specification and thickness, plus any accepted equivalents</li>
+          <li>Annual volume and programme life</li>
+          <li>Finish or coating specification</li>
+          <li>Secondary operations: fasteners, welding, assembly</li>
+          <li>PPAP level, packaging requirements and delivery location</li>
+        </ul>
+        <p><a href="/rfq.html">Send your RFQ →</a></p></div>
+      </article>
+
+      <article class="block" id="faq">
+        <h2>Frequently asked questions</h2>
+        <div style="border-top:1px solid var(--ink)">
+          <details class="qa"><summary>At what volume is progressive tooling worth it?<span class="pm" aria-hidden="true"></span></summary><div class="qa__a"><p>As a rule of thumb, from around 10,000 parts a year on a multi-year programme. Below roughly 2,000 a year, laser and folding is usually cheaper because there's no tooling. In between, stage or compound tooling is often the best balance.</p></div></details>
+          <details class="qa"><summary>What's the difference between progressive and compound tooling?<span class="pm" aria-hidden="true"></span></summary><div class="qa__a"><p>A progressive tool performs several operations at successive stations as a coil strip advances, producing a finished part every stroke. A compound tool performs several cutting operations, typically blanking and piercing, in one station and one stroke.</p></div></details>
+          <details class="qa"><summary>What drives the cost of a press tool?<span class="pm" aria-hidden="true"></span></summary><div class="qa__a"><p>Number of operations, part size and strip width, material strength and thickness, tolerances, in-die operations, and required tool life.</p></div></details>
+          <details class="qa"><summary>What PPAP level do I need?<span class="pm" aria-hidden="true"></span></summary><div class="qa__a"><p>Level 3 is the automotive default: warrant, samples and complete supporting data. Your customer's supplier manual will state the level they need.</p></div></details>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section dark grain cta" aria-labelledby="cta-h">
+  <div class="wrap cta__grid">
+    <div class="cta__t">
+      <p class="label">Start here</p>
+      <h2 id="cta-h" class="display" style="margin-top:var(--s-5)">Send us a drawing. An engineer replies within one working day.</h2>
+    </div>
+    <div class="cta__a">
+      <a class="btn btn--block" href="/rfq.html">Request a quote <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a>
+      <p class="micro"><span>STEP, IGES, DXF or PDF</span><span>NDA on request</span><span>No obligation</span></p>
+      <div class="contact-line"><span class="label">Or talk to us</span><a href="tel:+441922710050">+44 (0)1922 710050</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="/" aria-label="Genex UK — home" style="color:#fff;margin-bottom:var(--s-5)">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="7" fill="#D4211B"/><path d="M29 13.2A10.2 10.2 0 1 0 30.4 23H20.5" fill="none" stroke="#fff" stroke-width="5.2"/></svg>
+          <span class="brand__word">Genex <b style="color:#8FB4E8">UK</b></span>
+        </a>
+        <p class="footer__lead">Press tooling, pressings and assemblies from Walsall, since the 1980s.</p>
+        <address>
+          Fryers Road, Leamore Industrial Estate<br>
+          Walsall, West Midlands WS2 7NA, United Kingdom<br>
+          <a href="tel:+441922710050" class="num">+44 (0)1922 710050</a> · <a href="mailto:sales@genexuk.co.uk">sales@genexuk.co.uk</a>
+        </address>
+        <div class="footer__badges"><span>ISO 9001:2015</span><span>PPAP Level 3</span><span>Family-owned since 2001</span></div>
+      </div>
+      <div>
+        <h2>What we do</h2>
+        <ul>
+          <li><a href="/press-tooling.html">Press tool design &amp; build</a></li>
+          <li><a href="/press-tooling.html#pressings">Metal pressings</a></li>
+          <li><a href="/capabilities.html#laser">Laser cut &amp; fold</a></li>
+          <li><a href="/capabilities.html#welding">Welding &amp; assembly</a></li>
+          <li><a href="/capabilities.html#finishing">Managed finishing</a></li>
+          <li><a href="/export-dies.html">Dies for export</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Industries</h2>
+        <ul>
+          <li><a href="/industries.html#automotive">Automotive &amp; EV</a></li>
+          <li><a href="/industries.html#ev-startups">Vehicle start-ups</a></li>
+          <li><a href="/industries.html#industrial">Industrial &amp; other</a></li>
+          <li><a href="/global.html">Global supply</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="/pressing-design-guide.html">Pressing design guide</a></li>
+          <li><a href="/assets/genex-capability-pack.pdf" download>Capability pack (PDF)</a></li>
+          <li><a href="/quality.html">Quality &amp; PPAP</a></li>
+          <li><a href="/#check">Can we make your part?</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/about.html">About Genex</a></li>
+          <li><a href="/about.html#careers">Careers</a></li>
+          <li><a href="/rfq.html">Request a quote</a></li>
+          <li><a href="https://www.linkedin.com/company/genex-uk-ltd/" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer__legal">
+    <div class="wrap">
+      <span>© <span data-year>2026</span> Genex UK Ltd · Registered in England &amp; Wales no. 04157489 · VAT GB 775 9414 84</span>
+      <nav aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
+    </div>
+  </div>
+</footer>
+
+<nav class="mbar" aria-label="Quick contact">
+  <a class="btn" href="/rfq.html">Request a quote</a>
+  <a class="btn btn--ghost mbar__call" href="tel:+441922710050" aria-label="Call Genex on 01922 710050"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5.5 2.5h3l1.5 4-2 1.2a9 9 0 0 0 4.3 4.3l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A14 14 0 0 1 4 4.1 1.5 1.5 0 0 1 5.5 2.5z" stroke="currentColor" stroke-width="1.5"/></svg></a>
+</nav>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/finder.js" defer></script>
+</body>
+</html>

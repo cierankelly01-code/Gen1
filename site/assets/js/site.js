@@ -1,0 +1,258 @@
+/* Genex UK — site behaviour. Progressive enhancement only: every page works without this file. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Analytics hook — swap the body for GA4 / Plausible without touching call sites */
+  window.track = (name, props = {}) => { (window.dataLayer = window.dataLayer || []).push({ event: name, ...props }); };
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href*="rfq"], a[href^="tel:"], a[href^="mailto:"]');
+    if (a) track('cta_click', { href: a.getAttribute('href'), where: a.closest('section,header,footer')?.className.split(' ')[0] || 'page' });
+  });
+
+  /* Year */
+  document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+  /* Sticky header state */
+  const header = document.querySelector('.header');
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-stuck', scrollY > 40);
+    onScroll(); addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* Close the mobile menu on link tap / Escape */
+  const toggle = document.querySelector('.nav-toggle');
+  if (toggle) {
+    toggle.addEventListener('click', e => { if (e.target.closest('.nav-panel a')) toggle.open = false; });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && toggle.open) { toggle.open = false; toggle.querySelector('summary').focus(); } });
+    toggle.addEventListener('toggle', () => document.documentElement.style.overflow = toggle.open ? 'hidden' : '');
+  }
+
+  /* Mega menus: hover on desktop, click/keyboard everywhere */
+  const mms = [...document.querySelectorAll('.has-mm')];
+  const closeAll = except => mms.forEach(li => { if (li !== except) { li.classList.remove('is-open'); li.querySelector('.mm-btn').setAttribute('aria-expanded', 'false'); } });
+  mms.forEach(li => {
+    const btn = li.querySelector('.mm-btn');
+    btn.addEventListener('click', () => { const open = !li.classList.contains('is-open'); closeAll(li); li.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); });
+    li.addEventListener('mouseenter', () => btn.setAttribute('aria-expanded', 'true'));
+    li.addEventListener('mouseleave', () => { if (!li.classList.contains('is-open')) btn.setAttribute('aria-expanded', 'false'); });
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.has-mm')) closeAll(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') { const open = document.querySelector('.has-mm.is-open .mm-btn'); closeAll(); open && open.focus(); } });
+
+  /* Hero headline rise */
+  const hero = document.querySelector('.hero');
+  if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-ready')));
+
+  /* Reveal system */
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => { el.style.setProperty('--d', el.dataset.revealDelay || 0); io.observe(el); });
+
+  /* Showstopper: the hero runs a progressive die — one station per stroke, on a loop */
+  const press = document.querySelector('[data-press]');
+  if (press) {
+    const feats = [...press.querySelectorAll('.st-feat, .st-part-final')];
+    const stations = [...press.querySelectorAll('[data-station]')];
+    const hls = [...press.querySelectorAll('[data-hl]')];
+    const pips = [...press.querySelectorAll('.pip')];
+    const descs = [...press.querySelectorAll('[data-desc]')];
+    const stage = press.querySelector('.press__stage');
+    const svg = press.querySelector('.story__svg');
+    const strokeEl = press.querySelector('[data-stroke]');
+    const XS = [100, 260, 420, 580, 740, 920];
+    let step = -1, strokes = 0, hitTimer, loopTimer, resumeTimer, visible = true, hovering = false, userHold = false, paused = false;
+    let mode = 'svg', ctl = null;   // 'svg' | '3d' | 'video'
+
+    const pan = () => {
+      if (!svg || innerWidth > 700) { if (svg) svg.style.transform = ''; return; }
+      const w = svg.getBoundingClientRect().width, view = stage.clientWidth;
+      const x = XS[Math.max(0, step - 1)] / 1000 * w;
+      const max = w - view + 32;
+      svg.style.transform = `translateX(${-Math.min(max, Math.max(0, x - view / 2))}px)`;
+    };
+    /* pips + description only (used by every mode) */
+    const setUI = s => {
+      pips.forEach((pp, i) => { pp.classList.toggle('is-on', i + 1 === s); pp.classList.toggle('is-done', mode === 'svg' && i + 1 < s); pp.setAttribute('aria-pressed', String(i + 1 === s)); });
+      descs.forEach(d => d.classList.toggle('is-on', +d.dataset.desc === Math.max(1, s)));
+    };
+    const countStroke = () => { strokes++; if (strokeEl) strokeEl.textContent = String(strokes).padStart(4, '0'); };
+    const set = s => {
+      step = s;
+      feats.forEach(f => f.classList.toggle('is-shown', +f.dataset.op <= s));
+      stations.forEach(st => st.classList.toggle('is-active', +st.dataset.station === s));
+      hls.forEach(h => h.classList.toggle('is-active', +h.dataset.hl === s));
+      setUI(s);
+      if (s >= 1 && s <= 5 && !reduce && mode !== 'video') {
+        countStroke();
+        press.dataset.hit = '1'; clearTimeout(hitTimer); hitTimer = setTimeout(() => press.dataset.hit = '0', 200);
+      }
+      pan();
+    };
+    const running = () => mode !== '3d' && !reduce && !paused && visible && !hovering && !userHold && !document.hidden;
+    const tick = () => {
+      clearTimeout(loopTimer);
+      if (!running()) return;
+      const next = step >= 6 ? 0 : step + 1;
+      set(next);
+      loopTimer = setTimeout(tick, next === 6 ? 3200 : next === 0 ? 450 : 1350);
+    };
+    const resume = () => { clearTimeout(loopTimer); loopTimer = setTimeout(tick, 900); };
+
+    pips.forEach((pp, i) => pp.addEventListener('click', () => {
+      userHold = true; clearTimeout(loopTimer); clearTimeout(resumeTimer);
+      press.querySelector('[data-descs]')?.setAttribute('aria-live', 'polite');
+      if (mode === '3d') { ctl.focus(i); track('press_step', { op: i + 1, mode }); return; }
+      set(i + 1); track('press_step', { op: i + 1, mode });
+      resumeTimer = setTimeout(() => { userHold = false; resume(); }, 9000);
+    }));
+    if (matchMedia('(hover: hover)').matches) {
+      press.addEventListener('mouseenter', () => { hovering = true; clearTimeout(loopTimer); });
+      press.addEventListener('mouseleave', () => { hovering = false; resume(); });
+    }
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? resume() : clearTimeout(loopTimer); }, { threshold: 0.2 }).observe(press);
+    document.addEventListener('visibilitychange', () => document.hidden ? clearTimeout(loopTimer) : resume());
+    addEventListener('resize', pan);
+
+    const pauseBtn = press.querySelector('[data-pause]');
+    if (pauseBtn) {
+      if (reduce) pauseBtn.hidden = true;
+      pauseBtn.addEventListener('click', () => {
+        paused = !paused;
+        pauseBtn.textContent = paused ? 'Play' : 'Pause';
+        pauseBtn.setAttribute('aria-pressed', String(paused));
+        if (mode === '3d') { paused ? ctl.pause() : ctl.resume(); return; }
+        paused ? clearTimeout(loopTimer) : resume();
+      });
+    }
+    if (reduce) set(6); else { set(0); loopTimer = setTimeout(tick, 1100); }
+
+    /* Upgrade path: real footage (data-video) → real-time 3D → SVG strip (already running) */
+    const saveData = navigator.connection && navigator.connection.saveData;
+    const canGL = () => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch (e) { return false; } };
+    const boot3d = () => {
+      if (reduce || saveData || innerWidth < 640 || !canGL()) return;
+      const go = () => import('/assets/js/press3d.js').then(m => {
+        ctl = m.start(press, { onFocus: i => setUI(i + 1), onStroke: countStroke });
+        if (!ctl) return;
+        mode = '3d'; clearTimeout(loopTimer);
+        if (paused) ctl.pause();
+        track('press_mode', { mode: '3d' });
+      }).catch(() => { /* stay on the SVG strip */ });
+      ('requestIdleCallback' in window) ? requestIdleCallback(go, { timeout: 2500 }) : setTimeout(go, 1200);
+    };
+    const videoSrc = press.dataset.video;
+    if (videoSrc && !reduce && !saveData) {
+      const v = document.createElement('video');
+      Object.assign(v, { muted: true, loop: true, playsInline: true, autoplay: true, preload: 'metadata' });
+      v.className = 'press__video'; v.setAttribute('aria-hidden', 'true');
+      if (press.dataset.poster) v.poster = press.dataset.poster;
+      v.addEventListener('playing', () => { mode = 'video'; press.classList.add('press--video'); track('press_mode', { mode: 'video' }); }, { once: true });
+      v.addEventListener('error', () => { v.remove(); boot3d(); }, { once: true });
+      v.src = videoSrc;
+      stage.prepend(v);
+      if (pauseBtn) pauseBtn.addEventListener('click', () => { if (mode === 'video') paused ? v.pause() : v.play(); });
+    } else {
+      boot3d();
+    }
+  }
+
+  /* v2 hero: real footage (data-video) → full-bleed 3D die (desktop) → still image */
+  const hero2 = document.querySelector('[data-hero]');
+  if (hero2) {
+    const media = hero2.querySelector('.hero2__media');
+    const live = hero2.querySelector('[data-live]');
+    const pauseBtn2 = hero2.querySelector('[data-hero-pause]');
+    const saveData2 = navigator.connection && navigator.connection.saveData;
+    let ctl2 = null, paused2 = false, vid = null;
+    const showLive = () => { if (live) live.hidden = false; };
+    const boot3d2 = () => {
+      if (reduce || saveData2 || innerWidth < 900) return;
+      try { if (!document.createElement('canvas').getContext('webgl2')) return; } catch (e) { return; }
+      const go = () => import('/assets/js/press3d.js').then(m => {
+        ctl2 = m.start(hero2, { fill: true });
+        if (ctl2) { showLive('Live: progressive tool, 5 stations'); track('press_mode', { mode: '3d-hero' }); }
+      }).catch(() => {});
+      ('requestIdleCallback' in window) ? requestIdleCallback(go, { timeout: 2500 }) : setTimeout(go, 1200);
+    };
+    if (hero2.dataset.video && !reduce && !saveData2) {
+      vid = document.createElement('video');
+      Object.assign(vid, { muted: true, loop: true, playsInline: true, autoplay: true, preload: 'metadata' });
+      if (hero2.dataset.poster) vid.poster = hero2.dataset.poster;
+      vid.addEventListener('playing', () => { hero2.classList.add('is-video'); showLive('Filmed at Genex, Walsall'); }, { once: true });
+      vid.addEventListener('error', () => { vid.remove(); vid = null; boot3d2(); }, { once: true });
+      vid.src = hero2.dataset.video;
+      media.prepend(vid);
+    } else boot3d2();
+    pauseBtn2 && pauseBtn2.addEventListener('click', () => {
+      paused2 = !paused2;
+      pauseBtn2.textContent = paused2 ? 'Play' : 'Pause'; pauseBtn2.setAttribute('aria-pressed', String(paused2));
+      if (ctl2) paused2 ? ctl2.pause() : ctl2.resume();
+      if (vid) paused2 ? vid.pause() : vid.play();
+    });
+  }
+
+  /* RFQ form: drop zone, on-blur validation, designed states */
+  const form = document.querySelector('[data-rfq]');
+  if (form) {
+    const drop = form.querySelector('.drop');
+    const fileInput = drop?.querySelector('input[type=file]');
+    const list = form.querySelector('[data-files]');
+    const fmt = b => b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB';
+    const renderFiles = () => {
+      list.innerHTML = '';
+      [...fileInput.files].forEach(f => {
+        const li = document.createElement('li');
+        li.innerHTML = '<span></span><span></span>';
+        li.children[0].textContent = f.name; li.children[1].textContent = fmt(f.size);
+        list.append(li);
+      });
+    };
+    if (drop && fileInput) {
+      ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, () => drop.classList.add('is-over')));
+      ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('is-over')));
+      fileInput.addEventListener('change', renderFiles);
+    }
+
+    const validate = field => {
+      const input = field.querySelector('input, select, textarea');
+      if (!input) return true;
+      const ok = input.checkValidity();
+      field.classList.toggle('is-invalid', !ok);
+      input.setAttribute('aria-invalid', String(!ok));
+      return ok;
+    };
+    form.querySelectorAll('.field').forEach(f => {
+      const input = f.querySelector('input, select, textarea');
+      input?.addEventListener('blur', () => validate(f));
+      input?.addEventListener('input', () => f.classList.contains('is-invalid') && validate(f));
+    });
+
+    form.setAttribute('novalidate', '');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const fields = [...form.querySelectorAll('.field')];
+      const bad = fields.filter(f => !validate(f));
+      if (bad.length) { bad[0].querySelector('input, select, textarea').focus(); track('rfq_error', { count: bad.length }); return; }
+      const btn = form.querySelector('[type=submit]');
+      btn.setAttribute('aria-busy', 'true');
+      try {
+        /* DEMO: no backend yet. In production this POSTs multipart to the RFQ endpoint,
+           which files the lead into the Genex dashboard and emails sales@. */
+        if (form.dataset.endpoint) {
+          const res = await fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) });
+          if (!res.ok) throw new Error(res.status);
+        } else {
+          await new Promise(r => setTimeout(r, 900));
+        }
+        track('rfq_submit', { stage: form.querySelector('[name=stage]:checked')?.value });
+        form.hidden = true;
+        const ok = document.querySelector('[data-success]');
+        ok.classList.add('is-shown'); ok.setAttribute('tabindex', '-1'); ok.focus();
+      } catch (err) {
+        btn.removeAttribute('aria-busy');
+        const msg = form.querySelector('[data-neterr]'); msg.hidden = false;
+      }
+    });
+  }
+})();

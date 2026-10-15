@@ -1,0 +1,165 @@
+<!--meta {"title": "Request a Quote — Send Your Drawing | Genex UK", "description": "Upload your STEP, DXF or PDF drawing with volumes and material, for prototypes, production or both. A Genex engineer replies within one working day. NDA on request.", "path": "/rfq.html", "nav": "", "sheet": "8 of 9"} -->
+<!--schema-->
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://genexuk.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Request a quote", "item": "https://genexuk.co.uk/rfq.html"}]}
+</script>
+<!--/schema-->
+
+<section class="phero phero--compact">
+  <div class="wrap">
+    <nav aria-label="Breadcrumb" class="crumbs"><ol><li><a href="/">Home</a></li><li aria-current="page">Request a quote</li></ol></nav>
+    <div class="phero__grid">
+      <div class="phero__t">
+        <p class="label">Request for quotation</p>
+        <h1 class="display">Send us your drawing.</h1>
+      </div>
+      <div class="phero__d">
+        <p class="lead">An engineer reviews every RFQ and replies within one working day. Prototype-only quotes are welcome, and tooling is always quoted as a separate decision.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap rfq">
+    <div class="rfq__form">
+      <form class="form" action="/api/rfq" method="post" enctype="multipart/form-data" data-rfq>
+        <fieldset class="fieldset">
+          <legend><b>01</b> Your part</legend>
+          <p class="reqnote field--full">5 required fields. Everything else just helps us quote faster.</p>
+          <p class="assure field--full"><span>Engineer reply in 1 working day</span><span>Files seen only by Genex engineers</span><span>NDA on request</span><span>Prototype-only quotes welcome</span></p>
+          <div class="field field--full">
+            <span class="flabel" id="files-l">Drawings &amp; CAD</span>
+            <div class="drop">
+              <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M18 24V8m0 0-6 6m6-6 6 6" stroke="currentColor" stroke-width="1.8"/><path d="M6 22v6h24v-6" stroke="currentColor" stroke-width="1.8"/></svg>
+              <strong>Drop files here or browse</strong>
+              <span class="hint">STEP · IGES · X_T · DXF · DWG · PDF — up to 50 MB each</span>
+              <input type="file" name="files" multiple accept=".step,.stp,.igs,.iges,.x_t,.dxf,.dwg,.pdf,.zip" aria-labelledby="files-l">
+            </div>
+            <ul class="files" data-files aria-live="polite"></ul>
+            <label class="check mt-3"><input type="checkbox" name="nda"> Send me your mutual NDA before I share full drawings.</label>
+          </div>
+          <div class="field">
+            <label for="part">Part name / number</label>
+            <input class="input" id="part" name="part" autocomplete="off" required>
+            <span class="err" id="part-e">Tell us which part this is.</span>
+          </div>
+          <div class="field">
+            <label for="volume">Parts per year in production</label>
+            <input class="input" id="volume" name="volume" inputmode="numeric" placeholder="e.g. 12,000" required>
+            <span class="err">Enter an estimate. It decides the tooling route.</span>
+          </div>
+          <div class="field">
+            <label for="protoqty">Prototypes needed first <span class="opt">optional</span></label>
+            <input class="input" id="protoqty" name="protoqty" inputmode="numeric" placeholder="e.g. 50">
+            <span class="hint">Laser-cut, no tooling. Tooling stays a separate decision.</span>
+          </div>
+          <details class="more field--full">
+            <summary>Add details: material, finish, timing, approval <span class="opt">optional</span></summary>
+            <div class="more__grid">
+          <div class="field">
+            <label for="material">Material &amp; thickness <span class="opt">optional</span></label>
+            <input class="input" id="material" name="material" placeholder="e.g. DC01 2.0 mm">
+          </div>
+          <div class="field">
+            <label for="finish">Finish <span class="opt">optional</span></label>
+            <select class="select" id="finish" name="finish">
+              <option value="">Not sure / none</option>
+              <option>E-coat</option><option>Zinc / zinc-nickel</option><option>Powder coat</option><option>Mill finish</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <span class="flabel" id="stage-l">What do you need? <span class="opt">tick all that apply</span></span>
+            <div class="seg" role="group" aria-labelledby="stage-l">
+              <label><input type="checkbox" name="stage" value="dfm"><span>Design feedback</span></label>
+              <label><input type="checkbox" name="stage" value="prototype"><span>Prototypes</span></label>
+              <label><input type="checkbox" name="stage" value="production"><span>Production</span></label>
+              <label><input type="checkbox" name="stage" value="resource"><span>Move from another supplier</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="ppap">Automotive approval (PPAP) <span class="opt">optional</span></label>
+            <select class="select" id="ppap" name="ppap"><option value="" selected>Not needed / not sure</option><option>Level 1</option><option>Level 2</option><option>Level 3 (automotive default)</option><option>Level 4</option><option>Level 5</option></select>
+            <span class="hint">Only needed if your customer asks for it.</span>
+          </div>
+          <div class="field">
+            <label for="sop">When do you need parts? <span class="opt">optional</span></label>
+            <input class="input" id="sop" name="sop" placeholder="e.g. 50 prototypes by 20 Nov, production from Q3 2027">
+          </div>
+          <div class="field field--full">
+            <label for="notes">Anything else? <span class="opt">optional</span></label>
+            <textarea class="textarea" id="notes" name="notes" placeholder="Secondary operations, packaging, delivery location, Incoterms…"></textarea>
+          </div>
+            </div>
+          </details>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend><b>02</b> You</legend>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input class="input" id="name" name="name" autocomplete="name" required>
+            <span class="err">We need a name to address the quote to.</span>
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input class="input" id="company" name="company" autocomplete="organization" required>
+            <span class="err">Which company is the quote for?</span>
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" required>
+            <span class="err">Enter an email like name@company.com.</span>
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="opt">optional</span></label>
+            <input class="input" id="phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="field field--full">
+            <label for="country">Delivery country</label>
+            <select class="select" id="country" name="country" autocomplete="country-name">
+              <option value="" selected>Select country…</option><option>United Kingdom</option><option>Germany</option><option>France</option><option>Spain</option><option>Czech Republic</option><option>Poland</option><option>Slovakia</option><option>Italy</option><option>Netherlands</option><option>Sweden</option><option>United States</option><option>Mexico</option><option>Canada</option><option>Other</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <div class="form__submit">
+          <button class="btn btn--submit" type="submit"><span class="btn__txt">Send drawing for quote</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          <p class="micro"><span>Engineer reply within 1 working day</span><span>Or call <a class="link num" href="tel:+441922710050">01922 710050</a></span></p>
+          <p class="err" data-neterr hidden>Couldn't send. Nothing you typed is lost. Try again, or email sales@genexuk.co.uk.</p>
+        </div>
+      </form>
+
+      <div class="success" data-success role="status">
+        <p class="label">RFQ received</p>
+        <h2>Thanks. Your drawing is with our engineers.</h2>
+        <p class="muted">You'll get a reply within one UK working day. If it's urgent, call <a class="link" href="tel:+441922710050">01922 710050</a>.</p>
+      </div>
+    </div>
+
+    <aside class="rfq__side">
+      <div class="side-card">
+        <h2>What happens next</h2>
+        <ol>
+          <li>An engineer reviews your files the same or next working day.</li>
+          <li>We confirm the process route and flag any DFM risks.</li>
+          <li>You get a written quote with piece price, tooling broken down tool by tool, and lead times.</li>
+        </ol>
+      </div>
+      <div class="side-card">
+        <h2>For your supplier file</h2>
+        <p class="muted" style="font-size:var(--fs-small);margin-bottom:var(--s-3)">Capabilities, quality, launch process and commercial terms on two pages.</p>
+        <a class="btn btn--ghost btn--sm" href="/assets/genex-capability-pack.pdf" download>Capability pack (PDF, 2 pages)</a>
+      </div>
+      <div class="side-card">
+        <h2>Prefer to talk?</h2>
+        <a class="big num" href="tel:+441922710050">+44 (0)1922 710050</a>
+        <a class="link" href="mailto:sales@genexuk.co.uk">sales@genexuk.co.uk</a>
+      </div>
+      <div class="side-card">
+        <h2>Visit</h2>
+        <p class="muted" style="font-size:var(--fs-small)">Fryers Road, Leamore Industrial Estate, Walsall WS2 7NA. 10 minutes from M6 J10. Factory visits by appointment.</p>
+      </div>
+    </aside>
+  </div>
+</section>
