@@ -192,6 +192,38 @@
     });
   }
 
+
+  /* Supabase: upload drawings to the private 'rfq-files' bucket, then insert the RFQ row.
+     The anon key can only INSERT (see supabase/setup.sql); it cannot read anything back. */
+  async function submitToSupabase(form, cfg) {
+    const base = cfg.supabaseUrl.replace(/\/$/, '');
+    const auth = { apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey };
+    const fd = new FormData(form);
+    const folder = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36));
+    const paths = [];
+    for (const file of fd.getAll('files')) {
+      if (!file || !file.name || !file.size) continue;
+      const safe = file.name.replace(/[^\w.\-]+/g, '_').slice(-120);
+      const path = `${folder}/${safe}`;
+      const up = await fetch(`${base}/storage/v1/object/rfq-files/${path}`, {
+        method: 'POST', headers: { ...auth, 'x-upsert': 'false', 'Content-Type': file.type || 'application/octet-stream' }, body: file
+      });
+      if (!up.ok) throw new Error('upload ' + up.status);
+      paths.push(path);
+    }
+    const val = k => (fd.get(k) || '').toString().trim() || null;
+    const row = {
+      name: val('name'), company: val('company'), email: val('email'), phone: val('phone'), country: val('country'),
+      part: val('part'), annual_volume: val('volume'), prototype_qty: val('protoqty'), material: val('material'),
+      finish: val('finish'), stages: fd.getAll('stage').map(String), ppap: val('ppap'), needed_by: val('sop'),
+      notes: val('notes'), nda_requested: fd.get('nda') !== null, files: paths, source: location.href, status: 'new'
+    };
+    const res = await fetch(`${base}/rest/v1/rfqs`, {
+      method: 'POST', headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'return=minimal' }, body: JSON.stringify(row)
+    });
+    if (!res.ok) throw new Error('insert ' + res.status);
+  }
+
   /* RFQ form: drop zone, on-blur validation, designed states */
   const form = document.querySelector('[data-rfq]');
   if (form) {
@@ -239,13 +271,16 @@
       try {
         /* DEMO: no backend yet. In production this POSTs multipart to the RFQ endpoint,
            which files the lead into the Genex dashboard and emails sales@. */
-        if (form.dataset.endpoint) {
+        const cfg = window.GENEX_CFG || {};
+        if (cfg.supabaseUrl && cfg.supabaseAnonKey) {
+          await submitToSupabase(form, cfg);
+        } else if (form.dataset.endpoint) {
           const res = await fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) });
           if (!res.ok) throw new Error(res.status);
         } else {
-          await new Promise(r => setTimeout(r, 900));
+          await new Promise(r => setTimeout(r, 900));   /* demo mode: no backend configured */
         }
-        track('rfq_submit', { stage: form.querySelector('[name=stage]:checked')?.value });
+        track('rfq_submit', { stages: [...form.querySelectorAll('[name=stage]:checked')].map(i => i.value).join(',') });
         form.hidden = true;
         const ok = document.querySelector('[data-success]');
         ok.classList.add('is-shown'); ok.setAttribute('tabindex', '-1'); ok.focus();
