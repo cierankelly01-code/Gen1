@@ -199,10 +199,17 @@
     const base = cfg.supabaseUrl.replace(/\/$/, '');
     const auth = { apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey };
     const fd = new FormData(form);
+    if ((fd.get('website_url') || '').toString().trim()) return;   /* spam trap filled: drop silently */
+    const files = fd.getAll('files').filter(f => f && f.name && f.size);
+    /* Mirrors the server-side rules in supabase/setup.sql (the server is the real gate) */
+    const ALLOWED = /\.(step|stp|igs|iges|x_t|dxf|dwg|pdf|zip)$/i;
+    if (files.length > 10) throw new Error('too many files');
+    for (const f of files) {
+      if (!ALLOWED.test(f.name) || f.size > 52428800) throw new Error('file type or size: ' + f.name);
+    }
     const folder = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36));
     const paths = [];
-    for (const file of fd.getAll('files')) {
-      if (!file || !file.name || !file.size) continue;
+    for (const file of files) {
       const safe = file.name.replace(/[^\w.\-]+/g, '_').slice(-120);
       const path = `${folder}/${safe}`;
       const up = await fetch(`${base}/storage/v1/object/rfq-files/${path}`, {

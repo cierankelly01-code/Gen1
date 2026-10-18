@@ -900,3 +900,6 @@ section:has(> .rfq) { padding-top: var(--s-7); }
 .press--3d .story__svg, .press--video .story__svg, .press--video .press__canvas { display: none; }
 .press--video .press__count { visibility: hidden; }
 .press--3d .pip.is-on::before { transform: scaleX(1); }
+
+/* RFQ spam trap: invisible to people, filled in by bots */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}

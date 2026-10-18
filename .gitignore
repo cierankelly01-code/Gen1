@@ -7,3 +7,14 @@ __pycache__/
 # private client documents: never commit to a public repo
 genex-*.html
 WEBSITE-BENCHMARK.md
+
+# internal project briefs
+*-BRIEF.md
+
+# outreach engine: prospect data and drafts, never in the public repo
+outreach/
+
+# platform planning and private Claude commands
+PLATFORM-FOUNDATIONS.md
+.claude/commands/outreach.md
+SECURITY-POSTURE.md
