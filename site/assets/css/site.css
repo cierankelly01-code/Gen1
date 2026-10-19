@@ -833,6 +833,7 @@ section:has(> .rfq) { padding-top: var(--s-7); }
   .mbar .btn { min-height: 48px; }
   .mbar__call { padding: 0; }
   body:has([data-rfq]) .mbar { display: none; }
+  body:has(.nav-toggle[open]) .mbar { display: none; }   /* the open menu has its own "Send us a drawing" button */
   body { padding-bottom: 72px; }
   body:has([data-rfq]) { padding-bottom: 0; }
 }
