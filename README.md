@@ -51,7 +51,7 @@ These are plausible defaults and placeholders. **Every one needs Genex sign-off.
 | Programme cards GX-0548 / 0514 / 0674 | home | **Anonymised real quotes. Get permission to publish.** |
 | Privacy & terms | /privacy, /terms | Drafts only. Need review. |
 | Toolroom and press shop on the same site | home hero, roof section, heritage photo | Assumed from their quotes. Confirm. |
-| Michael Beese, Director · estimating | About → "Who you'll speak to" | Named from their quote docs. Get permission and a photo. |
+| A named estimating contact | About → "Who you'll speak to" | Shown by role only. Get permission, a name and a photo before naming anyone. |
 | Design-guide rules of thumb | /pressing-design-guide.html | Standard industry guidelines. Ask a Genex engineer to sign them off. |
 
 **Confidentiality:** customer names, prices and drawings from the client's quote pack are **not** used anywhere on the site. The cards describe part type, volume and process only.

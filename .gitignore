@@ -18,3 +18,10 @@ outreach/
 PLATFORM-FOUNDATIONS.md
 .claude/commands/outreach.md
 SECURITY-POSTURE.md
+
+# product platform: its own private git repo lives here
+platform/
+
+# business brain (Obsidian vault): private, its own git repo
+brain/
+CLAUDE.md

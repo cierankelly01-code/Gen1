@@ -99,6 +99,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
   box-shadow: 0 24px 48px -20px rgb(11 29 51 / .35); padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px;
   opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity var(--dur-std) ease, transform var(--dur-std) var(--ease-enter), visibility 0s linear var(--dur-std); z-index: 60; }
 .mm::before { content: ''; position: absolute; left: 0; right: 0; top: -20px; height: 20px; }
+.has-mm--end .mm { left: auto; right: -24px; } /* last menu opens leftwards so it stays on screen at 1366px */
 .has-mm:hover .mm, .has-mm:focus-within .mm, .has-mm.is-open .mm { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 .has-mm:hover .mm-btn svg, .has-mm.is-open .mm-btn svg { transform: rotate(180deg); }
 .mm a { display: block; padding: 10px 12px; border-radius: 4px; }
