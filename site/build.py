@@ -76,6 +76,20 @@ def strip_svg() -> str:
     return "\n".join(out)
 
 
+def fingerprint(html: str) -> str:
+    """Add ?v=<content hash> to local CSS/JS URLs so browsers fetch a new copy the moment a file changes."""
+    import hashlib
+
+    def stamp(m):
+        url = m.group(2)
+        f = ROOT / url.lstrip("/")
+        if not f.exists():
+            return m.group(0)
+        h = hashlib.sha256(f.read_bytes()).hexdigest()[:10]
+        return f'{m.group(1)}{url}?v={h}"'
+    return re.sub(r'((?:href|src)=")(/assets/(?:css|js)/[^"?]+\.(?:css|js))"', stamp, html)
+
+
 def build():
     layout = (SRC / "partials" / "layout.html").read_text(encoding="utf-8")
     snippets = {"strip_svg": strip_svg(), "cta": (SRC / "partials" / "cta.html").read_text(encoding="utf-8")}
@@ -110,6 +124,7 @@ def build():
         # mark this page's own link in the menus as the current page
         own = '<a href="%s"><strong>' % meta["path"]
         html = html.replace(own, own.replace('"><strong>', '" aria-current="page"><strong>'))
+        html = fingerprint(html)
         out = ROOT / page.name
         out.write_text(html, encoding="utf-8")
         print(f"built {out.name}")

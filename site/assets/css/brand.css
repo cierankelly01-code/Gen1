@@ -292,3 +292,21 @@ p.more .btn { white-space: normal; text-align: left; }
 .visit__img { margin: 0; border-radius: 2px; overflow: hidden; }
 .visit__img img { width: 100%; height: auto; display: block; }
 @media (max-width: 900px) { .visit { grid-template-columns: 1fr; } }
+
+.btn--play svg { width: 14px; height: 14px; }
+
+/* ---------- v5: glossary, projects hub, steps ---------- */
+.glossary { display: grid; gap: 0; border-top: 1px solid var(--line); margin: 0; }
+.glossary > div { display: grid; grid-template-columns: 220px 1fr; gap: var(--s-5); padding: var(--s-4) 0; border-bottom: 1px solid var(--line); scroll-margin-top: 120px; }
+.glossary dt { font-weight: 700; color: var(--navy); }
+.glossary dd { margin: 0; color: var(--steel-600); }
+@media (max-width: 640px) { .glossary > div { grid-template-columns: 1fr; gap: 4px; } }
+@media (min-width: 900px) { .parts--projects { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.split__main .steps { margin-top: var(--s-4); }
+/* narrow screens: the page index stays but compact; the side quote card goes (the sticky bottom bar covers it) */
+@media (max-width: 900px) {
+  .split__side .side-card { display: none; }
+  .split__side .toc { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s-4); }
+  .split__side .toc a { padding-block: 6px; font-size: .875rem; }
+}
+@media (max-width: 400px) { .split__side .toc { grid-template-columns: 1fr; } }

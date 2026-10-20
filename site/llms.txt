@@ -19,6 +19,11 @@
 - [Pressing or laser cut and fold?](https://genexuk.co.uk/pressing-vs-laser-cut-and-fold.html): when a press tool pays back
 - [Hemmed edges explained](https://genexuk.co.uk/hemmed-edges.html)
 - [Metal finishes explained](https://genexuk.co.uk/metal-finishes-explained.html): e-coat, zinc, powder coat, passivation
+- [Materials](https://genexuk.co.uk/materials.html): mild steel, coated steel, stainless, aluminium, copper, brass: uses and processes
+- [How we work](https://genexuk.co.uk/how-we-work.html): seven stages from enquiry to delivery, documents provided
+- [Projects](https://genexuk.co.uk/projects.html): real parts, with case studies of a [stainless mortuary table](https://genexuk.co.uk/case-mortuary-table.html), a [robot-welded exhaust hanger](https://genexuk.co.uk/case-exhaust-hanger.html) and [raised-floor base plates](https://genexuk.co.uk/case-raised-floor-base-plates.html)
+- [Glossary](https://genexuk.co.uk/glossary.html): pressing, fabrication, finishing and quality terms
+- [Resources](https://genexuk.co.uk/resources.html): guides, capability pack, certificates and policies
 - [Careers](https://genexuk.co.uk/careers.html)
 - [Contact](https://genexuk.co.uk/contact.html): phone, emails, address, visits
 - [Request a quote](https://genexuk.co.uk/rfq.html): upload STEP, DXF or PDF drawings
