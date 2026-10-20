@@ -227,3 +227,18 @@ a.link, .link { color: var(--navy); text-decoration-color: var(--red); }
 .mm a[aria-current="page"] strong { color: var(--red); }
 /* anonymous concern: contact fields switched off */
 .field.is-off { opacity: .45; }
+
+/* film band v4: three still video tiles, tap to play (only the hero moves on its own) */
+.film .shead .h2, .film .shead p { color: #fff; }
+.film .shead .lead { color: #C5CDD8; }
+.vgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
+.vtile { display: flex; flex-direction: column; padding: 0; border: 1px solid rgb(255 255 255 / .14); border-radius: 2px; background: rgb(255 255 255 / .04); color: #fff; text-align: left; font: inherit; cursor: pointer; overflow: hidden; transition: border-color var(--dur-std), transform var(--dur-std) var(--ease-enter); }
+.vtile__img { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
+.vtile__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-enter); }
+.vtile__img::after { content: ''; position: absolute; inset: 0; margin: auto; width: 58px; height: 58px; border-radius: 50%; background: rgb(227 8 23 / .95) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 3.5v9l7.5-4.5z' fill='%23fff'/%3E%3C/svg%3E") 55% center/22px no-repeat; box-shadow: 0 10px 30px rgb(0 0 0 / .4); }
+.vtile__body { display: grid; gap: 4px; padding: var(--s-5); position: relative; }
+.vtile__body strong { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; }
+.vtile__body span { color: #B8C1CD; font-size: .925rem; }
+.vtile__body em { position: absolute; top: -34px; right: 12px; font-style: normal; font-size: .8rem; font-weight: 600; background: rgb(1 22 41 / .8); padding: 3px 8px; border-radius: 2px; }
+@media (hover: hover) { .vtile:hover { border-color: rgb(255 255 255 / .4); transform: translateY(-3px); } .vtile:hover img { transform: scale(1.04); } }
+@media (max-width: 900px) { .vgrid { grid-template-columns: 1fr; } }

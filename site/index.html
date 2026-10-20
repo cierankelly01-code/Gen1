@@ -200,28 +200,27 @@
 </section>
 
 <section class="film" id="film" aria-labelledby="film-h">
-  <div class="wrap film__grid">
-    <figure class="film__main" data-autoplay>
-      <img src="/assets/video/hemming-tool.jpg" width="1280" height="720" loading="lazy" alt="The Genex hemming tool folding a closed edge into a steel panel">
-      <video muted loop playsinline preload="none" poster="/assets/video/hemming-tool.jpg" aria-label="The Genex hemming tool folding a clean, closed safety edge into a steel panel in a single hit" data-src="/assets/video/hemming-tool.mp4"></video>
-      <figcaption class="film__tag">Filmed at Genex, Walsall</figcaption>
-    </figure>
-    <div class="film__side">
+  <div class="wrap">
+    <div class="shead">
       <div>
         <p class="label label--line">Inside the factory</p>
         <h2 id="film-h" class="h2 h2--sm mt-5">Real parts, real machines, our own people.</h2>
-        <p class="mt-5">Every clip here was filmed on our shop floor: presswork, welding, folding, hemming and tube work for customers from automotive and defence to construction and rail.</p>
+        <p class="lead">Every clip was filmed on our shop floor in Walsall. Tap to watch.</p>
       </div>
-      <div class="vcards">
-        <button class="vcard" type="button" data-video="/assets/video/amada-press-brake.mp4" data-title="Our Amada HRB1003 press brake, from offline program to finished bend">
-          <span class="vcard__thumb"><img src="/assets/img/f-amada-bend.webp" width="268" height="476" loading="lazy" alt=""></span>
-          <span><strong>New Amada press brake</strong><span>Programmed offline, folds up to 6 mm at 3 m. 1 min 11.</span></span>
-        </button>
-        <button class="vcard" type="button" data-video="/assets/video/inside-genex.mp4" data-title="Inside Genex: presswork, welding, folding, hemming and tube work">
-          <span class="vcard__thumb"><img src="/assets/img/f-multistage.webp" width="1280" height="580" loading="lazy" alt=""></span>
-          <span><strong>Inside Genex in 30 seconds</strong><span>Presswork, welding, folding, hemming and tube work.</span></span>
-        </button>
-      </div>
+    </div>
+    <div class="vgrid">
+      <button class="vtile" type="button" data-video="/assets/video/inside-genex.mp4" data-title="Inside Genex: presswork, welding, folding, hemming and tube work">
+        <span class="vtile__img"><img src="/assets/img/f-multistage.webp" width="1280" height="580" loading="lazy" alt=""></span>
+        <span class="vtile__body"><strong>Inside Genex in 30 seconds</strong><span>Presswork, welding, folding, hemming and tube work</span><em>0:30</em></span>
+      </button>
+      <button class="vtile" type="button" data-video="/assets/video/amada-press-brake.mp4" data-title="Our Amada HRB1003 press brake, from offline program to finished bend">
+        <span class="vtile__img"><img src="/assets/img/amada-delivery.webp" width="800" height="602" loading="lazy" alt=""></span>
+        <span class="vtile__body"><strong>New Amada press brake</strong><span>Programmed offline, folds up to 6 mm at 3 m</span><em>1:11</em></span>
+      </button>
+      <button class="vtile" type="button" data-video="/assets/video/hemming-tool.mp4" data-title="Hemming a safe, closed edge in a single hit">
+        <span class="vtile__img"><img src="/assets/img/f-hemming.webp" width="1280" height="720" loading="lazy" alt=""></span>
+        <span class="vtile__body"><strong>Hemming tool</strong><span>A clean, closed safety edge in one hit</span><em>0:33</em></span>
+      </button>
     </div>
   </div>
 </section>
