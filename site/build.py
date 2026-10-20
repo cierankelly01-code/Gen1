@@ -83,9 +83,10 @@ def fingerprint(html: str) -> str:
     def stamp(m):
         url = m.group(2)
         f = ROOT / url.lstrip("/")
-        if not f.exists():
+        if not f.exists() or f.name == "config.js":   # config.js is rewritten at deploy and served no-store
             return m.group(0)
-        h = hashlib.sha256(f.read_bytes()).hexdigest()[:10]
+        # hash with LF line endings so Windows checkouts and CI produce the same fingerprint
+        h = hashlib.sha256(f.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:10]
         return f'{m.group(1)}{url}?v={h}"'
     return re.sub(r'((?:href|src)=")(/assets/(?:css|js)/[^"?]+\.(?:css|js))"', stamp, html)
 
