@@ -194,6 +194,24 @@
   }
 
 
+  /* Metal pressings page: interactive 3D progression tool, loaded only when scrolled into view on a capable desktop */
+  const die = document.querySelector('[data-die]');
+  if (die && !reduce && innerWidth >= 700 && !(navigator.connection && navigator.connection.saveData)) {
+    const io2 = new IntersectionObserver(es => {
+      if (!es[0].isIntersecting) return;
+      io2.disconnect();
+      try { if (!document.createElement('canvas').getContext('webgl2')) return; } catch (e) { return; }
+      import('/assets/js/press3d.js').then(m => {
+        const ctl = m.start(die, {});
+        if (!ctl) return;
+        const b = die.querySelector('[data-die-pause]'); let paused = false;
+        if (b) { b.hidden = false; b.addEventListener('click', () => { paused = !paused; paused ? ctl.pause() : ctl.resume(); b.textContent = paused ? 'Play' : 'Pause'; b.setAttribute('aria-pressed', String(paused)); }); }
+        track('press_mode', { mode: '3d-pressings-page' });
+      }).catch(() => {});
+    }, { rootMargin: '200px' });
+    io2.observe(die);
+  }
+
   /* Film band: the reel only downloads and plays while it's on screen (and never under reduced motion / data saver) */
   document.querySelectorAll('[data-autoplay]').forEach(fig => {
     const v = fig.querySelector('video');

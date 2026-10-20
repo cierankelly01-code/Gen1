@@ -20,6 +20,7 @@
 - [Hemmed edges explained](https://genexuk.co.uk/hemmed-edges.html)
 - [Metal finishes explained](https://genexuk.co.uk/metal-finishes-explained.html): e-coat, zinc, powder coat, passivation
 - [Careers](https://genexuk.co.uk/careers.html)
+- [Contact](https://genexuk.co.uk/contact.html): phone, emails, address, visits
 - [Request a quote](https://genexuk.co.uk/rfq.html): upload STEP, DXF or PDF drawings
 
 ## Contact

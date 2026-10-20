@@ -40,8 +40,8 @@ export function start(figure, hooks = {}) {
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
   const camera = new THREE.PerspectiveCamera(28, 16 / 9, 0.1, 60);
-  const camBase = fill ? new THREE.Vector3(2.4, 9.6, 17.5) : new THREE.Vector3(0.6, 8.6, 9.2);
-  const look = fill ? new THREE.Vector3(-3.7, -0.6, 0) : new THREE.Vector3(1.25, -0.6, 0.1);
+  const camBase = fill ? new THREE.Vector3(2.4, 9.6, 17.5) : new THREE.Vector3(0.9, 5.4, 11.2);
+  const look = fill ? new THREE.Vector3(-3.7, -0.6, 0) : new THREE.Vector3(1.0, 0.5, 0.1);
   const lookTarget = look.clone();
 
   // ---- lights
@@ -205,7 +205,7 @@ export function start(figure, hooks = {}) {
   function setFocus(i, user) {
     focus = i;
     hot.forEach((b, j) => b.visible = !fill && j === i);
-    if (!fill) lookTarget.set(i < 5 ? STATIONS[i] * 0.2 + 1.25 : 2.2, -0.6, 0.1);
+    if (!fill) lookTarget.set(i < 5 ? STATIONS[i] * 0.2 + 1.0 : 2.0, 0.5, 0.1);
     if (user) { autoFocus = false; focusHold = clock + 9; }
     hooks.onFocus && hooks.onFocus(i);
   }

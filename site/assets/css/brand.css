@@ -267,3 +267,28 @@ p.more .btn { white-space: normal; text-align: left; }
   .parts--inline:has(> li:nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .parts--inline:has(> li:only-child) { grid-template-columns: minmax(0, 1fr); max-width: 50%; }
 }
+/* the global reset zeroes margins, which un-centres a native <dialog>: put it back in the middle */
+.vmodal { margin: auto; inset: 0; position: fixed; }
+
+/* 3D die on the pressings page: the photo shows until the model has rendered */
+.die3d .press__stage { position: relative; background: #14171B; border-radius: 2px; overflow: hidden; }
+.die3d.press--3d .press__stage img { display: none; }
+.die3d .press__canvas { display: block; width: 100%; }
+
+/* ---------- contact page ---------- */
+.contact-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-4); }
+.contact-card { display: grid; gap: 6px; align-content: start; padding: var(--s-5); border: 1px solid var(--line); border-top: 3px solid var(--navy); border-radius: 2px; text-decoration: none; color: var(--ink); }
+.contact-card strong { font-family: var(--font-display); font-size: 1.35rem; color: var(--navy); overflow-wrap: anywhere; }
+.contact-card span:last-child { color: var(--steel-600); font-size: .925rem; }
+.contact-card--cta { background: var(--navy); border-top-color: var(--red); }
+.contact-card--cta strong, .contact-card--cta .label { color: #fff; }
+.contact-card--cta span:last-child { color: #C5CDD8; }
+@media (hover: hover) { .contact-card:hover { border-top-color: var(--red); box-shadow: 0 18px 36px -26px rgb(10 27 46 / .5); } }
+@media (max-width: 1000px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .contact-grid { grid-template-columns: 1fr; } }
+.visit { display: grid; grid-template-columns: 1fr 1.3fr; gap: var(--s-7); align-items: center; margin-top: var(--s-8); }
+.visit address { font-style: normal; margin: var(--s-5) 0 var(--s-3); line-height: 1.7; }
+.visit__btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--s-5); }
+.visit__img { margin: 0; border-radius: 2px; overflow: hidden; }
+.visit__img img { width: 100%; height: auto; display: block; }
+@media (max-width: 900px) { .visit { grid-template-columns: 1fr; } }

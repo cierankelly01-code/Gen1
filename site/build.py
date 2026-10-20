@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 SRC = ROOT / "_src"
-NAV_KEYS = ["capabilities", "industries", "quality", "about"]
+NAV_KEYS = ["capabilities", "industries", "quality", "about", "contact"]
 
 
 def strip_svg() -> str:
@@ -102,7 +102,8 @@ def build():
             "schema": schema,
         }
         for key in NAV_KEYS:
-            repl["nav_" + key] = ' data-current="true"' if meta.get("nav") == key else ""
+            on = meta.get("nav") == key
+            repl["nav_" + key] = (' aria-current="page"' if key == "contact" else ' data-current="true"') if on else ""
         for k, v in repl.items():
             html = html.replace("{{" + k + "}}", v)
         html = html.replace("{{content}}", body.strip())
