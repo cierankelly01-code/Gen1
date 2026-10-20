@@ -18,11 +18,12 @@ NOTE = ('<div style="background:#FFF4D6;color:#5A4300;font:600 13px/1.4 Barlow,s
 # Preview links get forwarded to people nobody is there to guide. Enquiries sent from a preview aren't
 # being read yet, so the quote form says so instead of promising an engineer's reply.
 RFQ_SWAPS = [
-    ('<span>Engineer reply within 1 working day</span>',
+    ('<span>Reply within one working day</span><span>Files seen', '<span>Files seen'),
+    ('<span>Reply within one working day</span><span>Or call',
      '<span>Preview: this form is for trying out and isn\'t monitored yet</span>'),
     ('<h2>Thanks. Your drawing is with our engineers.</h2>',
      '<h2>Thanks. That\'s how sending a drawing will work.</h2>'),
-    ('<p class="muted">You\'ll get a reply within one UK working day. If it\'s urgent, call',
+    ('<p class="muted">You\'ll get a reply within one working day. If it\'s urgent, call',
      '<p class="muted">This is a preview, so nobody is reading enquiries from it yet. For a real quote, email '
      '<a class="link" href="mailto:sales@genexuk.co.uk">sales@genexuk.co.uk</a> or call'),
 ]

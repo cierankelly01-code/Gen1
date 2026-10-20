@@ -59,6 +59,19 @@
       if (MAT[mat] && t <= LIMITS.laser) notes.push(MAT[mat]);
       ops.forEach(o => notes.push(OPS[o]));
 
+      /* What drives the cost on this route (guidance, not a price) */
+      const DRIVERS = {
+        press: ['The production tool, a one-off cost spread across every part', 'Material and thickness: most of the price per part at volume', 'Number of operations and inserted fasteners', 'Coating and packing'],
+        laser: ['Cutting length and material thickness', 'Number of bends, and any hemmed edges', 'Welding, inserts and finishing after cutting', 'Batch size: set-up is shared across the batch'],
+        fab: ['Plate thickness and cutting time', 'Weld length and process', 'Machining of thick sections', 'Finishing and handling of large parts']
+      };
+      const key = route === 'Pressing' ? 'press' : (t > LIMITS.fold ? 'fab' : 'laser');
+      let drv = finder.querySelector('[data-r-drivers]');
+      if (!drv) { drv = document.createElement('div'); drv.className = 'finder__drivers'; drv.setAttribute('data-r-drivers', ''); out.notes.after(drv); }
+      drv.hidden = t > LIMITS.laser;
+      drv.innerHTML = '<b>What drives the cost</b><ul></ul>';
+      DRIVERS[key].forEach(d => { const li = document.createElement('li'); li.textContent = d; drv.querySelector('ul').append(li); });
+
       out.status.className = 'pill-s ' + status[0]; out.status.textContent = status[1];
       out.route.textContent = route; out.why.textContent = why; out.tool.textContent = tool; out.ppap.textContent = ppap;
       out.notes.innerHTML = '';

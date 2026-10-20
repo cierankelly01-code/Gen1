@@ -4,13 +4,22 @@
 
 ## Key pages
 - [Capabilities](https://genexuk.co.uk/capabilities.html): pressings, laser cutting and folding, welding, machining, assembly, finishing, tube, delivery
-- [Sectors](https://genexuk.co.uk/industries.html): sectors served, with eight example parts and their process routes
+- [Metal pressings](https://genexuk.co.uk/metal-pressings.html): presses up to 200 t, up to 5 mm, progression and single action
+- [Laser cutting and folding](https://genexuk.co.uk/laser-cutting-and-folding.html): laser to 25 mm, Amada HRB1003 folding 6 mm x 3 m, hemming
+- [Welding and fabrication](https://genexuk.co.uk/welding-and-fabrication.html): robotic MIG, manual MIG/TIG, spot and projection
+- [CNC machining](https://genexuk.co.uk/cnc-machining.html): Hurco 5-axis, turning, grinding
+- [Assembly and finishing](https://genexuk.co.uk/assembly-and-finishing.html): inserting, tube, managed coatings, own delivery vehicles
+- [Sectors](https://genexuk.co.uk/industries.html): all sectors, with eight example parts and their process routes; dedicated pages for [automotive](https://genexuk.co.uk/automotive.html), [defence](https://genexuk.co.uk/defence.html), [construction](https://genexuk.co.uk/construction.html), [data centres](https://genexuk.co.uk/data-centres.html) and [medical and catering](https://genexuk.co.uk/medical-and-catering.html)
 - [Quality](https://genexuk.co.uk/quality.html): accreditations, certificates, traceability, first-article inspection and PPAP
 - [Policies and terms](https://genexuk.co.uk/documents.html): quality, environmental and other policies; conditions of sale and purchase
 - [Raise a concern](https://genexuk.co.uk/concern.html): report a quality or environmental concern to the Managing Director
 - [About](https://genexuk.co.uk/about.html): history, investment timeline, careers
 - [News](https://genexuk.co.uk/news.html): new machines and accreditations
-- [Design guide](https://genexuk.co.uk/design-guide.html): pressing vs laser cut and fold vs fabrication, design rules, hemming, materials
+- [Design guide](https://genexuk.co.uk/design-guide.html): design rules, materials, what to send
+- [Pressing or laser cut and fold?](https://genexuk.co.uk/pressing-vs-laser-cut-and-fold.html): when a press tool pays back
+- [Hemmed edges explained](https://genexuk.co.uk/hemmed-edges.html)
+- [Metal finishes explained](https://genexuk.co.uk/metal-finishes-explained.html): e-coat, zinc, powder coat, passivation
+- [Careers](https://genexuk.co.uk/careers.html)
 - [Request a quote](https://genexuk.co.uk/rfq.html): upload STEP, DXF or PDF drawings
 
 ## Contact
