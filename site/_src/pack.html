@@ -2,188 +2,165 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<title>Genex UK — Capability &amp; Quality Pack</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<title>Genex UK: Capability Pack</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap">
 <style>
 @page { size: A4; margin: 0; }
-* { box-sizing: border-box; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 210mm; }
-body { font-family: 'Archivo', Arial, sans-serif; color: #111316; font-size: 9.2pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.page { width: 210mm; height: 297mm; padding: 14mm 14mm 12mm; position: relative; page-break-after: always; display: flex; flex-direction: column; background: #FBFAF7; }
+body { font-family: 'Barlow', Arial, sans-serif; color: #0A1B2E; font-size: 10pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 210mm; height: 297mm; position: relative; page-break-after: always; display: flex; flex-direction: column; background: #fff; overflow: hidden; }
 .page:last-child { page-break-after: auto; }
-.top { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #111316; padding-bottom: 5mm; }
-.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15pt; letter-spacing: -.03em; }
-.brand b { color: #1F5BA6; }
-.mono { font-family: 'IBM Plex Mono', monospace; font-size: 7.5pt; letter-spacing: .05em; text-transform: uppercase; color: #545B64; }
-h1 { font-weight: 800; font-size: 26pt; line-height: .98; letter-spacing: -.035em; font-variation-settings: 'wdth' 112; margin-top: 8mm; }
-h1 span { color: #D4211B; }
-.lede { font-size: 10.5pt; color: #3B4149; margin-top: 4mm; max-width: 150mm; }
-h2 { font-size: 11pt; font-weight: 700; letter-spacing: -.01em; margin: 6mm 0 2.5mm; display: flex; align-items: center; gap: 6px; }
-h2::before { content: ''; width: 10px; height: 2px; background: #D4211B; }
+.band, .foot { flex: none; }
+.band { background: #022442; color: #fff; padding: 10mm 14mm 9mm; position: relative; overflow: hidden; }
+.band::after { content: ''; position: absolute; right: -18mm; top: -10mm; width: 70mm; height: 150%; background: linear-gradient(135deg, transparent 49%, #E30817 49%, #E30817 57%, transparent 57%), linear-gradient(45deg, transparent 72%, rgba(120,122,130,.7) 72%, rgba(120,122,130,.7) 79%, transparent 79%); opacity: .55; }
+.band img { height: 17mm; display: block; }
+.kicker { font-size: 8.5pt; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #C5CDD8; margin-top: 6mm; }
+.kicker::before { content: ''; display: inline-block; width: 7mm; height: 1mm; background: #E30817; transform: skewX(-35deg); margin-right: 3mm; vertical-align: middle; }
+h1 { font-family: "Barlow Semi Condensed", sans-serif; font-weight: 700; font-size: 28pt; line-height: 1.02; margin-top: 3mm; max-width: 150mm; }
+.lede { font-size: 11.5pt; color: #D8DEE6; margin-top: 4mm; max-width: 155mm; }
+.body { padding: 6mm 14mm 5mm; flex: 1; display: flex; flex-direction: column; }
+.facts { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid #D5DAE1; }
+.facts div { padding: 3.5mm 3mm; border-left: 1px solid #D5DAE1; }
+.facts div:first-child { border-left: 0; }
+.facts b { display: block; font-family: 'Barlow Semi Condensed', sans-serif; font-size: 17pt; font-weight: 700; color: #022442; line-height: 1; }
+.facts span { display: block; font-size: 8.5pt; color: #4E5866; margin-top: 1.5mm; line-height: 1.3; }
+h2 { font-family: 'Barlow Semi Condensed', sans-serif; font-size: 14pt; font-weight: 700; color: #022442; margin: 5.5mm 0 2.5mm; display: flex; align-items: center; gap: 3mm; }
+h2::before { content: ''; width: 6mm; height: 1mm; background: #E30817; transform: skewX(-35deg); }
+table { width: 100%; border-collapse: collapse; font-size: 9.6pt; }
+th, td { text-align: left; vertical-align: top; padding: 1.6mm 2.5mm; border-bottom: 1px solid #E3E7EC; }
+thead th { font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; color: #4E5866; border-bottom: 2px solid #022442; }
+tbody th { width: 34%; font-weight: 700; color: #022442; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
 .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
-table { width: 100%; border-collapse: collapse; font-size: 8.4pt; }
-th, td { text-align: left; vertical-align: top; padding: 1.6mm 2mm; border-bottom: 0.5px solid rgb(17 19 22 / .18); }
-th { width: 42%; font-weight: 600; }
-td { font-family: 'IBM Plex Mono', monospace; font-size: 7.8pt; }
-.box { border: 0.6px solid #111316; padding: 3mm; background: #fff; }
-.box h3 { font-size: 9.5pt; margin-bottom: 1.5mm; }
-.box p { font-size: 8.2pt; color: #3B4149; }
-.facts { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid #111316; margin-top: 7mm; background: #fff; }
-.facts div { padding: 3mm; border-left: 0.5px solid rgb(17 19 22 / .25); }
-.facts div:first-child { border-left: 0; }
-.facts b { display: block; font-size: 14pt; font-weight: 800; letter-spacing: -.03em; font-variation-settings: 'wdth' 110; }
-ol.steps { list-style: none; padding: 0; counter-reset: s; }
-ol.steps li { counter-increment: s; display: grid; grid-template-columns: 8mm 1fr; padding: 1.6mm 0; border-bottom: 0.5px solid rgb(17 19 22 / .18); font-size: 8.4pt; }
-ol.steps li::before { content: counter(s, decimal-leading-zero); font-weight: 800; color: #D4211B; }
-ul { padding-left: 4mm; font-size: 8.4pt; }
-li { margin: .8mm 0; }
-.foot { margin-top: auto; border-top: 1px solid #111316; padding-top: 3mm; display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 4mm; font-size: 7.8pt; }
-.foot b { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 6.8pt; letter-spacing: .06em; text-transform: uppercase; color: #545B64; font-weight: 500; }
-.cta { background: #111316; color: #F3F1EC; padding: 5mm; margin-top: 6mm; display: flex; justify-content: space-between; align-items: center; gap: 6mm; }
-.cta strong { font-size: 13pt; letter-spacing: -.02em; }
-.cta span { font-family: 'IBM Plex Mono', monospace; font-size: 8pt; }
-.draft { position: absolute; top: 6mm; right: 14mm; font-family: 'IBM Plex Mono', monospace; font-size: 6.5pt; color: #A15C00; letter-spacing: .06em; }
+.card { border: 1px solid #D5DAE1; border-top: 3px solid #022442; padding: 2.6mm 3mm; }
+.card h3 { font-size: 10.5pt; font-weight: 700; color: #022442; }
+.card p { font-size: 9pt; color: #4E5866; margin-top: 1mm; }
+.card em { font-style: normal; font-size: 7.5pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E30817; display: block; margin-bottom: 1mm; }
+ul.ticks { list-style: none; font-size: 9.6pt; }
+ul.ticks li { padding: 1mm 0 1mm 6mm; border-bottom: 1px solid #E3E7EC; position: relative; }
+ul.ticks li::before { content: ""; position: absolute; left: 0; top: 2.6mm; width: 3mm; height: 1.6mm; border-left: 2px solid #E30817; border-bottom: 2px solid #E30817; transform: rotate(-45deg); }
+.sectors { display: flex; flex-wrap: wrap; gap: 2mm; }
+.sectors span { font-size: 9pt; font-weight: 600; border: 1px solid #C5CDD8; padding: 1.4mm 3mm; color: #022442; }
+.sectors span.core { background: #022442; color: #fff; border-color: #022442; }
+ol.steps { list-style: none; counter-reset: s; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm 5mm; }
+ol.steps li { counter-increment: s; font-size: 9pt; color: #4E5866; padding-top: 2mm; border-top: 2px solid #022442; }
+ol.steps li::before { content: counter(s, decimal-leading-zero); display: block; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; color: #E30817; font-size: 10pt; }
+ol.steps b { color: #022442; display: block; font-size: 10pt; }
+.photos { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 3mm; height: 30mm; margin-top: 4mm; }
+.photos img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.foot { margin-top: auto; background: #011629; color: #fff; padding: 6mm 14mm; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 5mm; font-size: 9pt; }
+.foot b { display: block; font-size: 7.5pt; letter-spacing: .12em; text-transform: uppercase; color: #9AA6B4; font-weight: 600; margin-bottom: 1mm; }
+.foot strong { font-family: 'Barlow Semi Condensed', sans-serif; font-size: 15pt; display: block; line-height: 1.1; }
+.draft { position: absolute; top: 5mm; right: 14mm; font-size: 7pt; letter-spacing: .1em; color: #FFD27A; z-index: 2; }
 </style>
 </head>
 <body>
 <section class="page">
-  <div class="draft">DRAFT FOR GENEX REVIEW · v1 · OCT 2026</div>
-  <div class="top">
-    <div class="brand"><svg width="28" height="28" viewBox="0 0 40 40"><rect width="40" height="40" rx="7" fill="#D4211B"/><path d="M29 13.2A10.2 10.2 0 1 0 30.4 23H20.5" fill="none" stroke="#fff" stroke-width="5.2"/></svg>Genex <b>UK</b></div>
-    <span class="mono">Capability &amp; quality pack</span>
+  <div class="band">
+    <div class="draft">DRAFT FOR GENEX REVIEW · v3 · OCT 2026</div>
+    <img src="../assets/img/brand/genex-uk-icon-full-white-150.png" alt="Genex UK, your manufacturing partner">
+    <p class="kicker">Capability pack</p>
+    <h1>From a single pressing to the finished product.</h1>
+    <p class="lede">Family-run in Walsall since 1980. Metal pressings, laser cutting and folding, welding, 5-axis machining and complete assemblies in mild steel, stainless steel and aluminium, from one-off prototypes to millions of parts.</p>
   </div>
-  <h1>Press tools designed, built and run<br>in Walsall. <span>One team, tool to PPAP.</span></h1>
-  <p class="lede">Genex UK designs and builds progressive, compound and single-stage press tools, then runs medium to high volume pressings, welded assemblies and finished parts on the same site. Family-owned since 2001, with roots in the 1980s, supplying automotive Tier 1s and industrial customers in the UK, Europe and North America.</p>
-
-  <div class="facts">
-    <div><span class="mono">Quality</span><b>ISO 9001</b></div>
-    <div><span class="mono">Approval</span><b>PPAP L3</b></div>
-    <div><span class="mono">Tooling</span><b>12–17 wks</b></div>
-    <div><span class="mono">Gauge</span><b>0.5–3.0 mm</b></div>
-    <div><span class="mono">Volumes / yr</span><b>1–250k+</b></div>
-  </div>
-
-  <div class="grid2">
-    <div>
-      <h2>Press tooling &amp; pressings</h2>
-      <table>
-        <tr><th>Tool types</th><td>Progressive · compound · single-stage</td></tr>
-        <tr><th>Material thickness</th><td>0.5 – 3.0 mm</td></tr>
-        <tr><th>Materials</th><td>DC01–DC04, HC340LA–HC420LA, S355, 304/316, 5xxx/6xxx Al</td></tr>
-        <tr><th>Annual volumes</th><td>5,000 – 250,000+ per part</td></tr>
-        <tr><th>Presses</th><td>Mechanical &amp; hydraulic · list on request</td></tr>
-        <tr><th>In-die / secondary</th><td>Nut, stud &amp; peg insertion · projection weld</td></tr>
-        <tr><th>Checking fixtures</th><td>Designed with the tool, included in tooling cost</td></tr>
-      </table>
+  <div class="body">
+    <div class="facts">
+      <div><b>200 t</b><span>Mechanical presswork</span></div>
+      <div><b>6 mm × 3 m</b><span>Folding, Amada HRB1003</span></div>
+      <div><b>25 mm</b><span>Laser cutting</span></div>
+      <div><b>0 PPM</b><span>Defect record</span></div>
+      <div><b>98%+</b><span>On time, in full</span></div>
     </div>
-    <div>
-      <h2>Supporting processes</h2>
-      <table>
-        <tr><th>Laser cutting</th><td>Fibre laser, up to 25 mm</td></tr>
-        <tr><th>Folding</th><td>CNC press brakes</td></tr>
-        <tr><th>Machining</th><td>Turning · milling · grinding</td></tr>
-        <tr><th>Welding</th><td>Projection · spot · MIG · TIG</td></tr>
-        <tr><th>Assembly</th><td>Sub-assemblies, packed to line-side spec</td></tr>
-        <tr><th>Finishing (managed)</th><td>E-coat · zinc / zinc-nickel · powder coat</td></tr>
-        <tr><th>Prototypes</th><td>Laser-cut and folded, no tooling</td></tr>
-      </table>
+
+    <h2>What we do</h2>
+    <table>
+      <thead><tr><th>Process</th><th>Capability</th></tr></thead>
+      <tbody>
+        <tr><th>Metal pressings</th><td>Progression (coil-fed), single action and multi-stage, on presses up to 200 t; material up to 5 mm; in-press piercing, forming and nut insertion</td></tr>
+        <tr><th>Laser cutting &amp; folding</th><td>Laser cutting up to 25 mm; folding up to 6 mm at 3 m, programmed offline; hemmed safety edges</td></tr>
+        <tr><th>Welding &amp; fabrication</th><td>Robotic MIG, manual MIG and TIG, spot and projection welding</td></tr>
+        <tr><th>CNC machining</th><td>Hurco 5-axis machining centre, turning and grinding</td></tr>
+        <tr><th>Inserting &amp; assembly</th><td>PEM, stud and nut inserting; bought-in parts; assembled, tested and packed complete</td></tr>
+        <tr><th>Tube manipulation</th><td>Bent and welded tube frames and assemblies</td></tr>
+        <tr><th>Finishing</th><td>E-coat, plating, powder coat and more, managed through approved partners</td></tr>
+        <tr><th>Delivery</th><td>Our own 3.5 t and 7.5 t vehicles; custom racking and crates</td></tr>
+        <tr><th>Materials</th><td>Mild steel, stainless steel, aluminium, coated steels, copper and brass</td></tr>
+      </tbody>
+    </table>
+
+    <div class="photos">
+      <img src="../assets/img/f-multistage.webp" alt="">
+      <img src="../assets/img/f-mig.webp" alt="">
+      <img src="../assets/img/f-tube2.webp" alt="">
     </div>
   </div>
-
-  <h2>Industries</h2>
-  <div class="grid3">
-    <div class="box"><h3>Automotive &amp; EV</h3><p>Console, chassis, heater and pump brackets for Tier 1 interior and EV-systems suppliers. Worked to OEM material and coating specs.</p></div>
-    <div class="box"><h3>Vehicle start-ups</h3><p>Laser-cut prototypes first, production tooling quoted as a separate decision once the design is frozen.</p></div>
-    <div class="box"><h3>Industrial</h3><p>Construction, medical and consumer pressings where unit cost and consistency decide the programme.</p></div>
-  </div>
-
   <div class="foot">
-    <div><b>Genex UK Ltd</b>Fryers Road, Leamore Industrial Estate, Walsall WS2 7NA, United Kingdom</div>
-    <div><b>Sales</b>+44 (0)1922 710050<br>sales@genexuk.co.uk</div>
-    <div><b>Web</b>genexuk.co.uk</div>
-    <div><b>Company</b>Reg. 04157489<br>VAT GB 775 9414 84</div>
+    <div><b>Talk to us</b><strong>01922 710050</strong>sales@genexuk.co.uk</div>
+    <div><b>Visit</b>Fryers Road, Leamore Industrial Estate, Walsall WS2 7NA</div>
+    <div><b>Online</b>genexuk.co.uk<br>Send a drawing for a quote</div>
+    <div><b>Company</b>Genex UK Ltd<br>Reg. 04157489</div>
   </div>
 </section>
 
 <section class="page">
-  <div class="top">
-    <div class="brand"><svg width="28" height="28" viewBox="0 0 40 40"><rect width="40" height="40" rx="7" fill="#D4211B"/><path d="M29 13.2A10.2 10.2 0 1 0 30.4 23H20.5" fill="none" stroke="#fff" stroke-width="5.2"/></svg>Genex <b>UK</b></div>
-    <span class="mono">Quality, launch &amp; commercial terms</span>
-  </div>
-
-  <div class="grid2">
-    <div>
-      <h2>From RFQ to PPAP</h2>
-      <ol class="steps">
-        <li><span><b>RFQ review &amp; DFM</b>: an engineer replies within one working day</span></li>
-        <li><span><b>Quotation</b>: piece price, tooling broken down tool by tool, lead times and assumptions</span></li>
-        <li><span><b>Tool design approval</b>: strip layout and design signed off with you</span></li>
-        <li><span><b>Build, try-out &amp; sampling</b>: first-off parts with dimensional report</span></li>
-        <li><span><b>PPAP / PSW</b>: Level 3 as standard, about 4 weeks after tooling</span></li>
-        <li><span><b>Serial production</b>: to your call-offs, packed to your spec</span></li>
-      </ol>
+  <div class="body" style="padding-top:9mm">
+    <h2 style="margin-top:0">Quality and accreditations</h2>
+    <div class="grid3">
+      <div class="card"><em>Quality</em><h3>ISO 9001</h3><p>BSI audit 2026: zero non-conformances</p></div>
+      <div class="card"><em>Environment</em><h3>ISO 14001</h3><p>Environmental management system</p></div>
+      <div class="card"><em>Security</em><h3>Cyber Essentials</h3><p>Your drawings and data protected</p></div>
+      <div class="card"><em>Supply chain</em><h3>Achilles Verified</h3><p>Verified supplier, 2026</p></div>
+      <div class="card"><em>Working towards</em><h3>IATF 16949</h3><p>Automotive quality standard</p></div>
+      <div class="card"><em>Approval</em><h3>FAI and PPAP</h3><p>First-article inspection as standard; PPAP Levels 1–5 on request</p></div>
     </div>
-    <div>
-      <h2>PPAP Level 3 contents</h2>
-      <table>
-        <tr><th>PSW &amp; design records</th><td>Included</td></tr>
-        <tr><th>Process flow, PFMEA, control plan</th><td>Included</td></tr>
-        <tr><th>Full dimensional layout</th><td>Included</td></tr>
-        <tr><th>Material &amp; coating results</th><td>Mill certs + coating reports</td></tr>
-        <tr><th>Initial process studies</th><td>Cpk / Ppk on special characteristics</td></tr>
-        <tr><th>MSA / gauge R&amp;R</th><td>Included</td></tr>
-        <tr><th>Checking fixture</th><td>In tooling cost</td></tr>
-        <tr><th>Packaging approval</th><td>To customer spec</td></tr>
-      </table>
+
+    <div class="grid2">
+      <div>
+        <h2>Why customers choose Genex</h2>
+        <ul class="ticks">
+          <li>One supplier from blank to finished assembly</li>
+          <li>0 PPM defect record and 98%+ on time, in full</li>
+          <li>Traceable from enquiry to delivery, with customer-specific reports</li>
+          <li>Investing every year: new Amada press brake, 5-axis CNC, hemming</li>
+          <li>Our own delivery vehicles</li>
+          <li>Family-run, independent since 2001</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Sectors</h2>
+        <div class="sectors">
+          <span class="core">Automotive</span><span class="core">Defence</span><span class="core">Construction</span>
+          <span>Rail</span><span>Aerospace &amp; space</span><span>Data centres &amp; power</span><span>Medical &amp; catering</span>
+          <span>Machinery &amp; packaging</span><span>Automation</span><span>Agriculture &amp; off-highway</span><span>Electrical</span><span>Consumer &amp; aftermarket</span><span>Architectural</span>
+        </div>
+        <h2>Example work</h2>
+        <ul class="ticks">
+          <li>Automotive brackets and welded exhaust hangers</li>
+          <li>Raised-floor base plates for data centres</li>
+          <li>Stainless mortuary tables, built complete</li>
+          <li>Powder-coated airport scanner-lane panels</li>
+        </ul>
+      </div>
     </div>
+
+    <h2>How we work</h2>
+    <ol class="steps">
+      <li><b>Enquiry</b>Send a drawing or model, quantities and finish</li>
+      <li><b>Route &amp; quote</b>The most cost-effective route, quoted in writing</li>
+      <li><b>First parts</b>Inspection report, or PPAP if you need it</li>
+      <li><b>Production</b>Pressed, cut, folded, welded or machined in Walsall</li>
+      <li><b>Finish &amp; assemble</b>Coatings, inserts, assembly, one part number</li>
+      <li><b>Delivery</b>Packed to your spec, on our own vehicles</li>
+    </ol>
+
+
   </div>
-
-  <div class="grid2">
-    <div>
-      <h2>In production</h2>
-      <ul>
-        <li>First-off, patrol and last-off inspection to the control plan</li>
-        <li>Tool maintenance on stroke count, with a logged history for each tool</li>
-        <li>Lot traceability from coil to delivery note</li>
-        <li>8D corrective action with named owner and dated containment</li>
-        <li>Customer tooling stored and maintained while in production</li>
-      </ul>
-    </div>
-    <div>
-      <h2>Commercial terms</h2>
-      <table>
-        <tr><th>Tooling payments</th><td>30% order · 30% design · 30% tool complete · 10% PPAP</td></tr>
-        <tr><th>Tool ownership</th><td>Customer, once paid</td></tr>
-        <tr><th>Incoterms</th><td>EXW standard · FCA · DAP · DDP on request</td></tr>
-        <tr><th>Currencies</th><td>GBP · EUR · USD</td></tr>
-        <tr><th>Tool transfers</th><td>Assessed, refurbished, re-validated</td></tr>
-        <tr><th>Tool export</th><td>Built &amp; proven in Walsall, shipped to your press</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <h2>What to send with an RFQ</h2>
-  <div class="grid2">
-    <ul>
-      <li>3D model (STEP / IGES) and 2D drawing with tolerances</li>
-      <li>Material spec and thickness, plus accepted equivalents</li>
-      <li>Annual volume and programme life</li>
-    </ul>
-    <ul>
-      <li>Finish / coating specification and secondary operations</li>
-      <li>PPAP level and packaging requirements</li>
-      <li>Delivery location and Incoterms</li>
-    </ul>
-  </div>
-
-  <div class="cta"><strong>Send us a drawing. An engineer replies within one working day.</strong><span>genexuk.co.uk/rfq · sales@genexuk.co.uk · +44 (0)1922 710050</span></div>
-
   <div class="foot">
-    <div><b>Genex UK Ltd</b>Fryers Road, Leamore Industrial Estate, Walsall WS2 7NA, United Kingdom</div>
-    <div><b>Sales</b>+44 (0)1922 710050<br>sales@genexuk.co.uk</div>
-    <div><b>Certificates</b>ISO 9001:2015 certificate on request</div>
-    <div><b>Issue</b>v1 · October 2026</div>
+    <div><b>Talk to us</b><strong>01922 710050</strong>sales@genexuk.co.uk</div>
+    <div><b>Policies &amp; terms</b>genexuk.co.uk/documents</div>
+    <div><b>Certificates</b>genexuk.co.uk/quality</div>
+    <div><b>Raise a concern</b>genexuk.co.uk/concern</div>
   </div>
 </section>
 </body>

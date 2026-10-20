@@ -1,0 +1,58 @@
+# Genex website checks: run on every push and pull request.
+# Actions are pinned to full commit SHAs (tag in the trailing comment), as in factory-os.
+# No secrets are used; the token can only read code.
+name: Site checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: Build, links, SEO basics, private-file guard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Rebuild pages from _src
+        run: cd site && python build.py
+      - name: Built pages must match their sources (edit _src, then run build.py)
+        run: git diff --exit-code -- site/*.html
+      - name: Preview build (noindex, robots blocked)
+        run: cd site && python make_preview.py
+      - name: Links, anchors, titles, JSON-LD, sitemap, private files
+        run: python tools/check_site.py
+
+  secrets:
+    name: Secret scan (gitleaks, full history)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install gitleaks 8.30.1 (checksum verified)
+        working-directory: ${{ runner.temp }}
+        env:
+          GITLEAKS_VERSION: 8.30.1
+          GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+        run: |
+          file="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfL -o "$file" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${file}"
+          echo "${GITLEAKS_SHA256}  ${file}" | sha256sum -c -
+          tar -xzf "$file" gitleaks
+      - name: Scan every commit for keys, tokens and passwords
+        run: '"$RUNNER_TEMP/gitleaks" git --redact --no-banner --exit-code 1 .'

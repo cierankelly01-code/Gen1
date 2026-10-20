@@ -25,3 +25,6 @@ platform/
 # business brain (Obsidian vault): private, its own git repo
 brain/
 CLAUDE.md
+
+# agent instruction files (same rules as CLAUDE.md): local only
+AGENTS.md

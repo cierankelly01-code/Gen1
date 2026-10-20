@@ -1,0 +1,13 @@
+#!/bin/sh
+# Genex website pre-commit guard (enable once per clone: git config core.hooksPath tools/hooks)
+# Rebuilds the pages and runs the site checks, which also refuse private files in this public repo.
+set -e
+cd "$(git rev-parse --show-toplevel)"
+staged=$(git diff --cached --name-only)
+echo "$staged" | grep -Eq '^(brain/|platform/|outreach/)|(^|/)(CLAUDE|AGENTS)\.md$|genex-[^/]*\.html$|-BRIEF\.md$|\.env' && {
+  echo "pre-commit: refusing to commit a private file to the public repo:"; echo "$staged" | grep -E '^(brain/|platform/|outreach/)|(CLAUDE|AGENTS)\.md$|genex-.*\.html$|-BRIEF\.md$|\.env'; exit 1; }
+if echo "$staged" | grep -q '^site/'; then
+  (cd site && python build.py >/dev/null)
+  git diff --quiet -- site/*.html || { echo "pre-commit: built pages changed after build.py; stage them (git add site/*.html) and commit again"; exit 1; }
+  python tools/check_site.py
+fi

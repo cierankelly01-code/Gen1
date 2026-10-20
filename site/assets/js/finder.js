@@ -1,24 +1,26 @@
 /* Genex UK — "Can Genex make your part?" route finder + RFQ prefill.
-   Rules mirror the pressing design guide: laser below ~2k/yr, stage tooling 2k–10k, progressive 10k+,
-   pressing gauge 0.5–3.0 mm, laser to 25 mm. A first check only; an engineer confirms the route. */
+   Limits are Genex's own published figures: presswork up to 5 mm on presses to 200 t,
+   folding up to 6 mm at 3 m (Amada HRB1003), laser cutting up to 25 mm.
+   The volume break points are a first guide only; the team confirms the route from the drawing. */
 (() => {
   const track = window.track || (() => {});
   const finder = document.querySelector('[data-finder]');
   if (finder) {
     const $ = sel => finder.querySelector(sel);
     const out = { box: $('[data-result]'), status: $('[data-r-status]'), route: $('[data-r-route]'), why: $('[data-r-why]'), tool: $('[data-r-tool]'), ppap: $('[data-r-ppap]'), notes: $('[data-r-notes]') };
+    const LIMITS = { press: 5, fold: 6, foldLength: 3000, laser: 25, pressVolume: 5000, laserVolume: 1000 };
     const MAT = {
       mild: null,
-      hsla: 'High-strength steel needs larger bend radii (about 1.5–2× thickness) and allowance for springback.',
-      structural: 'Check your S355 grade is rolled at this thickness. We can suggest an equivalent if not.',
-      stainless: 'Stainless springs back more and wears tools faster. We allow for both in the tool design.',
-      aluminium: 'Tell us the temper. It decides how tight the bends can be.'
+      stainless: 'Stainless steel: tell us the grade and the finish you need. We TIG weld stainless in-house.',
+      aluminium: 'Aluminium: tell us the grade and temper, as it decides how tight the bends can be.',
+      other: 'Copper, brass and coated steels: send the spec and we will confirm the route.'
     };
     const OPS = {
-      fasteners: 'Nuts and studs can be inserted in the tool or in a separate cell.',
-      welding: 'Projection, spot, MIG and TIG welding are done in-house.',
-      coating: 'E-coat, zinc and powder coat are managed through our approved finishers on one part number.',
-      assembly: 'Sub-assemblies are built, checked and packed for your line.'
+      welding: 'Robotic and manual MIG, TIG, spot and projection welding are all done in-house.',
+      fasteners: 'PEM, stud and nut inserting is done in-house, in the press or as a separate operation.',
+      machining: 'Machined features are finished on our 5-axis machining centre.',
+      coating: 'Coatings are managed through our approved finishers, on one order with us.',
+      assembly: 'We can assemble, inspect and pack the finished product under one part number.'
     };
     const fmt = n => Number(n).toLocaleString('en-GB');
 
@@ -28,41 +30,33 @@
       const v = parseFloat($('#f-vol').value) || 0;
       const mat = $('#f-material').value;
       const ops = [...finder.querySelectorAll('[name=ops]:checked')].map(i => i.value);
-      let status = ['ok', 'Within our range'], route, why, tool, ppap = 'PPAP to the level you need';
+      let status = ['ok', 'Within our range'], route, why, tool = 'None needed', ppap = 'First-article inspection, or PPAP if you need it';
       const notes = [];
 
-      if (t > 25) {
-        status = ['no', 'Outside our range']; route = 'Talk to us first';
-        why = `${t} mm is beyond our 25 mm laser capacity. Send the drawing and we'll tell you straight whether we can help, or who can.`;
+      if (t > LIMITS.laser) {
+        status = ['no', 'Talk to us first']; route = 'Send us the drawing';
+        why = `${t} mm is beyond our ${LIMITS.laser} mm laser capacity. Send the drawing and we will tell you straight whether we can help.`;
         tool = 'Depends on route'; ppap = 'Depends on route';
-      } else if (t > 3) {
-        status = ['warn', 'Laser and fabrication route']; route = 'Laser cut, fold and fabricate';
-        why = `At ${t} mm the part is above our 3.0 mm pressing gauge, so we'd laser cut it (up to 25 mm), fold it and weld if needed.`;
-        tool = 'No press tooling';
-        if (v >= 10000) notes.push('At this volume, ask about jigged welding fixtures to keep the piece price down.');
-      } else if (t < 0.5) {
-        status = ['warn', 'Below our standard gauge']; route = 'Talk to us first';
-        why = `${t} mm is thinner than our standard 0.5 mm. Send the drawing and we'll confirm.`;
-        tool = 'Depends on route';
-      } else if (v < 2000) {
-        route = 'Laser cut and fold';
-        why = `At ${fmt(v)} parts a year there's no tooling to pay for. Laser cutting and press-brake folding gives the lowest total cost.`;
-        tool = 'No press tooling'; ppap = 'PPAP or first-article inspection';
-        notes.push('If volumes grow, we can move the part onto production tooling later.');
-      } else if (v < 10000) {
-        route = 'Single-stage or compound tooling';
-        why = `At ${fmt(v)} parts a year, simpler stage tools keep tooling cost down and still give a pressed-part price.`;
-        tool = 'Typically 12–17 weeks';
+      } else if (t > LIMITS.fold) {
+        status = ['warn', 'Cut and fabricate']; route = 'Laser cut, then weld or machine';
+        why = `At ${t} mm we laser cut the profile (up to ${LIMITS.laser} mm) and weld or machine it. Folding goes up to ${LIMITS.fold} mm.`;
+      } else if (v >= LIMITS.pressVolume && t <= LIMITS.press) {
+        route = 'Pressing';
+        why = `At ${fmt(v)} parts a year, pressing gives the lowest price per part. We run progression and single-action presswork on presses up to 200 tonnes.`;
+        tool = 'A production tool, quoted separately';
+        if (v < 20000) notes.push('At this volume we will price laser cut and fold as well, so you can compare.');
+      } else if (v >= LIMITS.laserVolume && t <= LIMITS.press) {
+        route = 'Laser cut and fold, then pressing as volumes grow';
+        why = `At ${fmt(v)} parts a year, laser cutting and folding avoids tooling cost. If volumes rise, the part can move to presswork.`;
       } else {
-        route = 'Progressive tooling';
-        why = `At ${fmt(v)} parts a year, a progressive tool gives the lowest piece price. It makes a finished part on every press stroke.`;
-        tool = 'Typically 12–17 weeks';
-        if (v < 20000) notes.push('Between 10,000 and 20,000 a year, stage tooling can also make sense. We will price both.');
+        route = 'Laser cut and fold';
+        why = `At ${fmt(v)} parts a year there is no tooling to pay for. Laser cutting and press-brake folding gives the lowest total cost.`;
       }
-      const proto = parseFloat(($('#f-proto') || {}).value) || 0;
-      if (proto > 0 && t <= 25 && route !== 'Laser cut and fold' && route !== 'Laser cut, fold and fabricate') notes.unshift(`Start with ${fmt(proto)} laser-cut prototypes. There's no tooling cost, and you decide on tooling when the design is frozen.`);
-      if (size > 600 && t <= 25) notes.push("Large part: we'll confirm press and laser bed fit when we see the drawing.");
-      if (MAT[mat] && t <= 25) notes.push(MAT[mat]);
+      if (t > 0 && t < 0.5) { status = ['warn', 'Check with us']; notes.unshift(`${t} mm is very thin. Send the drawing and we will confirm.`); }
+      if (size > LIMITS.foldLength && t <= LIMITS.laser) { status = ['warn', 'Large part']; notes.push(`Our press brake folds up to ${LIMITS.foldLength / 1000} m long. Longer parts can often be fabricated; send the drawing.`); }
+      else if (size > 600 && route === 'Pressing') notes.push('Large pressing: we will confirm press and tool fit from the drawing.');
+      if (t <= LIMITS.fold && size <= LIMITS.foldLength && route !== 'Pressing') notes.push('Need a safe edge? Our hemming tool folds a closed edge in one hit.');
+      if (MAT[mat] && t <= LIMITS.laser) notes.push(MAT[mat]);
       ops.forEach(o => notes.push(OPS[o]));
 
       out.status.className = 'pill-s ' + status[0]; out.status.textContent = status[1];
@@ -89,7 +83,7 @@
   const rfq = document.querySelector('[data-rfq]');
   if (rfq && location.search) {
     const q = new URLSearchParams(location.search);
-    const names = { mild: 'Mild steel (DC01–DC04)', hsla: 'High-strength steel (HC340LA–HC420LA)', structural: 'Structural steel (S355)', stainless: 'Stainless 304/316', aluminium: 'Aluminium 5xxx/6xxx' };
+    const names = { mild: 'Mild steel', stainless: 'Stainless steel', aluminium: 'Aluminium', other: 'Other (copper, brass or coated steel)' };
     const set = (name, val) => { const el = rfq.querySelector(`[name="${name}"]`); if (el && val && !el.value) el.value = val; };
     if (q.get('volume')) set('volume', Number(q.get('volume')).toLocaleString('en-GB'));
     if (q.get('protoqty')) set('protoqty', q.get('protoqty'));

@@ -27,17 +27,30 @@ RFQ_SWAPS = [
      '<a class="link" href="mailto:sales@genexuk.co.uk">sales@genexuk.co.uk</a> or call'),
 ]
 
+CONCERN_SWAPS = [
+    ('<span>Read by our Managing Director</span><span>Anonymous if you prefer</span>',
+     '<span>Preview: this form is for trying out and is not monitored yet</span>'),
+    ('<p class="muted">Your report has gone to our Managing Director.',
+     '<p class="muted">This is a preview, so nobody is reading reports from it yet. On the live site, this goes to our Managing Director.'),
+]
+
 if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir()
 shutil.copytree(ROOT / "assets", OUT / "assets", ignore=shutil.ignore_patterns("src"))
 for f in ROOT.glob("*.html"):
+    if f.name.startswith("_"):
+        continue
     html = f.read_text(encoding="utf8")
     html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex, nofollow">', 1)
     html = html.replace('<a class="skip" href="#main">Skip to content</a>', '<a class="skip" href="#main">Skip to content</a>\n' + NOTE, 1)
     if f.name == "rfq.html":
         for old, new in RFQ_SWAPS:
             assert old in html, f"rfq.html changed; update RFQ_SWAPS in make_preview.py: {old[:40]}"
+            html = html.replace(old, new, 1)
+    if f.name == "concern.html":
+        for old, new in CONCERN_SWAPS:
+            assert old in html, f"concern.html changed; update CONCERN_SWAPS in make_preview.py: {old[:40]}"
             html = html.replace(old, new, 1)
     (OUT / f.name).write_text(html, encoding="utf8")
 (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf8")

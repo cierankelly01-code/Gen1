@@ -1,4 +1,4 @@
-# Genex UK — website (pitch build v1)
+# Genex UK — website (v3, rebrand)
 
 A static, multi-page demo site built to show Genex what their web presence could be. Content is drawn from their current site, their own photos and the quote packs they sent ("AI Quoting Development Files").
 
@@ -25,36 +25,37 @@ Then open http://localhost:8420. Pages use root-relative paths (`/assets/...`), 
 - **Screenshot mode:** add `?static` to any URL to disable animations.
 - **Deploying:** publish everything in `site/` except `_src/` and `build.py`.
 
-## Design direction: "Drawing Office"
+## Design direction: v3 "Your manufacturing partner" (Oct 2026)
 
-- Paper and graphite, Genex blue for annotation, Genex red **only** for actions.
-- Fonts: Archivo (wide display cut) with IBM Plex Mono for spec data.
-- The signature moment is the live progressive-die hero. Every ~1.3 s the ram strokes and a station fills (pierce, notch, form, nut, cut-off), then the e-coated part drops out. It pauses on hover, when off-screen and with the Pause button, and shows the finished strip under reduced motion.
+- Genex's new logo: navy `#022442`, red `#E30817` (action only), grey `#787A82`. Re-skin layer: `assets/css/brand.css`, loaded last. Logo masters are in `assets/img/src/brand/` (not deployed).
+- Positioning: **pressings, fabrication and complete assemblies. Genex are not toolmakers** (Genex's MD, 20 Oct 2026). The tooling pages are retired with 301s in `nginx.conf`.
+- Hero: real-time 3D progression tool (`press3d.js`), now with a full die set (four guide pillars running into bushes in the upper shoe, punches over each station). The film band under it plays `assets/video/inside-genex.mp4`, a 30 s reel cut only from Genex's own footage.
+- The capability PDF source is `_src/pack.html`. Print it with headless Edge: `msedge --headless=new --no-pdf-header-footer --print-to-pdf=site/assets/genex-capability-pack.pdf http://localhost:8431/_src/pack.html`
 
 ## Content to confirm with Genex before launch
 
-These are plausible defaults and placeholders. **Every one needs Genex sign-off.**
+Every claim below comes from Genex's own LinkedIn, their current site or their demo, and needs their sign-off.
 
-| Claim on site | Where | Status |
+| Claim on site | Source | Status |
 |---|---|---|
-| ISO 9001:2015 certified | spec strip, Quality, credline | **Assumed.** Get certificate number, body and PDF. |
-| IATF 16949 status | Quality page wording | Unknown. The site only claims "core tools". |
-| Press list (tonnage, bed, SPM) | Press tooling → capability table | Says "on request". Publish the real table. |
-| Volume range 5k–250k+/yr | hero, spec strip, llms.txt | Quotes show 5k–42k. Confirm the upper end. |
-| ±0.05 mm pilot location | hero OP10 description | Typical value. Confirm. |
-| Engineer reply in 1 working day | site-wide | A promise. Confirm they'll honour it. |
-| GBP/EUR/USD quoting; FCA/DAP/DDP | Global page | Their quotes show EXW. Confirm the rest. |
-| Tool export / tool transfer service | Global, Press tooling, FAQ | Confirm they offer both. |
-| Tooling stored and maintained free | FAQ | Confirm. |
-| "Taking new programmes for 2027" | top bar | Confirm. |
-| Laser to 25 mm, presses to 3 mm | from their current site | Their own figures. Re-confirm. |
-| Programme cards GX-0548 / 0514 / 0674 | home | **Anonymised real quotes. Get permission to publish.** |
-| Privacy & terms | /privacy, /terms | Drafts only. Need review. |
-| Toolroom and press shop on the same site | home hero, roof section, heritage photo | Assumed from their quotes. Confirm. |
-| A named estimating contact | About → "Who you'll speak to" | Shown by role only. Get permission, a name and a photo before naming anyone. |
-| Design-guide rules of thumb | /pressing-design-guide.html | Standard industry guidelines. Ask a Genex engineer to sign them off. |
+| 0 PPM defect record; 98%+ OTIF | Genex LinkedIn posts | Confirm the current figures |
+| ISO 9001 (BSI, 2026 audit with zero NCs), ISO 14001, Cyber Essentials, Achilles Verified | LinkedIn | **Send certificate PDFs**: the download rows say "Coming soon" |
+| Working towards IATF 16949 (Walsall High Growth Programme) | LinkedIn | Confirm it's still the plan |
+| Presses up to 200 t, material up to 5 mm; laser up to 25 mm; Amada HRB1003 folding 6 mm × 3 m; Hurco 5-axis | LinkedIn and current site | Confirm |
+| Sectors (automotive, defence, construction "core"; 12 sections) | Current site, LinkedIn, demo | Confirm which are "core" |
+| Parts for BMW and Land Rover programmes | Genex LinkedIn post | Confirm they're happy to have it on the site |
+| Titanium for defence | LinkedIn defence post | Confirm |
+| Own 3.5 t and 7.5 t vehicles | LinkedIn | Confirm |
+| Midlands Space Cluster listing; investment timeline dates | LinkedIn | Confirm |
+| Policies and T&Cs | none yet | **Send PDFs**: quality, environmental, H&S, info security, ethical trading; conditions of sale and purchase |
+| Raise-a-concern reports go to the MD | The MD's request | Confirm the email address; set up the alert (see below) |
+| Reply within one working day | carried over from v2 | Confirm |
+| Part checker break points (pressing from about 5,000 a year; laser below 1,000) | our estimate | Ask the MD to set the numbers |
+| Photo captions (e.g. the sink is a mortuary preparation table) | Genex photos | Confirm |
 
-**Confidentiality:** customer names, prices and drawings from the client's quote pack are **not** used anywhere on the site. The cards describe part type, volume and process only.
+**Not used without permission:** staff names (including the MD's), the father-and-son story, and staff photos (MACH, the retirement, the ISO celebration).
+
+**The concern form, live:** run the `concerns` section of `supabase/setup.sql`, then point the Factory OS alerts engine or a Supabase webhook at new rows, so the MD gets an email.
 
 ## Before going live (production checklist)
 

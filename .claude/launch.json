@@ -1,6 +1,56 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "genex-site", "runtimeExecutable": "python", "runtimeArgs": ["-m", "http.server", "8420", "--directory", "site"], "port": 8420 }
+    {
+      "name": "genex-site",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8420",
+        "--directory",
+        "site"
+      ],
+      "port": 8420
+    },
+    {
+      "name": "factory-os",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "platform/apps/dashboard",
+        "run",
+        "dev"
+      ],
+      "port": 5180
+    },
+    {
+      "name": "genex-demo",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "5182",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "platform/apps/dashboard/dist-genex"
+      ],
+      "port": 5182
+    },
+    {
+      "name": "genex-site-v3",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8431",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "site"
+      ],
+      "port": 8431
+    }
   ]
 }
