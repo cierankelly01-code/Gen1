@@ -22,11 +22,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap">
-<link rel="stylesheet" href="/assets/css/tokens.css">
-<link rel="stylesheet" href="/assets/css/site.css">
-<link rel="stylesheet" href="/assets/css/finder.css">
-<link rel="stylesheet" href="/assets/css/corp.css">
-<link rel="stylesheet" href="/assets/css/brand.css">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=137439079a">
+<link rel="stylesheet" href="/assets/css/site.css?v=903dc2bdd0">
+<link rel="stylesheet" href="/assets/css/finder.css?v=b14304f0b8">
+<link rel="stylesheet" href="/assets/css/corp.css?v=efbfa7cf65">
+<link rel="stylesheet" href="/assets/css/brand.css?v=c12b864a37">
 <script>/[?&]static/.test(location.search)||document.documentElement.classList.replace('no-js','js')</script>
 <script type="application/ld+json">
 {
@@ -110,7 +110,7 @@
             <a href="/assembly-and-finishing.html"><strong>Inserting &amp; assembly</strong><span>PEM, studs, nuts, bought-in parts, packed complete</span></a>
             <a href="/assembly-and-finishing.html#finishing"><strong>Finishing</strong><span>Coatings managed through approved partners</span></a>
             <a href="/assembly-and-finishing.html#tube"><strong>Tube manipulation</strong><span>Bent and welded tube assemblies</span></a>
-            <a href="/assembly-and-finishing.html#delivery"><strong>Packing &amp; delivery</strong><span>Our own vans, racking and crates</span></a>
+            <a href="/materials.html"><strong>Materials</strong><span>Steel, stainless, aluminium and more</span></a>
             <div class="mm__foot"><span>Not sure which route suits your part?</span><a href="/#check">Check your part →</a></div>
           </div>
         </li>
@@ -140,9 +140,10 @@
           <button class="mm-btn" type="button" aria-expanded="false" aria-controls="mm-about">About <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
           <div class="mm" id="mm-about">
             <a href="/about.html"><strong>Our story</strong><span>Walsall since the 1980s, family-run since 2001</span></a>
-            <a href="/about.html#investment"><strong>Investment</strong><span>New machines, new capability, every year</span></a>
+            <a href="/how-we-work.html"><strong>How we work</strong><span>From your drawing to your door, stage by stage</span></a>
+            <a href="/projects.html"><strong>Projects</strong><span>Real parts and case studies</span></a>
             <a href="/news.html"><strong>News</strong><span>What's new at Genex</span></a>
-            <a href="/design-guide.html"><strong>Guides</strong><span>Routes, hemming, finishes and design rules</span></a>
+            <a href="/resources.html"><strong>Resources</strong><span>Guides, glossary, capability pack and documents</span></a>
             <a href="/careers.html"><strong>Careers</strong><span>Apprenticeships and skilled roles</span></a>
             <a href="/assets/genex-capability-pack.pdf" download><strong>Capability pack (PDF)</strong><span>Two pages for your supplier file</span></a>
           </div>
@@ -160,6 +161,9 @@
             <li><a href="/quality.html">Quality &amp; accreditations</a></li>
             <li><a href="/documents.html">Policies &amp; terms</a></li>
             <li><a href="/about.html">About Genex</a></li>
+            <li><a href="/how-we-work.html">How we work</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/resources.html">Resources</a></li>
             <li><a href="/news.html">News</a></li>
             <li><a href="/careers.html">Careers</a></li>
             <li><a href="/contact.html">Contact</a></li>
@@ -177,7 +181,7 @@
 <main id="main">
 <!-- HERO: real Genex footage (silent reel). Falls back to the 3D progression tool if the video can't play,
      and to the still poster on reduced motion / data saver / no JS. -->
-<section class="hero2" data-hero data-video="/assets/video/inside-genex.mp4" data-poster="/assets/video/inside-genex.jpg" aria-labelledby="hero-h">
+<section class="hero2" data-hero data-video="/assets/video/inside-genex.mp4" data-video-mobile="/assets/video/inside-genex-mobile.mp4" data-poster="/assets/video/inside-genex.jpg" aria-labelledby="hero-h">
   <div class="hero2__media press__stage" aria-hidden="true">
     <img class="hero2__poster" src="/assets/img/f-progression.webp" width="1280" height="580" alt="" fetchpriority="high">
   </div>
@@ -189,7 +193,7 @@
       <p class="lead">Presswork up to 200 tonnes, laser cutting and folding, robotic and manual welding, 5-axis machining and assembly, all on one site in Walsall. Mild steel, stainless steel and aluminium, from one-off prototypes to millions of parts.</p>
       <div class="hero__ctas">
         <a class="btn" href="/rfq.html">Request a quote <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a>
-        <a class="btn btn--ghost" href="#film">Watch the machines</a>
+        <button class="btn btn--ghost btn--play" type="button" data-video="/assets/video/inside-genex.mp4" data-title="Inside Genex: presswork, welding, folding, hemming and tube work"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg> Watch the factory · 0:30</button>
       </div>
     </div>
     <div class="hero2__bar">
@@ -369,16 +373,16 @@
         <p class="label label--line">Made by Genex</p>
         <h2 id="parts-h" class="h2">Real parts. Real capability.</h2>
       </div>
-      <a class="btn btn--ghost" href="/industries.html#parts">Materials and routes for each part</a>
+      <a class="btn btn--ghost" href="/projects.html">All projects and case studies</a>
     </div>
     <p class="parts__note">Photos of parts we produce. Customer names and part numbers are left out for confidentiality.</p>
     <ul class="parts">
       <li><a class="part" href="/industries.html#p-fuel-filter"><img src="/assets/img/part-fuel-pump-bracket.webp" width="800" height="600" loading="lazy" alt="Black e-coated pressed steel fuel filter bracket with two cylindrical pump housings and M6 weld studs"><div class="part__body"><p class="label">Automotive</p><h3>Fuel filter bracket</h3><p>Pressed, stud-welded and e-coated, holding two fuel pumps.</p><span class="chip">Steel · 1.5 mm</span></div></a></li>
       <li><a class="part" href="/industries.html#p-door-card"><img src="/assets/img/part-door-card-bracket.webp" width="800" height="600" loading="lazy" alt="Large pressed aluminium door card bracket with stiffening ribs and mounting holes"><div class="part__body"><p class="label">Automotive</p><h3>Door card bracket</h3><p>About 350 × 350&nbsp;mm in aluminium, with clinched nuts.</p><span class="chip">Aluminium · 1.5 mm</span></div></a></li>
-      <li><a class="part" href="/industries.html#p-exhaust"><img src="/assets/img/part-exhaust-hanger.webp" width="800" height="600" loading="lazy" alt="Stainless steel exhaust hanger made from two pressings welded to two wire forms"><div class="part__body"><p class="label">Automotive</p><h3>Exhaust hanger</h3><p>Two pressings and two wire forms, robot-welded into one assembly.</p><span class="chip">Stainless · 1.5 mm</span></div></a></li>
+      <li><a class="part" href="/case-exhaust-hanger.html"><img src="/assets/img/part-exhaust-hanger.webp" width="800" height="600" loading="lazy" alt="Stainless steel exhaust hanger made from two pressings welded to two wire forms"><div class="part__body"><p class="label">Automotive</p><h3>Exhaust hanger</h3><p>Two pressings and two wire forms, robot-welded into one assembly.</p><span class="chip">Stainless · 1.5 mm</span></div></a></li>
       <li><a class="part" href="/industries.html#p-ceiling"><img src="/assets/img/part-ceiling-bracket.webp" width="800" height="600" loading="lazy" alt="Pre-galvanised steel ceiling bracket for hanging electrical cable basket"><div class="part__body"><p class="label">Construction</p><h3>Cable basket ceiling bracket</h3><p>High-volume pressing in ceiling and wall-mount versions.</p><span class="chip">Pre-galv · 3 mm</span></div></a></li>
-      <li><a class="part" href="/industries.html#p-floor"><img src="/assets/img/part-floor-base-plates.webp" width="800" height="600" loading="lazy" alt="Stack of square pressed steel base plates with a raised centre boss and four fixing holes"><div class="part__body"><p class="label">Data centres</p><h3>Raised-floor base plates</h3><p>For raised floors in data centres and offices, run on a progression press.</p><span class="chip">Mild steel · 3 mm</span></div></a></li>
-      <li><a class="part" href="/industries.html#p-mortuary"><img src="/assets/img/part-mortuary-table.webp" width="800" height="600" loading="lazy" alt="Mirror-polished stainless steel mortuary table top with a built-in sink, taps and drain"><div class="part__body"><p class="label">Medical</p><h3>Mortuary preparation table</h3><p>Built complete, with sink and drain, in polished stainless.</p><span class="chip">Stainless · mirror polish</span></div></a></li>
+      <li><a class="part" href="/case-raised-floor-base-plates.html"><img src="/assets/img/part-floor-base-plates.webp" width="800" height="600" loading="lazy" alt="Stack of square pressed steel base plates with a raised centre boss and four fixing holes"><div class="part__body"><p class="label">Data centres</p><h3>Raised-floor base plates</h3><p>For raised floors in data centres and offices, run on a progression press.</p><span class="chip">Mild steel · 3 mm</span></div></a></li>
+      <li><a class="part" href="/case-mortuary-table.html"><img src="/assets/img/part-mortuary-table.webp" width="800" height="600" loading="lazy" alt="Mirror-polished stainless steel mortuary table top with a built-in sink, taps and drain"><div class="part__body"><p class="label">Medical</p><h3>Mortuary preparation table</h3><p>Built complete, with sink and drain, in polished stainless.</p><span class="chip">Stainless · mirror polish</span></div></a></li>
       <li><a class="part" href="/industries.html#p-panel"><img src="/assets/img/part-access-panel.webp" width="800" height="600" loading="lazy" alt="Powder-coated steel access panel with folded edges and two welded mounting tabs"><div class="part__body"><p class="label">Airport security</p><h3>Scanner-lane access panels</h3><p>Laser-cut, folded and welded panels in a range of sizes.</p><span class="chip">Mild steel · 1.5 mm</span></div></a></li>
       <li><a class="part" href="/industries.html#p-roller"><img src="/assets/img/part-rear-roller.webp" width="800" height="600" loading="lazy" alt="Black e-coated rolled steel lawn mower rear roller"><div class="part__body"><p class="label">Machinery</p><h3>Lawn mower rear roller</h3><p>Flat sheet rolled, seam-welded and pressed into a roller.</p><span class="chip">Mild steel · 1.5 mm</span></div></a></li>
     </ul>
@@ -411,7 +415,7 @@
         <p class="label label--line">How we work</p>
         <h2 id="proc-h" class="h2">From your drawing to your door.</h2>
       </div>
-      <a class="btn btn--ghost" href="/rfq.html">Start with a drawing</a>
+      <a class="btn btn--ghost" href="/how-we-work.html">How we work in detail</a>
     </div>
     <ol class="process2">
       <li><h3>Enquiry</h3><p>Send a drawing or model, quantities and the finish you need.</p><span class="t">Day 1</span></li>
@@ -569,9 +573,10 @@
         <h2>Company</h2>
         <ul>
           <li><a href="/about.html">About Genex</a></li>
+          <li><a href="/projects.html">Projects</a></li>
           <li><a href="/news.html">News</a></li>
           <li><a href="/careers.html">Careers</a></li>
-          <li><a href="/design-guide.html">Guides</a></li>
+          <li><a href="/resources.html">Resources</a></li>
           <li><a href="/contact.html">Contact</a></li>
           <li><a href="/rfq.html">Request a quote</a></li>
           <li><a href="https://www.linkedin.com/company/genex-uk-ltd/" rel="noopener">LinkedIn</a></li>
@@ -597,7 +602,7 @@
   <a class="btn btn--ghost mbar__call" href="tel:+441922710050" aria-label="Call Genex on 01922 710050"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5.5 2.5h3l1.5 4-2 1.2a9 9 0 0 0 4.3 4.3l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A14 14 0 0 1 4 4.1 1.5 1.5 0 0 1 5.5 2.5z" stroke="currentColor" stroke-width="1.5"/></svg></a>
 </nav>
 <script src="/assets/js/config.js"></script>
-<script src="/assets/js/site.js" defer></script>
-<script src="/assets/js/finder.js" defer></script>
+<script src="/assets/js/site.js?v=1eb24361f9" defer></script>
+<script src="/assets/js/finder.js?v=7d21b16c1d" defer></script>
 </body>
 </html>

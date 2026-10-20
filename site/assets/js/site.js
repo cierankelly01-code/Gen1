@@ -175,15 +175,20 @@
       }).catch(() => {});
       ('requestIdleCallback' in window) ? requestIdleCallback(go, { timeout: 2500 }) : setTimeout(go, 1200);
     };
-    /* phones get the still poster: the reel is ~4 MB, and it's one tap away in the film band */
-    if (hero2.dataset.video && !reduce && !saveData2 && innerWidth >= 700) {
+    /* phones get a lighter cut of the reel; reduced motion / data saver keep the still and the Watch button */
+    if (hero2.dataset.video && !reduce && !saveData2) {
       vid = document.createElement('video');
       Object.assign(vid, { muted: true, loop: true, playsInline: true, autoplay: true, preload: 'metadata' });
+      /* iOS only autoplays when these are attributes, not just properties */
+      ['muted', 'playsinline', 'autoplay', 'loop'].forEach(a => vid.setAttribute(a, ''));
+      vid.setAttribute('aria-hidden', 'true');
       if (hero2.dataset.poster) vid.poster = hero2.dataset.poster;
       vid.addEventListener('playing', () => { hero2.classList.add('is-video'); showLive('Filmed at Genex, Walsall'); }, { once: true });
       vid.addEventListener('error', () => { vid.remove(); vid = null; boot3d2(); }, { once: true });
-      vid.src = hero2.dataset.video;
+      vid.src = (innerWidth < 700 && hero2.dataset.videoMobile) || hero2.dataset.video;
       media.prepend(vid);
+      /* autoplay can be refused (Low Power Mode, energy saver): keep the poster; the Watch button still works */
+      const tryPlay = vid.play(); if (tryPlay) tryPlay.catch(() => {});
     } else boot3d2();
     pauseBtn2 && pauseBtn2.addEventListener('click', () => {
       paused2 = !paused2;
