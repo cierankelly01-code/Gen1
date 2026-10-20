@@ -1,7 +1,7 @@
 """Tiny static build for the Genex UK site.
 
 Each page in _src/pages/*.html starts with a JSON meta comment:
-    <!--meta {"title": "...", "description": "...", "path": "/x.html", "nav": "tooling", "sheet": "2 of 9"} -->
+    <!--meta {"title": "...", "description": "...", "path": "/x.html", "nav": "capabilities"} -->
 The page body is dropped into _src/partials/layout.html and written to the site root.
 Run:  python build.py
 """
@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 SRC = ROOT / "_src"
-NAV_KEYS = ["tooling", "capabilities", "industries", "quality", "global", "about"]
+NAV_KEYS = ["capabilities", "industries", "quality", "about", "contact"]
 
 
 def strip_svg() -> str:
@@ -99,14 +99,17 @@ def build():
             "title": meta["title"],
             "description": meta["description"],
             "path": meta["path"],
-            "sheet": meta.get("sheet", "1 of 1"),
             "schema": schema,
         }
         for key in NAV_KEYS:
-            repl["nav_" + key] = ' aria-current="page"' if meta.get("nav") == key else ""
+            on = meta.get("nav") == key
+            repl["nav_" + key] = (' aria-current="page"' if key == "contact" else ' data-current="true"') if on else ""
         for k, v in repl.items():
             html = html.replace("{{" + k + "}}", v)
         html = html.replace("{{content}}", body.strip())
+        # mark this page's own link in the menus as the current page
+        own = '<a href="%s"><strong>' % meta["path"]
+        html = html.replace(own, own.replace('"><strong>', '" aria-current="page"><strong>'))
         out = ROOT / page.name
         out.write_text(html, encoding="utf-8")
         print(f"built {out.name}")

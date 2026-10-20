@@ -1,16 +1,27 @@
 # Genex UK Ltd
 
-> Family-run UK manufacturer in Walsall, West Midlands. Designs and builds press tools in-house and runs medium-to-high volume metal pressings (0.5–3.0 mm), plus laser cutting (to 25 mm), CNC folding, machining, projection/spot/MIG/TIG welding, assembly and managed finishing (e-coat, zinc, powder). PPAP Level 3 as standard. Builds progressive stamping dies for export and supplies automotive & EV Tier 1s, vehicle start-ups (prototype to production), aerospace, defence, construction, medical and consumer manufacturers in the UK, Europe and North America. Independent since a 2001 management buyout; roots in the 1980s.
+> Family-run UK manufacturer in Walsall, West Midlands, making parts since 1980 and independent since a 2001 management buyout. Genex makes metal pressings (progression and single-action presswork on mechanical presses up to 200 tonnes, material up to 5 mm), laser-cut and folded parts (laser up to 25 mm; Amada HRB1003 press brake folding up to 6 mm at 3 m, with hemming), robotic and manual MIG, TIG, spot and projection welded fabrications, 5-axis CNC machined parts, bent tube, PEM/stud/nut inserting and complete assemblies, in mild steel, stainless steel and aluminium, from one-off prototypes to millions of parts. Coatings are managed through approved finishing partners. ISO 9001, ISO 14001, Cyber Essentials, Achilles Verified Supplier; working towards IATF 16949. Own delivery vehicles. Sectors: automotive, defence, construction, rail, aerospace and space, data centres and power, medical and catering, machinery, automation, agriculture and off-highway, electrical, consumer and aftermarket. Genex is a manufacturer and service provider, not a toolmaker.
 
 ## Key pages
-- [Press tool design, build & pressings](https://genexuk.co.uk/press-tooling.html): tool types, materials, volumes, lead times (tooling 12–17 weeks), RFQ-to-PPAP process
-- [Capabilities](https://genexuk.co.uk/capabilities.html): laser cut & fold, machining, welding, assembly, finishing
-- [Industries](https://genexuk.co.uk/industries.html): automotive & EV, aerospace, defence, construction, medical, consumer
-- [Quality & PPAP](https://genexuk.co.uk/quality.html): PPAP elements, APQP launch, certification
-- [Global supply](https://genexuk.co.uk/global.html): Incoterms, currencies, export documentation, tool export
-- [Pressing design guide](https://genexuk.co.uk/pressing-design-guide.html): tooling route by volume, hole/bend design rules, materials, tool cost drivers, PPAP levels
-- [Progressive dies built in the UK for export](https://genexuk.co.uk/export-dies.html): stamping dies designed to the customer's press data, built and proven in Walsall with sample parts, shipped to run in press shops in the US, Canada, Mexico and the EU; die build typically 12–17 weeks
-- [Request a quote](https://genexuk.co.uk/rfq.html): upload STEP/DXF/PDF; engineer reply within one working day
+- [Capabilities](https://genexuk.co.uk/capabilities.html): pressings, laser cutting and folding, welding, machining, assembly, finishing, tube, delivery
+- [Metal pressings](https://genexuk.co.uk/metal-pressings.html): presses up to 200 t, up to 5 mm, progression and single action
+- [Laser cutting and folding](https://genexuk.co.uk/laser-cutting-and-folding.html): laser to 25 mm, Amada HRB1003 folding 6 mm x 3 m, hemming
+- [Welding and fabrication](https://genexuk.co.uk/welding-and-fabrication.html): robotic MIG, manual MIG/TIG, spot and projection
+- [CNC machining](https://genexuk.co.uk/cnc-machining.html): Hurco 5-axis, turning, grinding
+- [Assembly and finishing](https://genexuk.co.uk/assembly-and-finishing.html): inserting, tube, managed coatings, own delivery vehicles
+- [Sectors](https://genexuk.co.uk/industries.html): all sectors, with eight example parts and their process routes; dedicated pages for [automotive](https://genexuk.co.uk/automotive.html), [defence](https://genexuk.co.uk/defence.html), [construction](https://genexuk.co.uk/construction.html), [data centres](https://genexuk.co.uk/data-centres.html) and [medical and catering](https://genexuk.co.uk/medical-and-catering.html)
+- [Quality](https://genexuk.co.uk/quality.html): accreditations, certificates, traceability, first-article inspection and PPAP
+- [Policies and terms](https://genexuk.co.uk/documents.html): quality, environmental and other policies; conditions of sale and purchase
+- [Raise a concern](https://genexuk.co.uk/concern.html): report a quality or environmental concern to the Managing Director
+- [About](https://genexuk.co.uk/about.html): history, investment timeline, careers
+- [News](https://genexuk.co.uk/news.html): new machines and accreditations
+- [Design guide](https://genexuk.co.uk/design-guide.html): design rules, materials, what to send
+- [Pressing or laser cut and fold?](https://genexuk.co.uk/pressing-vs-laser-cut-and-fold.html): when a press tool pays back
+- [Hemmed edges explained](https://genexuk.co.uk/hemmed-edges.html)
+- [Metal finishes explained](https://genexuk.co.uk/metal-finishes-explained.html): e-coat, zinc, powder coat, passivation
+- [Careers](https://genexuk.co.uk/careers.html)
+- [Contact](https://genexuk.co.uk/contact.html): phone, emails, address, visits
+- [Request a quote](https://genexuk.co.uk/rfq.html): upload STEP, DXF or PDF drawings
 
 ## Contact
 - Phone: +44 (0)1922 710050

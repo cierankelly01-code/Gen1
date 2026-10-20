@@ -1,0 +1,148 @@
+<!--meta {"title": "Design Guide: Pressing, Laser Cut & Fold or Fabrication? | Genex UK", "description": "How to choose between pressing, laser cutting and folding, and welded fabrication for a sheet metal part, with design rules for holes, bends and hems, material choice and what to send for a quote.", "path": "/design-guide.html", "nav": "about"} -->
+<!--schema-->
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://genexuk.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Design guide", "item": "https://genexuk.co.uk/design-guide.html"}]}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+  {"@type": "Question", "name": "When should a sheet metal part be pressed rather than laser cut and folded?", "acceptedAnswer": {"@type": "Answer", "text": "Pressing usually gives the lowest price per part once volumes reach several thousand a year and the design is settled, because a press tool makes a part in one or a few strokes. Below that, laser cutting and folding avoids tooling cost. Genex prices both routes when a part sits near the break point."}},
+  {"@type": "Question", "name": "What is a hemmed edge?", "acceptedAnswer": {"@type": "Answer", "text": "A hemmed (or safety) edge is the edge of a sheet folded back on itself to close it. It removes the sharp edge, stiffens the panel and removes the need to deburr or linish the edge."}},
+  {"@type": "Question", "name": "What should I send with a request for quotation?", "acceptedAnswer": {"@type": "Answer", "text": "A 3D model (STEP) and a dimensioned drawing (PDF or DXF), the material and thickness, the quantity per order and per year, any finish, critical tolerances and the date you need parts."}}
+]}
+</script>
+<!--/schema-->
+
+<section class="phero">
+  <div class="wrap">
+    <nav aria-label="Breadcrumb" class="crumbs"><ol><li><a href="/">Home</a></li><li aria-current="page">Design guide</li></ol></nav>
+    <div class="phero__grid">
+      <div class="phero__t">
+        <p class="label label--line">Design guide</p>
+        <h1 class="display">Choosing the right route for your part.</h1>
+      </div>
+      <div class="phero__d">
+        <p class="lead">Pressing, laser cut and fold, or fabrication? The best result starts with an early manufacturing conversation, not a late cost-reduction exercise. Here is how we think about it.</p>
+        <a class="btn btn--ghost" href="/rfq.html">Ask for a second opinion</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <aside class="split__side">
+      <div class="sticky">
+        <ol class="toc">
+          <li><a href="#route"><span>01</span>Choosing a route</a></li>
+          <li><a href="#rules"><span>02</span>Design rules</a></li>
+          <li><a href="#hem"><span>03</span>Hemmed edges</a></li>
+          <li><a href="#materials"><span>04</span>Materials</a></li>
+          <li><a href="#assembly"><span>05</span>Designing for assembly</a></li>
+          <li><a href="#guides"><span>06</span>More guides</a></li><li><a href="#rfq"><span>07</span>What to send</a></li>
+        </ol>
+      </div>
+    </aside>
+    <div class="split__main">
+      <article class="block" id="route">
+        <p class="label">01</p>
+        <h2>Choosing a route</h2>
+        <div class="answer"><p><b>Short answer:</b> laser cut and fold for prototypes and lower volumes, pressing once volumes reach several thousand a year and the design is settled, and fabrication when the part is thick, large or made from several pieces. Near the break point, we price both.</p></div>
+        <div class="table-wrap"><table class="spec-table">
+          <thead><tr><th scope="col">Route</th><th scope="col">Best for</th><th scope="col">Trade-off</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Laser cut &amp; fold</th><td>Prototypes, design changes, low to medium volumes, parts up to 6 mm and 3 m</td><td>Higher price per part at volume</td></tr>
+            <tr><th scope="row">Pressing</th><td>Repeat volumes of settled designs, up to 5 mm, with pierced, formed and inserted features in the press</td><td>Needs a production tool before the first part</td></tr>
+            <tr><th scope="row">Fabrication</th><td>Thick, large or multi-piece parts; frames, enclosures and structures</td><td>More labour per part; weld distortion to control</td></tr>
+            <tr><th scope="row">Machining</th><td>Tight-tolerance features, thick sections, complex 3D shapes</td><td>Slower per part than forming</td></tr>
+          </tbody>
+        </table></div>
+        <div class="prose"><p>Many parts change route over their life: laser cut and folded while the design settles, then moved to presswork once volumes justify a tool. Designing with that in mind from the start makes the move painless.</p></div>
+      </article>
+
+      <article class="block" id="rules">
+        <p class="label">02</p>
+        <h2>Design rules for pressed and folded parts</h2>
+        <div class="table-wrap"><table class="spec-table">
+          <caption>Starting guidelines, where t = material thickness</caption>
+          <thead><tr><th scope="col">Feature</th><th scope="col">Guideline</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Minimum hole diameter</th><td>≥ 1 t (larger for high-strength steels)</td></tr>
+            <tr><th scope="row">Hole to edge</th><td>≥ 1.5 t, 2 t preferred</td></tr>
+            <tr><th scope="row">Hole to bend</th><td>≥ 2 t + inside bend radius</td></tr>
+            <tr><th scope="row">Inside bend radius</th><td>≥ 1 t for mild steel; more for stainless, aluminium and high-strength grades</td></tr>
+            <tr><th scope="row">Minimum flange length</th><td>≥ 4 t</td></tr>
+            <tr><th scope="row">Bend relief</th><td>Width ≥ t, depth ≥ bend radius + t</td></tr>
+            <tr><th scope="row">Burr direction</th><td>Mark the burr side on the drawing if it matters for fit or handling</td></tr>
+          </tbody>
+        </table></div>
+        <div class="prose"><p>These are starting points, not limits. Tell us what a feature has to do and we'll tell you what's achievable.</p></div>
+      </article>
+
+      <article class="block" id="hem">
+        <p class="label">03</p>
+        <h2>Hemmed edges</h2>
+        <div class="prose">
+          <p>A hemmed edge folds the sheet back on itself to close the edge. It does three jobs at once:</p>
+          <ul>
+            <li><strong>Safety:</strong> no sharp edge for operators, your assembly line or the end user.</li>
+            <li><strong>Strength:</strong> doubling the material stiffens the panel, so you can often keep a thinner gauge.</li>
+            <li><strong>Finish:</strong> a tidy closed edge that looks like a finished product, with no deburring or linishing.</li>
+          </ul>
+          <p>Our hemming tool closes the edge in a single hit, in mild steel, stainless and aluminium, from one-off prototypes to repeat batches. If you're designing around a sharp edge, or paying someone to grind one off, it's worth a conversation.</p>
+        </div>
+      </article>
+
+      <article class="block" id="materials">
+        <p class="label">04</p>
+        <h2>Choosing a material</h2>
+        <div class="table-wrap"><table class="spec-table">
+          <thead><tr><th scope="col">Material</th><th scope="col">Use it for</th><th scope="col">Watch out for</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Mild steel</th><td>General brackets, panels and frames; good formability, lowest cost</td><td>Needs a coating against corrosion</td></tr>
+            <tr><th scope="row">Coated steel (galvanised, pre-painted)</th><td>Outdoor and construction parts</td><td>Cut edges and welds may need touching up</td></tr>
+            <tr><th scope="row">Stainless steel</th><td>Corrosion resistance, food, catering and medical, cosmetic parts</td><td>More springback; specify the surface finish</td></tr>
+            <tr><th scope="row">Aluminium</th><td>Weight-critical parts</td><td>The grade and temper decide how tight it can bend</td></tr>
+          </tbody>
+        </table></div>
+        <div class="prose"><p>Not sure which grade? Tell us what the part does and where it lives, and we'll suggest one. If you'd accept an equivalent grade, say so on the RFQ to avoid a re-quote later.</p></div>
+      </article>
+
+      <article class="block" id="assembly">
+        <p class="label">05</p>
+        <h2>Designing for assembly</h2>
+        <div class="prose"><ul>
+          <li><strong>Inserts instead of loose fasteners:</strong> PEM nuts, studs and weld nuts fitted by us mean fewer parts on your line.</li>
+          <li><strong>Choose the weld process with us:</strong> robotic MIG suits repeatable volume work, TIG suits cosmetic stainless, and spot and projection welding suit sheet assemblies.</li>
+          <li><strong>One part number:</strong> if we assemble, finish and pack the product, you buy, inspect and receive one thing instead of many.</li>
+        </ul></div>
+      </article>
+
+      <article class="block" id="guides">
+        <p class="label">More guides</p>
+        <h2>Go deeper</h2>
+        <div class="res">
+          <a href="/pressing-vs-laser-cut-and-fold.html"><span class="kind">Route</span><h3>Pressing or laser cut and fold?</h3><p>When a press tool pays back.</p><span class="go">Read →</span></a>
+          <a href="/hemmed-edges.html"><span class="kind">Design</span><h3>Hemmed edges explained</h3><p>Safer, stiffer and no deburring.</p><span class="go">Read →</span></a>
+          <a href="/metal-finishes-explained.html"><span class="kind">Finishing</span><h3>Metal finishes explained</h3><p>E-coat, zinc, powder coat or passivation?</p><span class="go">Read →</span></a>
+        </div>
+      </article>
+
+      <article class="block" id="rfq">
+        <p class="label">06</p>
+        <h2>What to send with an RFQ</h2>
+        <div class="prose"><ul>
+          <li>A 3D model (STEP) and a dimensioned drawing (PDF or DXF)</li>
+          <li>Material and thickness, and any equivalents you'd accept</li>
+          <li>Quantity per order and per year</li>
+          <li>Finish or coating, and any cosmetic faces</li>
+          <li>Critical tolerances and how they're measured</li>
+          <li>Approval needed (first-article report or PPAP level), packaging and delivery location</li>
+          <li>When you need the first parts</li>
+        </ul></div>
+        <p><a class="btn" href="/rfq.html">Send your drawing <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{{cta}}

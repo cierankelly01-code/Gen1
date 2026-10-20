@@ -175,7 +175,8 @@
       }).catch(() => {});
       ('requestIdleCallback' in window) ? requestIdleCallback(go, { timeout: 2500 }) : setTimeout(go, 1200);
     };
-    if (hero2.dataset.video && !reduce && !saveData2) {
+    /* phones get the still poster: the reel is ~4 MB, and it's one tap away in the film band */
+    if (hero2.dataset.video && !reduce && !saveData2 && innerWidth >= 700) {
       vid = document.createElement('video');
       Object.assign(vid, { muted: true, loop: true, playsInline: true, autoplay: true, preload: 'metadata' });
       if (hero2.dataset.poster) vid.poster = hero2.dataset.poster;
@@ -192,6 +193,97 @@
     });
   }
 
+
+  /* Metal pressings page: interactive 3D progression tool, loaded only when scrolled into view on a capable desktop */
+  const die = document.querySelector('[data-die]');
+  if (die && !reduce && innerWidth >= 700 && !(navigator.connection && navigator.connection.saveData)) {
+    const io2 = new IntersectionObserver(es => {
+      if (!es[0].isIntersecting) return;
+      io2.disconnect();
+      try { if (!document.createElement('canvas').getContext('webgl2')) return; } catch (e) { return; }
+      import('/assets/js/press3d.js').then(m => {
+        const ctl = m.start(die, {});
+        if (!ctl) return;
+        const b = die.querySelector('[data-die-pause]'); let paused = false;
+        if (b) { b.hidden = false; b.addEventListener('click', () => { paused = !paused; paused ? ctl.pause() : ctl.resume(); b.textContent = paused ? 'Play' : 'Pause'; b.setAttribute('aria-pressed', String(paused)); }); }
+        track('press_mode', { mode: '3d-pressings-page' });
+      }).catch(() => {});
+    }, { rootMargin: '200px' });
+    io2.observe(die);
+  }
+
+  /* Film band: the reel only downloads and plays while it's on screen (and never under reduced motion / data saver) */
+  document.querySelectorAll('[data-autoplay]').forEach(fig => {
+    const v = fig.querySelector('video');
+    if (!v || reduce || (navigator.connection && navigator.connection.saveData)) return;
+    new IntersectionObserver(es => {
+      if (es[0].isIntersecting) {
+        if (!v.src) { v.src = v.dataset.src; v.addEventListener('playing', () => fig.classList.add('is-playing'), { once: true }); }
+        v.play().catch(() => {});
+      } else v.pause();
+    }, { threshold: 0.35 }).observe(fig);
+  });
+
+  /* Video cards open in a modal player with sound and controls */
+  const vmodal = document.querySelector('[data-vmodal]');
+  if (vmodal && typeof vmodal.showModal === 'function') {
+    const mv = vmodal.querySelector('video');
+    const close = () => { mv.pause(); vmodal.close(); };
+    document.querySelectorAll('button[data-video]').forEach(b => b.addEventListener('click', () => {
+      mv.src = b.dataset.video; vmodal.querySelector('[data-vmodal-title]').textContent = b.dataset.title || '';
+      vmodal.showModal(); mv.play().catch(() => {}); track('video_open', { src: b.dataset.video });
+    }));
+    vmodal.querySelector('[data-vmodal-close]').addEventListener('click', close);
+    vmodal.addEventListener('click', e => { if (e.target === vmodal) close(); });
+    vmodal.addEventListener('close', () => mv.pause());
+  } else {
+    document.querySelectorAll('button[data-video]').forEach(b => b.addEventListener('click', () => { location.href = b.dataset.video; }));
+  }
+
+  /* Concern form: quality or environmental concerns go to the MD's inbox (Supabase 'concerns' table) */
+  const cform = document.querySelector('[data-concern]');
+  if (cform) {
+    const check = f => {
+      const i = f.querySelector('input, select, textarea'); if (!i) return true;
+      /* the database counts trimmed text, so the browser check must too */
+      if (i.name === 'details') i.setCustomValidity(i.value.trim().length < 10 ? 'Tell us a little more' : '');
+      const ok = i.disabled || i.checkValidity(); f.classList.toggle('is-invalid', !ok); i.setAttribute('aria-invalid', String(!ok)); return ok;
+    };
+    cform.querySelectorAll('.field').forEach(f => f.querySelector('input, select, textarea')?.addEventListener('blur', () => check(f)));
+    cform.setAttribute('novalidate', '');
+    cform.addEventListener('submit', async e => {
+      e.preventDefault();
+      const bad = [...cform.querySelectorAll('.field')].filter(f => !check(f));
+      if (bad.length) { bad[0].querySelector('input, select, textarea').focus(); return; }
+      const btn = cform.querySelector('[type=submit]'); btn.setAttribute('aria-busy', 'true');
+      try {
+        const cfg = window.GENEX_CFG || {}, fd = new FormData(cform);
+        const spam = !!(fd.get('website_url') || '').toString().trim();   /* bots get the success screen; nothing is sent */
+        if (!spam && cfg.supabaseUrl && cfg.supabaseAnonKey) {
+          const val = k => (fd.get(k) || '').toString().trim() || null;
+          const anon = fd.get('anonymous') !== null;   /* anonymous reports never carry contact details */
+          const res = await fetch(cfg.supabaseUrl.replace(/\/$/, '') + '/rest/v1/concerns', {
+            method: 'POST',
+            headers: { apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+            body: JSON.stringify({ kind: val('kind'), details: val('details'), reference: val('reference'), name: anon ? null : val('name'), company: anon ? null : val('company'), email: anon ? null : val('email'), phone: anon ? null : val('phone'), anonymous: anon, source: location.href, status: 'new' })
+          });
+          if (!res.ok) throw new Error('insert ' + res.status);
+        } else if (!spam) await new Promise(r => setTimeout(r, 700));   /* demo mode: no backend configured */
+        track('concern_submit', { kind: fd.get('kind') });
+        cform.hidden = true;
+        const ok = document.querySelector('[data-concern-ok]'); ok.classList.add('is-shown'); ok.setAttribute('tabindex', '-1'); ok.focus();
+      } catch (err) {
+        btn.removeAttribute('aria-busy'); cform.querySelector('[data-neterr]').hidden = false;
+      }
+    });
+    /* "Report anonymously" makes the contact fields optional */
+    const anon = cform.querySelector('[name=anonymous]');
+    /* anonymous: contact fields are switched off (disabled fields aren't validated or sent) */
+    anon && anon.addEventListener('change', () => cform.querySelectorAll('[data-contact] .field').forEach(f => {
+      const i = f.querySelector('input'); i.disabled = anon.checked; f.classList.toggle('is-off', anon.checked);
+      if (anon.checked) { f.classList.remove('is-invalid'); i.removeAttribute('aria-invalid'); }
+    }));
+  }
 
   /* Supabase: upload drawings to the private 'rfq-files' bucket, then insert the RFQ row.
      The anon key can only INSERT (see supabase/setup.sql); it cannot read anything back. */

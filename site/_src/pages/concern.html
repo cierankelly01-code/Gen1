@@ -1,0 +1,107 @@
+<!--meta {"title": "Raise a Quality or Environmental Concern | Genex UK", "description": "Report a quality or environmental concern to the Genex UK Managing Director. It takes two minutes and you can stay anonymous.", "path": "/concern.html", "nav": "quality"} -->
+<!--schema-->
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://genexuk.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Quality", "item": "https://genexuk.co.uk/quality.html"}, {"@type": "ListItem", "position": 3, "name": "Raise a concern", "item": "https://genexuk.co.uk/concern.html"}]}
+</script>
+<!--/schema-->
+
+<section class="phero phero--compact">
+  <div class="wrap">
+    <nav aria-label="Breadcrumb" class="crumbs"><ol><li><a href="/">Home</a></li><li><a href="/quality.html">Quality</a></li><li aria-current="page">Raise a concern</li></ol></nav>
+    <div class="phero__grid">
+      <div class="phero__t">
+        <p class="label label--line">Speak up</p>
+        <h1 class="display">Raise a quality or environmental concern.</h1>
+      </div>
+      <div class="phero__d">
+        <p class="lead">This goes straight to our Managing Director, not to a general inbox. It takes two minutes, and you can stay anonymous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap rfq">
+    <div class="rfq__form">
+      <form class="form" action="/api/concern" method="post" data-concern>
+        <fieldset class="fieldset">
+          <legend><b>01</b> Your concern</legend>
+          <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website_url" tabindex="-1" autocomplete="off"></label></div>
+          <div class="field field--full">
+            <span class="flabel" id="kind-l">What is it about?</span>
+            <div class="seg" role="radiogroup" aria-labelledby="kind-l">
+              <label><input type="radio" name="kind" value="quality" required checked><span>Quality of a part or delivery</span></label>
+              <label><input type="radio" name="kind" value="environmental"><span>Environmental</span></label>
+              <label><input type="radio" name="kind" value="safety"><span>Health &amp; safety</span></label>
+              <label><input type="radio" name="kind" value="other"><span>Something else</span></label>
+            </div>
+          </div>
+          <div class="field field--full">
+            <label for="details">What happened?</label>
+            <textarea class="textarea" id="details" name="details" required minlength="10" maxlength="5000" placeholder="What you noticed, where and when. The more detail, the faster we can act."></textarea>
+            <span class="err">Tell us a little about the concern.</span>
+          </div>
+          <div class="field field--full">
+            <label for="reference">Order, part or delivery reference <span class="opt">optional</span></label>
+            <input class="input" id="reference" name="reference" maxlength="200" placeholder="e.g. delivery note, PO or part number">
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset" data-contact>
+          <legend><b>02</b> You</legend>
+          <label class="check field--full"><input type="checkbox" name="anonymous"> Report anonymously (we won't be able to reply to you)</label>
+          <div class="field">
+            <label for="cname">Name</label>
+            <input class="input" id="cname" name="name" autocomplete="name" required data-req>
+            <span class="err">Add your name, or tick "report anonymously".</span>
+          </div>
+          <div class="field">
+            <label for="cemail">Email</label>
+            <input class="input" id="cemail" name="email" type="email" autocomplete="email" required data-req>
+            <span class="err">Add an email so we can reply, or tick "report anonymously".</span>
+          </div>
+          <div class="field">
+            <label for="ccompany">Company <span class="opt">optional</span></label>
+            <input class="input" id="ccompany" name="company" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="cphone">Phone <span class="opt">optional</span></label>
+            <input class="input" id="cphone" name="phone" type="tel" autocomplete="tel">
+          </div>
+        </fieldset>
+
+        <div class="form__submit">
+          <button class="btn btn--submit" type="submit"><span class="btn__txt">Send to the Managing Director</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          <p class="micro"><span>Read by our Managing Director</span><span>Anonymous if you prefer</span></p>
+          <p class="err" data-neterr hidden>Couldn't send. Nothing you typed is lost. Try again, or call 01922 710050.</p>
+        </div>
+      </form>
+
+      <div class="success" data-concern-ok role="status">
+        <p class="label">Concern received</p>
+        <h2>Thank you for telling us.</h2>
+        <p class="muted">Your report has gone to our Managing Director. If you left contact details, we'll be in touch. If it's urgent, call <a class="link" href="tel:+441922710050">01922 710050</a>.</p>
+      </div>
+    </div>
+
+    <aside class="rfq__side">
+      <div class="side-card">
+        <h2>What happens next</h2>
+        <ol>
+          <li>Our Managing Director reads your report.</li>
+          <li>The concern is logged and investigated under our ISO 9001 and ISO 14001 systems.</li>
+          <li>If you gave contact details, we tell you what we found and what we changed.</li>
+        </ol>
+      </div>
+      <div class="side-card">
+        <h2>A problem with an order?</h2>
+        <p class="muted" style="font-size:var(--fs-small)">For a delivery that's wrong, late or damaged, call us on <a class="link" href="tel:+441922710050">01922 710050</a> so we can contain it straight away. Then log it here too.</p>
+      </div>
+      <div class="side-card">
+        <h2>Our standards</h2>
+        <p class="muted" style="font-size:var(--fs-small);margin-bottom:var(--s-3)">See our certificates and policies.</p>
+        <a class="btn btn--ghost btn--sm" href="/documents.html">Policies &amp; terms</a>
+      </div>
+    </aside>
+  </div>
+</section>

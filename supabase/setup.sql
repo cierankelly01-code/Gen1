@@ -80,3 +80,48 @@ create policy "website can upload rfq files"
   );
 -- No select/update/delete policies for anon on storage.objects: uploaded drawings can't be listed,
 -- downloaded or replaced with the public key. Genex staff read them with their own login.
+
+-- ---------------------------------------------------------------------------
+-- Concerns (20 Oct 2026). The "Raise a concern" page posts quality, environmental
+-- and safety concerns here for the Managing Director. Same rules as RFQs: the
+-- public key can only INSERT; nobody can read, change or delete with it.
+-- Anonymous reports carry no name or email.
+-- ---------------------------------------------------------------------------
+create table if not exists public.concerns (
+  id          uuid primary key default gen_random_uuid(),
+  created_at  timestamptz not null default now(),
+  status      text not null default 'new',
+  kind        text not null,
+  details     text not null,
+  reference   text,
+  anonymous   boolean not null default false,
+  name        text,
+  company     text,
+  email       text,
+  phone       text,
+  source      text
+);
+
+alter table public.concerns enable row level security;
+grant insert on table public.concerns to anon;
+revoke select, update, delete on table public.concerns from anon;
+
+drop policy if exists "website can submit concerns" on public.concerns;
+create policy "website can submit concerns"
+  on public.concerns for insert to anon
+  with check (status = 'new');
+
+alter table public.concerns drop constraint if exists concerns_sane;
+alter table public.concerns add constraint concerns_sane check (
+  kind in ('quality', 'environmental', 'safety', 'other')
+  and char_length(details) between 10 and 5000
+  and coalesce(char_length(reference), 0) <= 200
+  and coalesce(char_length(name), 0) <= 120 and coalesce(char_length(company), 0) <= 160
+  and coalesce(char_length(phone), 0) <= 40 and coalesce(char_length(source), 0) <= 500
+  and (email is null or email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$')
+  -- named reports need a name and email; anonymous ones must not carry contact details
+  and ((anonymous and name is null and email is null and phone is null)
+       or (not anonymous and char_length(name) >= 1 and email is not null))
+);
+-- Alerting: point the Factory OS alerts engine (or a Supabase webhook) at new rows here
+-- so the MD gets an email the moment a concern lands. Not set up yet: see the README.

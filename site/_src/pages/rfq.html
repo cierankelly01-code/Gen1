@@ -1,4 +1,4 @@
-<!--meta {"title": "Request a Quote — Send Your Drawing | Genex UK", "description": "Upload your STEP, DXF or PDF drawing with volumes and material, for prototypes, production or both. A Genex engineer replies within one working day. NDA on request.", "path": "/rfq.html", "nav": "", "sheet": "8 of 9"} -->
+<!--meta {"title": "Request a Quote — Send Your Drawing | Genex UK", "description": "Upload your STEP, DXF or PDF drawing with quantities and material, for prototypes, production or complete assemblies. Genex replies within one working day. NDA on request.", "path": "/rfq.html", "nav": ""} -->
 <!--schema-->
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://genexuk.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Request a quote", "item": "https://genexuk.co.uk/rfq.html"}]}
@@ -10,11 +10,11 @@
     <nav aria-label="Breadcrumb" class="crumbs"><ol><li><a href="/">Home</a></li><li aria-current="page">Request a quote</li></ol></nav>
     <div class="phero__grid">
       <div class="phero__t">
-        <p class="label">Request for quotation</p>
+        <p class="label label--line">Request a quote</p>
         <h1 class="display">Send us your drawing.</h1>
       </div>
       <div class="phero__d">
-        <p class="lead">An engineer reviews every RFQ and replies within one working day. Prototype-only quotes are welcome, and tooling is always quoted as a separate decision.</p>
+        <p class="lead">Our team reviews every enquiry and replies within one working day. One-off prototypes or repeat production, a single part or a complete assembly.</p>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
         <fieldset class="fieldset">
           <legend><b>01</b> Your part</legend>
           <p class="reqnote field--full">5 required fields. Everything else just helps us quote faster.</p>
-          <p class="assure field--full"><span>Engineer reply in 1 working day</span><span>Files seen only by Genex engineers</span><span>NDA on request</span><span>Prototype-only quotes welcome</span></p>
+          <p class="assure field--full"><span>Reply within one working day</span><span>Files seen only by the Genex team</span><span>NDA on request</span><span>Prototype-only quotes welcome</span></p>
           <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website_url" tabindex="-1" autocomplete="off"></label></div>
           <div class="field field--full">
             <span class="flabel" id="files-l">Drawings &amp; CAD</span>
@@ -53,20 +53,20 @@
           <div class="field">
             <label for="protoqty">Prototypes needed first <span class="opt">optional</span></label>
             <input class="input" id="protoqty" name="protoqty" inputmode="numeric" placeholder="e.g. 50">
-            <span class="hint">Laser-cut, no tooling. Tooling stays a separate decision.</span>
+            <span class="hint">Usually laser cut and folded, with no tooling cost.</span>
           </div>
           <details class="more field--full">
             <summary>Add details: material, finish, timing, approval <span class="opt">optional</span></summary>
             <div class="more__grid">
           <div class="field">
             <label for="material">Material &amp; thickness <span class="opt">optional</span></label>
-            <input class="input" id="material" name="material" placeholder="e.g. DC01 2.0 mm">
+            <input class="input" id="material" name="material" placeholder="e.g. Mild steel, 2 mm">
           </div>
           <div class="field">
             <label for="finish">Finish <span class="opt">optional</span></label>
             <select class="select" id="finish" name="finish">
               <option value="">Not sure / none</option>
-              <option>E-coat</option><option>Zinc / zinc-nickel</option><option>Powder coat</option><option>Mill finish</option>
+              <option>E-coat</option><option>Zinc plating</option><option>Powder coat</option><option>Polished / brushed stainless</option><option>No finish</option>
             </select>
           </div>
           <div class="field field--full">
@@ -75,6 +75,7 @@
               <label><input type="checkbox" name="stage" value="dfm"><span>Design feedback</span></label>
               <label><input type="checkbox" name="stage" value="prototype"><span>Prototypes</span></label>
               <label><input type="checkbox" name="stage" value="production"><span>Production</span></label>
+              <label><input type="checkbox" name="stage" value="assembly"><span>Complete assembly</span></label>
               <label><input type="checkbox" name="stage" value="resource"><span>Move from another supplier</span></label>
             </div>
           </div>
@@ -89,7 +90,7 @@
           </div>
           <div class="field field--full">
             <label for="notes">Anything else? <span class="opt">optional</span></label>
-            <textarea class="textarea" id="notes" name="notes" placeholder="Secondary operations, packaging, delivery location, Incoterms…"></textarea>
+            <textarea class="textarea" id="notes" name="notes" placeholder="Inserts, welding, assembly, packaging, delivery location…"></textarea>
           </div>
             </div>
           </details>
@@ -126,7 +127,7 @@
 
         <div class="form__submit">
           <button class="btn btn--submit" type="submit"><span class="btn__txt">Send drawing for quote</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></button>
-          <p class="micro"><span>Engineer reply within 1 working day</span><span>Or call <a class="link num" href="tel:+441922710050">01922 710050</a></span></p>
+          <p class="micro"><span>Reply within one working day</span><span>Or call <a class="link num" href="tel:+441922710050">01922 710050</a></span></p>
           <p class="err" data-neterr hidden>Couldn't send. Nothing you typed is lost. Try again, or email sales@genexuk.co.uk.</p>
         </div>
       </form>
@@ -134,7 +135,7 @@
       <div class="success" data-success role="status">
         <p class="label">RFQ received</p>
         <h2>Thanks. Your drawing is with our engineers.</h2>
-        <p class="muted">You'll get a reply within one UK working day. If it's urgent, call <a class="link" href="tel:+441922710050">01922 710050</a>.</p>
+        <p class="muted">You'll get a reply within one working day. If it's urgent, call <a class="link" href="tel:+441922710050">01922 710050</a>.</p>
       </div>
     </div>
 
@@ -142,14 +143,14 @@
       <div class="side-card">
         <h2>What happens next</h2>
         <ol>
-          <li>An engineer reviews your files the same or next working day.</li>
-          <li>We confirm the process route and flag any DFM risks.</li>
-          <li>You get a written quote with piece price, tooling broken down tool by tool, and lead times.</li>
+          <li>Our team reviews your files and replies within one working day.</li>
+          <li>We choose the most cost-effective route and flag anything that would add cost.</li>
+          <li>You get a written quote with the price per part, any tooling, and lead times.</li>
         </ol>
       </div>
       <div class="side-card">
         <h2>For your supplier file</h2>
-        <p class="muted" style="font-size:var(--fs-small);margin-bottom:var(--s-3)">Capabilities, quality, launch process and commercial terms on two pages.</p>
+        <p class="muted" style="font-size:var(--fs-small);margin-bottom:var(--s-3)">Capabilities, accreditations and sectors on two pages.</p>
         <a class="btn btn--ghost btn--sm" href="/assets/genex-capability-pack.pdf" download>Capability pack (PDF, 2 pages)</a>
       </div>
       <div class="side-card">

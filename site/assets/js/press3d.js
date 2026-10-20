@@ -40,8 +40,8 @@ export function start(figure, hooks = {}) {
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
   const camera = new THREE.PerspectiveCamera(28, 16 / 9, 0.1, 60);
-  const camBase = fill ? new THREE.Vector3(2.4, 9.6, 17.5) : new THREE.Vector3(0.6, 8.6, 9.2);
-  const look = fill ? new THREE.Vector3(-3.7, -0.6, 0) : new THREE.Vector3(1.25, -0.6, 0.1);
+  const camBase = fill ? new THREE.Vector3(2.4, 9.6, 17.5) : new THREE.Vector3(0.9, 5.4, 11.2);
+  const look = fill ? new THREE.Vector3(-3.7, -0.6, 0) : new THREE.Vector3(1.0, 0.5, 0.1);
   const lookTarget = look.clone();
 
   // ---- lights
@@ -84,17 +84,33 @@ export function start(figure, hooks = {}) {
   // ---- die set
   const lower = box(7.6, 0.5, 2.6, M.die); lower.position.set(0, -0.25 - T / 2, 0); scene.add(lower);
   const bolster = box(9.4, 0.5, 3.4, M.dieDark); bolster.position.set(0.4, -0.75 - T / 2, 0); scene.add(bolster);
+  // Upper half: a full-depth die shoe and punch holder carried by the ram, matching the lower shoe,
+  // so all four guide pillars run into bushes in the upper shoe (front and back), as on a real die set.
   const ram = new THREE.Group(); scene.add(ram);
-  const upper = box(7.6, 0.4, 1.4, M.die); upper.position.set(0, 2.15, -0.5); ram.add(upper);
-  const upperPlate = box(8.2, 0.22, 1.8, M.dieDark); upperPlate.position.set(0, 2.46, -0.5); ram.add(upperPlate);
-  STATIONS.forEach((x, i) => {
-    // slim punches set to the back of each station so the parts stay in view
-    [-0.18, 0.18].forEach(dx => { const punch = box(0.16, 1.5, 0.22, M.punch); punch.position.set(x + dx, 1.2, -0.42); ram.add(punch); });
+  const UP_BOTTOM = 2.0;                       // underside of the punch holder with the ram at the top
+  const upper = box(7.6, 0.3, 2.6, M.die); upper.position.set(0, UP_BOTTOM + 0.15, 0); ram.add(upper);
+  const upperShoe = box(8.2, 0.34, 2.9, M.dieDark); upperShoe.position.set(0, UP_BOTTOM + 0.47, 0); ram.add(upperShoe);
+  const PILLARS = [-3.5, 3.5].flatMap(x => [-1.05, 1.05].map(z => [x, z]));
+  const PILLAR_TOP = UP_BOTTOM + 0.2;          // always inside its bush, flush with the shoe at bottom dead centre
+  PILLARS.forEach(([x, z]) => {
+    const pillarH = PILLAR_TOP + T / 2;
+    const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, pillarH, 20), M.punch);
+    pin.position.set(x, -T / 2 + pillarH / 2, z); pin.castShadow = true; scene.add(pin);
+    const bush = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.5, 24), M.punch);   // guide bush collar under the shoe
+    bush.position.set(x, UP_BOTTOM - 0.1, z); bush.castShadow = true; ram.add(bush);
   });
-  [-3.5, 3.5].forEach(x => [-1.05, 1.05].forEach(z => {
-    const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 2.6, 16), M.punch);
-    pin.position.set(x, 1.0, z); pin.castShadow = true; scene.add(pin);
-  }));
+  // Punches sit over the work each station does, and just reach the strip at bottom dead centre.
+  const reach = UP_BOTTOM - RAM_TRAVEL - T / 2;                  // punch length from holder to strip
+  const punchAt = (w, d, x, z, m = M.punch, round = false) => {
+    const p = round ? new THREE.Mesh(new THREE.CylinderGeometry(w, w, reach, 20), m) : box(w, reach, d, m);
+    p.castShadow = true; p.position.set(x, UP_BOTTOM - reach / 2, z); ram.add(p); return p;
+  };
+  STATIONS.forEach(x => [-0.7, 0.7].forEach(z => punchAt(0.05, 0, x, z, M.punch, true)));   // pilots locate every pitch
+  [-0.3, 0.3].forEach(z => punchAt(0.07, 0, STATIONS[0], z, M.punch, true));               // OP10 pierce
+  [-1, 1].forEach(s => punchAt(0.18, 1.0, STATIONS[1] + s * 0.61, 0));                    // OP20 notch either side
+  punchAt(0.56, 0.95, STATIONS[2], 0);                                                      // OP30 form pad
+  punchAt(0.12, 0, STATIONS[3], 0, M.nut, true);                                            // OP40 nut feed head
+  [-1, 1].forEach(s => punchAt(0.7, 0.1, STATIONS[4], s * 0.6));                          // OP50 cut-off blades
   // station highlight bars (focus indicator) on the lower die front face
   const hot = STATIONS.concat([TOTE_X]).map(x => {
     const b = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.04, 0.02), M.hot);
@@ -189,7 +205,7 @@ export function start(figure, hooks = {}) {
   function setFocus(i, user) {
     focus = i;
     hot.forEach((b, j) => b.visible = !fill && j === i);
-    if (!fill) lookTarget.set(i < 5 ? STATIONS[i] * 0.2 + 1.25 : 2.2, -0.6, 0.1);
+    if (!fill) lookTarget.set(i < 5 ? STATIONS[i] * 0.2 + 1.0 : 2.0, 0.5, 0.1);
     if (user) { autoFocus = false; focusHold = clock + 9; }
     hooks.onFocus && hooks.onFocus(i);
   }
