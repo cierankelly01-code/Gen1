@@ -175,7 +175,8 @@
       }).catch(() => {});
       ('requestIdleCallback' in window) ? requestIdleCallback(go, { timeout: 2500 }) : setTimeout(go, 1200);
     };
-    if (hero2.dataset.video && !reduce && !saveData2) {
+    /* phones get the still poster: the reel is ~4 MB, and it's one tap away in the film band */
+    if (hero2.dataset.video && !reduce && !saveData2 && innerWidth >= 700) {
       vid = document.createElement('video');
       Object.assign(vid, { muted: true, loop: true, playsInline: true, autoplay: true, preload: 'metadata' });
       if (hero2.dataset.poster) vid.poster = hero2.dataset.poster;

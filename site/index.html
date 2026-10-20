@@ -172,9 +172,9 @@
 </header>
 
 <main id="main">
-<!-- HERO: real-time 3D progression tool on desktop; still image on phones / reduced motion.
-     To use footage instead, set data-video="/assets/video/inside-genex.mp4" and data-poster. -->
-<section class="hero2" data-hero data-video="" aria-labelledby="hero-h">
+<!-- HERO: real Genex footage (silent reel). Falls back to the 3D progression tool if the video can't play,
+     and to the still poster on reduced motion / data saver / no JS. -->
+<section class="hero2" data-hero data-video="/assets/video/inside-genex.mp4" data-poster="/assets/video/inside-genex.jpg" aria-labelledby="hero-h">
   <div class="hero2__media press__stage" aria-hidden="true">
     <img class="hero2__poster" src="/assets/img/f-progression.webp" width="1280" height="580" alt="" fetchpriority="high">
   </div>
@@ -186,7 +186,7 @@
       <p class="lead">Presswork up to 200 tonnes, laser cutting and folding, robotic and manual welding, 5-axis machining and assembly, all on one site in Walsall. Mild steel, stainless steel and aluminium, from one-off prototypes to millions of parts.</p>
       <div class="hero__ctas">
         <a class="btn" href="/rfq.html">Request a quote <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a>
-        <a class="btn btn--ghost" href="#film">See inside Genex</a>
+        <a class="btn btn--ghost" href="#film">Watch the machines</a>
       </div>
     </div>
     <div class="hero2__bar">
@@ -202,8 +202,8 @@
 <section class="film" id="film" aria-labelledby="film-h">
   <div class="wrap film__grid">
     <figure class="film__main" data-autoplay>
-      <img src="/assets/video/inside-genex.jpg" width="1280" height="600" loading="lazy" alt="A press operator loading a multi-stage tool at Genex">
-      <video muted loop playsinline preload="none" poster="/assets/video/inside-genex.jpg" aria-label="Thirty seconds of footage from the Genex factory: progression and multi-stage presswork, spot and MIG welding, folding, hemming and tube manipulation" data-src="/assets/video/inside-genex.mp4"></video>
+      <img src="/assets/video/hemming-tool.jpg" width="1280" height="720" loading="lazy" alt="The Genex hemming tool folding a closed edge into a steel panel">
+      <video muted loop playsinline preload="none" poster="/assets/video/hemming-tool.jpg" aria-label="The Genex hemming tool folding a clean, closed safety edge into a steel panel in a single hit" data-src="/assets/video/hemming-tool.mp4"></video>
       <figcaption class="film__tag">Filmed at Genex, Walsall</figcaption>
     </figure>
     <div class="film__side">
@@ -217,9 +217,9 @@
           <span class="vcard__thumb"><img src="/assets/img/f-amada-bend.webp" width="268" height="476" loading="lazy" alt=""></span>
           <span><strong>New Amada press brake</strong><span>Programmed offline, folds up to 6 mm at 3 m. 1 min 11.</span></span>
         </button>
-        <button class="vcard" type="button" data-video="/assets/video/hemming-tool.mp4" data-title="Hemming a safe, closed edge in a single hit">
-          <span class="vcard__thumb"><img src="/assets/img/f-hemming.webp" width="1280" height="720" loading="lazy" alt=""></span>
-          <span><strong>Hemming tool</strong><span>A clean, closed safety edge in one hit, no deburring. 33 sec.</span></span>
+        <button class="vcard" type="button" data-video="/assets/video/inside-genex.mp4" data-title="Inside Genex: presswork, welding, folding, hemming and tube work">
+          <span class="vcard__thumb"><img src="/assets/img/f-multistage.webp" width="1280" height="580" loading="lazy" alt=""></span>
+          <span><strong>Inside Genex in 30 seconds</strong><span>Presswork, welding, folding, hemming and tube work.</span></span>
         </button>
       </div>
     </div>
