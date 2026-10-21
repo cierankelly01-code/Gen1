@@ -1,4 +1,4 @@
-# Genex UK — website (v3, rebrand)
+ — website (v3, rebrand)
 
 A static, multi-page demo site built to show Genex what their web presence could be. Content is drawn from their current site, their own photos and the quote packs they sent ("AI Quoting Development Files").
 
