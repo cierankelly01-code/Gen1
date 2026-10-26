@@ -3,6 +3,7 @@ preview/
 site-v1/
 __pycache__/
 *.pyc
+graphify-out/
 
 # private client documents: never commit to a public repo
 genex-*.html
