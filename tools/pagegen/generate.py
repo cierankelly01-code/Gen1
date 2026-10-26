@@ -63,6 +63,24 @@ made.append(page(
                 ("Material thickness", "Up to 5 mm"), ("Materials", "Mild steel, stainless steel, aluminium, coated steels (e.g. pre-galvanised)"),
                 ("Volumes", "A few hundred to millions of parts a year"), ("In-press operations", "Pierce, notch, form, nut and stud insertion"),
                 ("After pressing", "Projection and spot welding, robotic MIG, inserting, coating, assembly")])),
+        sec("plant", "Our press list", "01b · Fleet", "Our mechanical press list",
+            "<p>Twelve mechanical presses from 40 to 200 tonnes, so we can match the right press to your part rather than running everything on one machine. A production tool moves to whichever press suits its bed size and tonnage, with coil feed for progression tooling.</p>",
+            '<div class="table-wrap"><table class="spec-table"><caption>Mechanical presses, Oct 2026</caption>'
+            '<thead><tr><th scope="col">Make</th><th scope="col">Capacity</th><th scope="col">Process</th><th scope="col">Bed size</th><th scope="col">Feed</th></tr></thead><tbody>'
+            '<tr><td>Chin Fong</td><td>200 t</td><td>Progression, single action</td><td>2400 × 840 mm</td><td>Coil, up to 400 mm wide, 3 mm gauge</td></tr>'
+            '<tr><td>Aida</td><td>160 t</td><td>Single action</td><td>2040 × 760 mm</td><td>Die cushion, up to 1.6 mm gauge</td></tr>'
+            '<tr><td>Seyi</td><td>160 t</td><td>Progression, single action</td><td>1250 × 760 mm</td><td>Coil, up to 300 mm wide, 3 mm gauge</td></tr>'
+            '<tr><td>Chin Fong</td><td>110 t</td><td>Single action</td><td>1150 × 700 mm</td><td>Die cushion</td></tr>'
+            '<tr><td>Seyi</td><td>110 t</td><td>Single action</td><td>1150 × 680 mm</td><td>Die cushion</td></tr>'
+            '<tr><td>Rhodes</td><td>100 t</td><td>Progression</td><td>1016 × 850 mm</td><td>Coil, up to 300 mm wide, 3 mm gauge</td></tr>'
+            '<tr><td>Pressix</td><td>100 t</td><td>Progression</td><td>950 × 650 mm</td><td>Coil, up to 300 mm wide, 3 mm gauge</td></tr>'
+            '<tr><td>Bentley</td><td>80 t</td><td>Single action</td><td>860 × 710 mm</td><td>Die cushion</td></tr>'
+            '<tr><td>HME</td><td>55 t</td><td>Single action</td><td>785 × 535 mm</td><td>Die cushion</td></tr>'
+            '<tr><td>Bentley</td><td>50 t</td><td>Single action</td><td>790 × 510 mm</td><td>Die cushion</td></tr>'
+            '<tr><td>Bentley</td><td>50 t</td><td>Single action</td><td>790 × 410 mm</td><td>Die cushion</td></tr>'
+            '<tr><td>HME</td><td>40 t</td><td>Single action</td><td>700 × 485 mm</td><td>Die cushion</td></tr>'
+            '</tbody></table></div>'
+            '<p class="prose">Plus a 100 t Amada press brake folding up to 6 mm at 3 m, and a magnetic pan folder for accurate deep folds. <a class="link" href="/documents.html">Full plant list on request</a>.</p>'),
         sec("how", "How a pressing is made", "02 · Process", "How a progression tool makes your part",
             "<p>Steel coil feeds through the tool one pitch per press stroke. Each station does one job: pilot holes locate the strip, then the tool pierces, notches, forms and inserts, and the last station cuts the finished part free. A part drops out on every stroke, which is why pressing gives the lowest price per part at volume.</p>",
             DIE + "<div class=\"prose\"><p>Simpler parts, or lower volumes, run in <strong>single-action</strong> tools (one operation per stroke) or <strong>multi-stage</strong> tools, with the operator moving the part between stages. That keeps tooling cost down when a progression tool wouldn't pay back.</p></div>"),
@@ -168,6 +186,18 @@ made.append(page(
             '<tr><th scope="row">Spot</th><td>Joining overlapping sheets quickly, no filler</td><td>Medium to high</td></tr>'
             '<tr><th scope="row">Projection</th><td>Weld nuts and studs onto pressings</td><td>Medium to high, jigged</td></tr>'
             '</tbody></table></div>'),
+        sec("equipment", "Welding equipment", "02b · Fleet", "Our welding cells",
+            "<p>Four resistance welders for projection, spot, stud and nut welding, a robotic MIG arm, and manual MIG and TIG stations, plus mechanical clinch, rivnut and stud-welding for parts that don't need a weld.</p>",
+            '<div class="table-wrap"><table class="spec-table"><caption>Welding, Oct 2026</caption>'
+            '<thead><tr><th scope="col">Make</th><th scope="col">Capacity</th><th scope="col">Process</th></tr></thead><tbody>'
+            '<tr><td>British Federal</td><td>150 kVA</td><td>Projection</td></tr>'
+            '<tr><td>British Federal MF</td><td>100 kVA</td><td>Projection, spot, studs, nuts</td></tr>'
+            '<tr><td>British Federal (×2)</td><td>75 kVA</td><td>Projection, spot, studs, nuts</td></tr>'
+            '<tr><td>Fanuc</td><td>MIG</td><td>Robotic welding arm</td></tr>'
+            '<tr><td>Thermal Arc</td><td>MIG</td><td>Manual welding</td></tr>'
+            '<tr><td>Jasic</td><td>TIG</td><td>Manual welding</td></tr>'
+            '</tbody></table></div>'
+            '<p class="prose">Plus mechanical clinch fixing insertion, a 15 t hydraulic press for rivnut inserts from M3 to M10, and a dedicated stud welder.</p>'),
         sec("quality-weld", "Weld quality", "03 · Quality", "Checked, not assumed",
             "<p>Weld quality is checked against your specification. On our robot-welded exhaust hangers, for example, penetration is measured by macro section and wire-form positions are held to a tight tolerance after welding. Weld nuts and studs are checked to your torque or push-out requirement.</p>",
             fig("f-spotweld.webp", 1280, 580, "Projection welding a nut onto a pressed bracket at Genex", "Projection welding a nut to a pressed bracket.")),
@@ -197,9 +227,23 @@ made.append(page(
     "Machined and turned components, and post-press machining where a feature needs tighter tolerance than a press can hold.",
     "Genex machines components on a Hurco 5-axis machining centre installed in 2026, alongside turning and grinding, and uses machining to finish features on pressed and fabricated parts that need tighter tolerances than forming can hold.",
     [
-        sec("five-axis", "5-axis machining", "01 · Investment", "A Hurco 5-axis machining centre",
+        sec("five-axis", "5-axis machining", "01 · Investment", "A Hurco VM1 5-axis machining centre",
             "<p>Installed in June 2026. Five axes mean complex geometry is machined in one set-up, with greater precision and shorter lead times, because the part isn't re-clamped between operations.</p>",
-            fig("hurco-5axis.webp", 560, 470, "The Hurco VMi 5-axis CNC machining centre at Genex", "Our Hurco 5-axis machining centre.")),
+            fig("hurco-5axis.webp", 560, 470, "The Hurco VM1 5-axis CNC machining centre at Genex", "Our Hurco VM1 5-axis machining centre.")),
+        sec("toolroom", "Toolroom", "01b · Toolroom", "Our own toolroom",
+            "<p>Eight toolroom machines in Walsall, so press tools are built, modified and repaired in-house rather than sent out and waited for.</p>",
+            '<div class="table-wrap"><table class="spec-table"><caption>Toolroom, Oct 2026</caption>'
+            '<thead><tr><th scope="col">Make</th><th scope="col">Machine</th></tr></thead><tbody>'
+            '<tr><td>XYZ PRO3</td><td>3D miller</td></tr>'
+            '<tr><td>Colchester</td><td>Master 2500 lathe</td></tr>'
+            '<tr><td>Jones &amp; Shipman</td><td>Surface grinder</td></tr>'
+            '<tr><td>Ajax</td><td>Surface grinder</td></tr>'
+            '<tr><td>Kitchen &amp; Wade</td><td>Radial drilling arm</td></tr>'
+            '<tr><td>Startrite</td><td>Bandsaw</td></tr>'
+            '<tr><td>Waytrain</td><td>Horizontal bandsaw</td></tr>'
+            '<tr><td>Fobco</td><td>Pedestal drill</td></tr>'
+            '</tbody></table></div>'
+            '<p class="prose">First-off and in-process dimensional checks run on our Mitutoyo CMM, with full CNC measurement back to the 3D CAD model. See <a class="link" href="/quality.html#traceability">how we check every part</a>.</p>'),
         sec("services", "What we machine", "02 · Services", "What we machine",
             "", cards([("Milling", "5-axis CNC", "Complex parts in fewer set-ups."),
                        ("Turning", "Turned parts", "Bushes, spacers and turned features."),
@@ -293,7 +337,7 @@ RUN_STD = [("Enquiry and review", "Send the drawing, volumes and specification; 
 made.append(sector("automotive", "Automotive", "Automotive Pressings & Welded Assemblies | Genex UK",
     "Pressings and welded assemblies for automotive OEMs and Tier 1s, to PPAP, in aluminium, stainless and coated steels. Walsall, West Midlands. Working towards IATF 16949.",
     "Automotive pressings and assemblies, to PPAP.",
-    "We've supplied pressings and welded assemblies into automotive for decades, including parts for BMW and Land Rover programmes.",
+    "We've supplied pressings and welded assemblies into automotive for decades, including parts for BMW, JLR, Nissan and Toyota programmes.",
     "Genex supplies automotive OEMs and Tier 1s with pressed brackets, reinforcements and welded sub-assemblies in aluminium, stainless and coated steels, with PPAP to the level the customer requires, robotic welding for repeatability, a 0 PPM defect record, and IATF 16949 in progress.",
     ["Brackets and reinforcements", "Robot-welded sub-assemblies such as exhaust hangers", "Large aluminium pressings such as door card brackets", "Fuel-system and under-body brackets with weld studs", "E-coated and zinc-nickel plated parts to OEM coating specifications"],
     [("Approval", "PPAP, Levels 1 to 5", "First-article inspection as standard; full PPAP to the level your customer asks for."),
@@ -307,7 +351,7 @@ made.append(sector("automotive", "Automotive", "Automotive Pressings & Welded As
      ("Serial supply", "Parts to your call-offs, packed to line-side specification, with full traceability.")],
     [("metal-pressings", "Metal pressings"), ("welding-and-fabrication", "Welding & fabrication"), ("assembly-and-finishing", "Assembly & finishing")],
     ["fuel", "door", "exhaust"],
-    [("Do you supply automotive Tier 1s?", "Yes. Automotive has been a core sector for decades, including parts for BMW and Land Rover programmes."),
+    [("Do you supply automotive Tier 1s?", "Yes. Automotive has been a core sector for decades, including parts for BMW, JLR, Nissan and Toyota programmes."),
      ("Are you IATF 16949 certified?", "We're working towards IATF 16949. Today our automotive work runs under ISO 9001 with the AIAG core tools: APQP, PPAP, FMEA, MSA and SPC."),
      ("Can you submit PPAP?", "Yes, Levels 1 to 5, as your customer requires."),
      ("Which coatings do automotive parts get?", "Commonly e-coat or zinc-nickel to the OEM specification, applied by our approved finishing partners and managed by us.")],
