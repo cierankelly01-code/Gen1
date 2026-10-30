@@ -39,6 +39,7 @@ if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir()
 shutil.copytree(ROOT / "assets", OUT / "assets", ignore=shutil.ignore_patterns("src"))
+shutil.copytree(ROOT / ".well-known", OUT / ".well-known")
 for f in ROOT.glob("*.html"):
     if f.name.startswith("_"):
         continue

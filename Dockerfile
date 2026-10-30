@@ -11,7 +11,7 @@ ARG SUPABASE_URL=""
 ARG SUPABASE_ANON_KEY=""
 RUN cd site && python build.py \
  && if [ "$PREVIEW" = "1" ]; then python make_preview.py && mv /app/preview /app/out; \
-    else mkdir -p /app/out && cp -r *.html robots.txt sitemap.xml llms.txt assets /app/out/ && rm -rf /app/out/assets/img/src; fi \
+    else mkdir -p /app/out && cp -r *.html robots.txt sitemap.xml llms.txt assets .well-known /app/out/ && rm -rf /app/out/assets/img/src; fi \
  && printf "window.GENEX_CFG = { supabaseUrl: '%s', supabaseAnonKey: '%s' };\n" "$SUPABASE_URL" "$SUPABASE_ANON_KEY" > /app/out/assets/js/config.js
 
 FROM nginx:1.27-alpine
