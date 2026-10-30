@@ -61,7 +61,7 @@ def page(slug, nav, title, desc, crumbs, kicker, h1, lead, answer, sections, faq
     toc_items = [(s["id"], s["toc"]) for s in sections] + ([("faq", "Questions")] if faqs else [])
     toc = ''.join(f'<li><a href="#{i}"><span>{n + 1:02d}</span>{t}</a></li>' for n, (i, t) in enumerate(toc_items))
     side = side or ('<div class="side-card" style="margin-top:var(--s-6)"><h2>Send us a drawing</h2>'
-                    '<p class="muted" style="font-size:var(--fs-small);margin-bottom:var(--s-4)">STEP, DXF or PDF with your quantities. We reply within one working day.</p>'
+                    '<p class="muted" style="font-size:var(--fs-small);margin-bottom:var(--s-4)">STEP, DXF or PDF with your quantities.</p>'
                     f'<a class="btn btn--sm" href="/rfq.html">Request a quote</a></div>')
     body = ''.join(s["html"] for s in sections) + (faq_html(faqs) if faqs else '')
     meta = json.dumps({"title": title, "description": desc, "path": f"/{slug}.html", "nav": nav}, ensure_ascii=False)
