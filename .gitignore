@@ -29,3 +29,10 @@ CLAUDE.md
 
 # agent instruction files (same rules as CLAUDE.md): local only
 AGENTS.md
+
+# secrets: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
