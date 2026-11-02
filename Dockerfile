@@ -14,7 +14,7 @@ RUN cd site && python build.py \
     else mkdir -p /app/out && cp -r *.html robots.txt sitemap.xml llms.txt assets .well-known /app/out/ && rm -rf /app/out/assets/img/src; fi \
  && printf "window.GENEX_CFG = { supabaseUrl: '%s', supabaseAnonKey: '%s' };\n" "$SUPABASE_URL" "$SUPABASE_ANON_KEY" > /app/out/assets/js/config.js
 
-FROM nginx:1.27-alpine
+FROM nginx:1.31-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY security-headers.conf /etc/nginx/snippets/security-headers.conf
 COPY --from=build /app/out /usr/share/nginx/html
