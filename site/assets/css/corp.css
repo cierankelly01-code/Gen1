@@ -234,6 +234,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
 .duo__card p { max-width: 46ch; }
 .duo__card:not(.duo__card--plain) p { color: #D3DDEA; }
 .duo__card--plain p { color: var(--steel-600); }
+.duo__card:not(.duo__card--plain) .link { color: #fff; text-decoration-color: var(--red); }
 @media (max-width: 900px) { .duo { grid-template-columns: 1fr; } }
 
 /* ---------- Section heading block ---------- */
