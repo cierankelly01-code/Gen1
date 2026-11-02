@@ -364,7 +364,7 @@ made.append(sector("defence", "Defence", "Defence Metal Assemblies & Fabrication
     "Defence is one of our major sectors. We make complete, ready-to-install metal assemblies with documented quality and full traceability.",
     "Genex supplies the defence sector with UK-made pressings, fabrications and complete assemblies in aluminium, stainless steel and titanium, with customer-specified coatings, full traceability, ISO 9001 and ISO 14001.",
     ["Complete, ready-to-install metal assemblies", "Pressings and fabrications from one-offs to repeat production", "Parts in aluminium, stainless steel and titanium", "Customer-specified coatings, managed by us", "Kits and assemblies packed and labelled to your requirements"],
-    [("Security", "Controlled access", "Seen only by the Genex team and the approved partners who need them."),
+    [("Security", "Controlled access", "Drawings are seen only by the Genex team and the approved partners who need them."),
      ("Traceability", "Order to delivery", "Every stage recorded against your order, with material certificates."),
      ("Sovereign supply", "Made in the UK", "Manufactured in Walsall, with fast reaction when requirements change."),
      ("Quality", "ISO 9001 &amp; 14001", "Re-audited by BSI in 2026 with zero non-conformances.")],
@@ -463,7 +463,7 @@ made.append(page("how-we-work", "about", "How We Work: From Drawing to Delivery 
     [("Are you taking on new work?", "Yes. We are open to new programmes for 2027."),
      ("What tolerances do you work to?", "Our general tolerances are linear ±0.5 mm and angular ±0.7°."),
      ("What currency do you quote in?", "GBP, EUR or USD. All quotes are initially EXW, with any carriage agreed as part of the quote."),
-     ("Can you take over or export tooling?", "Yes. We offer tool transfer and export as a service, and we store and maintain customer tooling. Storage and maintenance are charged."),
+     ("Can you transfer or export tooling?", "Yes. We offer tool transfer and export as a service, and we store and maintain customer tooling. Storage and maintenance are charged."),
      ("Do you sign NDAs?", "Yes. Tick the NDA option on the quote form and we'll send our mutual NDA before you share full drawings."),
      ("Can you help before the design is finished?", "Yes. Early advice on the route, materials and features usually saves the most cost.")],
     cta_label="Send a drawing"))
