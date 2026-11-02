@@ -373,7 +373,7 @@ made.append(sector("defence", "Defence", "Defence Metal Assemblies & Fabrication
     [],
     [("Do you work in defence?", "Yes. Defence is one of our major sectors."),
      ("Which materials do you use for defence work?", "Aluminium, stainless steel and titanium, with customer-specified coatings."),
-     ("How do you protect our drawings?", "Drawings are seen only by the Genex team and the approved partners who need them. Our Cyber Essentials renewal is in progress."),
+     ("How do you protect our drawings?", "Drawings are seen only by the Genex team and the approved partners who need them. Cyber Essentials is a work in progress."),
      ("Can you handle one-off and low-volume work?", "Yes, from one-off parts to repeat production.")],
     [("How we work", "/how-we-work.html"), ("Quality and certificates", "/quality.html"), ("Materials", "/materials.html")],
     img=("f-multistage.webp", 1280, 580), img_alt="Multi-stage presswork at Genex", img_cap="Multi-stage presswork in our press shop."))
