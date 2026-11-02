@@ -30,7 +30,7 @@ def send_block(extra=""):
                    "Finish or coating, and any cosmetic faces",
                    "Critical tolerances, and the approval you need (first-article report or PPAP level)",
                    "When you need the first parts"] + ([extra] if extra else [])) +
-               '<p>We reply within one working day. <a class="link" href="/rfq.html">Send your drawing</a>.</p>')
+               '<p><a class="link" href="/rfq.html">Send your drawing for a quote</a>.</p>')
 
 
 QUALITY = sec("quality", "Quality checks", "Quality", "How every part is checked",
@@ -101,7 +101,7 @@ made.append(page(
                 "Tell us if nuts or studs are needed: they can often go in during pressing"]) +
             '<p class="muted" style="font-size:var(--fs-small)">Starting guidelines, not limits. Tell us what a feature has to do and we\'ll tell you what\'s achievable. More in our <a class="link" href="/design-guide.html">design guide</a>.</p>'),
         sec("tooling", "Tooling", "06 · Tooling", "Production tooling",
-            "<p>We arrange the production tool for your part and quote it separately from the piece price, so you can see exactly what you're paying for. Once it's running, we maintain it in our own toolroom, with preventative maintenance that extends tool life and keeps quality consistent from the first part to the millionth.</p>"),
+            "<p>We arrange the production tool for your part and quote it separately from the piece price, so you can see exactly what you're paying for. Once it's running, we maintain it in our own toolroom (maintenance is charged), with preventative maintenance that extends tool life and keeps quality consistent from the first part to the millionth.</p>"),
         QUALITY,
         {"id": "examples", "toc": "Examples", "html": parts_block(["fuel", "door", "ceiling", "floor"], "Pressings we make")},
         send_block(),
@@ -343,7 +343,7 @@ made.append(sector("automotive", "Automotive", "Automotive Pressings & Welded As
     [("Approval", "PPAP, Levels 1 to 5", "First-article inspection as standard; full PPAP to the level your customer asks for."),
      ("Quality", "0 PPM", "Our defect record, under ISO 9001, working towards IATF 16949."),
      ("Repeatability", "Robotic welding", "Consistent welds across high-volume assemblies."),
-     ("Supply", "98%+ on time, in full", "Traceable from enquiry to delivery, delivered on our own vehicles.")],
+     ("Supply", "Traceable supply", "Traceable from enquiry to delivery, delivered on our own vehicles.")],
     [("Feasibility", "Drawing, volumes and OEM specifications reviewed; material and process risks raised at quote stage."),
      ("Quote", "Piece price, tooling and timing, quoted separately so you can compare."),
      ("Launch", "Tooling arranged, first-off samples with a dimensional report."),
@@ -359,12 +359,12 @@ made.append(sector("automotive", "Automotive", "Automotive Pressings & Welded As
     img=("part-door-card-bracket.webp", 800, 600), img_alt="Pressed aluminium door card bracket made by Genex", img_cap="A large aluminium door card bracket, pressed in Walsall."))
 
 made.append(sector("defence", "Defence", "Defence Metal Assemblies & Fabrication | Genex UK",
-    "Documented, traceable metal pressings, fabrications and complete assemblies for defence, in aluminium, stainless steel and titanium. ISO 9001, ISO 14001, Cyber Essentials. Walsall, UK.",
+    "Documented, traceable metal pressings, fabrications and complete assemblies for defence, in aluminium, stainless steel and titanium. ISO 9001, ISO 14001. Walsall, UK.",
     "Defence assemblies, documented and ready when needed.",
     "Defence is one of our major sectors. We make complete, ready-to-install metal assemblies with documented quality and full traceability.",
-    "Genex supplies the defence sector with UK-made pressings, fabrications and complete assemblies in aluminium, stainless steel and titanium, with customer-specified coatings, full traceability, ISO 9001 and ISO 14001, and Cyber Essentials for secure handling of drawings.",
+    "Genex supplies the defence sector with UK-made pressings, fabrications and complete assemblies in aluminium, stainless steel and titanium, with customer-specified coatings, full traceability, ISO 9001 and ISO 14001.",
     ["Complete, ready-to-install metal assemblies", "Pressings and fabrications from one-offs to repeat production", "Parts in aluminium, stainless steel and titanium", "Customer-specified coatings, managed by us", "Kits and assemblies packed and labelled to your requirements"],
-    [("Security", "Cyber Essentials", "Your drawings and data handled securely."),
+    [("Security", "Controlled access", "Seen only by the Genex team and the approved partners who need them."),
      ("Traceability", "Order to delivery", "Every stage recorded against your order, with material certificates."),
      ("Sovereign supply", "Made in the UK", "Manufactured in Walsall, with fast reaction when requirements change."),
      ("Quality", "ISO 9001 &amp; 14001", "Re-audited by BSI in 2026 with zero non-conformances.")],
@@ -373,7 +373,7 @@ made.append(sector("defence", "Defence", "Defence Metal Assemblies & Fabrication
     [],
     [("Do you work in defence?", "Yes. Defence is one of our major sectors."),
      ("Which materials do you use for defence work?", "Aluminium, stainless steel and titanium, with customer-specified coatings."),
-     ("How do you protect our drawings?", "We hold Cyber Essentials, and drawings are seen only by the Genex team and the approved partners who need them."),
+     ("How do you protect our drawings?", "Drawings are seen only by the Genex team and the approved partners who need them. Our Cyber Essentials renewal is in progress."),
      ("Can you handle one-off and low-volume work?", "Yes, from one-off parts to repeat production.")],
     [("How we work", "/how-we-work.html"), ("Quality and certificates", "/quality.html"), ("Materials", "/materials.html")],
     img=("f-multistage.webp", 1280, 580), img_alt="Multi-stage presswork at Genex", img_cap="Multi-stage presswork in our press shop."))
@@ -443,7 +443,7 @@ made.append(page("how-we-work", "about", "How We Work: From Drawing to Delivery 
     "A Genex project runs in seven stages: enquiry, manufacturability review, quotation, first parts (inspection report or PPAP), production with in-process checks, finishing and assembly, then packing and delivery on Genex's own vehicles. Every stage is recorded against the order, so it's traceable from enquiry to delivery.",
     [
         sec("stages", "The seven stages", "01 · Stages", "The seven stages", "", ol_steps([
-            ("Enquiry", "You send a drawing or 3D model, quantities, material and finish. We reply within one working day. NDA on request."),
+            ("Enquiry", "You send a drawing or 3D model, quantities, material and finish. NDA on request."),
             ("Manufacturability review", "We check the design against the route: features that add cost, material availability, tolerances that need special attention. Problems are raised now, not at first-off."),
             ("Quotation", "A written quote with the process route, piece price, any tooling quoted separately, and lead times. Where pressing and laser cut and fold are close, we price both."),
             ("First parts", "A first-article inspection report as standard, or a PPAP submission to the level your customer requires."),
@@ -460,7 +460,10 @@ made.append(page("how-we-work", "about", "How We Work: From Drawing to Delivery 
         sec("start", "Starting", "04 · Start", "Starting a project",
             "<p>The quickest route is to <a class=\"link\" href=\"/rfq.html\">send your drawing</a> with quantities. If you're early in a design and want advice on the most cost-effective route, call <a class=\"link\" href=\"tel:+441922710050\">01922 710050</a>. Early manufacturing conversations save more money than late cost-reduction exercises.</p>"),
     ],
-    [("How fast do you reply to an enquiry?", "Within one working day."),
+    [("Are you taking on new work?", "Yes. We are open to new programmes for 2027."),
+     ("What tolerances do you work to?", "Our general tolerances are linear ±0.5 mm and angular ±0.7°."),
+     ("What currency do you quote in?", "GBP, EUR or USD. All quotes are initially EXW, with any carriage agreed as part of the quote."),
+     ("Can you take over or export tooling?", "Yes. We offer tool transfer and export as a service, and we store and maintain customer tooling. Storage and maintenance are charged."),
      ("Do you sign NDAs?", "Yes. Tick the NDA option on the quote form and we'll send our mutual NDA before you share full drawings."),
      ("Can you help before the design is finished?", "Yes. Early advice on the route, materials and features usually saves the most cost.")],
     cta_label="Send a drawing"))
@@ -595,7 +598,7 @@ TERMS = [
     ("APQP", "Advanced Product Quality Planning: the structured way automotive launches are planned."),
     ("Control plan", "The document that sets which features are checked, how and how often during production."),
     ("PPM", "Parts per million: a defect rate. Genex reports 0 PPM."),
-    ("OTIF", "On time, in full: the share of orders delivered complete and on schedule. Genex reports 98%+."),
+    ("OTIF", "On time, in full: the share of orders delivered complete and on schedule."),
     ("ISO 9001", "The international standard for quality management systems."),
     ("ISO 14001", "The international standard for environmental management systems."),
     ("IATF 16949", "The automotive industry's quality management standard. Genex is working towards it."),
@@ -630,7 +633,7 @@ made.append(page("resources", "about", "Resources: Guides, Downloads & Documents
         ("Reference", "Glossary", "The trade terms in plain English.", "/glossary.html", "Read")])),
      sec("downloads", "Downloads", "02 · Downloads", "Downloads and documents", "", res([
         ("PDF · 2 pages", "Capability pack", "Capabilities, accreditations and sectors for your supplier file.", "/assets/genex-capability-pack.pdf", "Download"),
-        ("Quality", "Certificates", "ISO 9001, ISO 14001, Cyber Essentials, Achilles.", "/quality.html#certificates", "View"),
+        ("Quality", "Certificates", "ISO 9001, ISO 14001, Achilles.","/quality.html#certificates", "View"),
         ("Documents", "Policies and terms", "Policies, conditions of sale and purchase.", "/documents.html", "View")])),
      sec("work", "Our work", "03 · Work", "Our work", "", res([
         ("Projects", "Projects and case studies", "Real parts and how we make them.", "/projects.html", "View"),

@@ -115,6 +115,11 @@ a.link, .link { color: var(--navy); text-decoration-color: var(--red); }
 .proofband b small { font-size: .45em; color: var(--red); margin-left: 4px; }
 .proofband span { display: block; margin-top: 10px; color: #C5CDD8; font-size: .95rem; max-width: 26ch; }
 .proofband__note { margin-top: var(--s-5); font-size: .8125rem; color: #9AA6B4; }
+/* On a light section (About page): navy figures, muted labels, dark dividers */
+.proofband--light div { border-left-color: rgb(11 31 58 / .12); }
+.proofband--light b { color: var(--navy); }
+.proofband--light span { color: #5B6B7F; }
+@media (max-width: 900px) { .proofband.proofband--light div { border-top-color: rgb(11 31 58 / .12); } }
 @media (max-width: 900px) { .proofband { grid-template-columns: 1fr 1fr; } .proofband div { border-left: 0; padding: var(--s-5) 0; border-top: 1px solid rgb(255 255 255 / .14); } .proofband div:nth-child(-n+2) { border-top: 0; } }
 
 /* ---------- capability grid (numbered, demo-style) ---------- */
