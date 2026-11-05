@@ -47,7 +47,9 @@ def strip_tags(s):
     return re.sub(r"<[^>]+>", "", s)
 
 
-def page(slug, nav, title, desc, crumbs, kicker, h1, lead, answer, sections, faqs=None, schema_extra=None, side=None, cta_label="Quote my part", cta_href="/rfq.html"):
+def page(slug, nav, title, desc, crumbs, kicker, h1, lead, answer, sections, faqs=None, schema_extra=None, side=None, cta_label="Quote my part", cta_href="/rfq.html", media=None):
+    # media: shown full width straight under the hero, so it comes before the contents list on a phone
+    top = f'\n<section class="section section--tight case-photo"><div class="wrap">{media}</div></section>\n' if media else ''
     crumb_ld = [{"@type": "ListItem", "position": i + 1, "name": n, "item": BASE + u} for i, (n, u) in enumerate(crumbs)]
     blocks = [json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": crumb_ld}, ensure_ascii=False)]
     if faqs:
@@ -85,7 +87,7 @@ def page(slug, nav, title, desc, crumbs, kicker, h1, lead, answer, sections, faq
     </div>
   </div>
 </section>
-
+{top}
 <section class="section">
   <div class="wrap split">
     <aside class="split__side">

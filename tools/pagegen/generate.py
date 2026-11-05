@@ -502,59 +502,60 @@ made.append(page("materials", "capabilities", "Materials We Work With: Steel, St
     cta_label="Ask about materials"))
 
 # ================= case studies =================
+# Kept short and plain on purpose (Michael, 3 Nov 2026): buyers want to see the part and know what it is,
+# not how each process works. Photo first, then what it is, material and sector, one line on how it's made.
 CASES = ("Projects", "/projects.html")
 
 
-def case(slug, part_key, title, desc, h1, lead, answer, challenge, route, detail, result, faqs_extra=None, extra_fig=None):
+def case(slug, part_key, title, desc, h1, lead, answer, what, facts, made_how, result):
     pid, img, name, _d, chip, sector_name = PARTS[part_key]
-    route_html = '<ol class="case__route">' + ''.join(f'<li><b>{i + 1:02d}</b>{r}</li>' for i, r in enumerate(route)) + '</ol>'
+    rows = ''.join(f'<tr><th scope="row">{a}</th><td>{b}</td></tr>' for a, b in facts)
+    glance = f'<div class="table-wrap"><table class="spec-table spec-table--fit"><caption>At a glance</caption><tbody>{rows}</tbody></table></div>'
+    photo = (f'<figure class="media"><img src="/assets/img/{img}" width="800" height="600" alt="{name} made by Genex">'
+             f'<figcaption>{name}. {chip}.</figcaption></figure>')
     sections = [
-        sec("part", "The part", "01 · The part", name, f"<p>{challenge}</p>",
-            fig(img, 800, 600, f"{name} made by Genex", f"{name}. {chip}.")),
-        sec("route", "Process route", "02 · Route", "How we make it", "", route_html),
-        sec("detail", "Engineering detail", "03 · Detail", "The engineering detail", f"<p>{detail}</p>"),
-        sec("result", "What the customer gets", "04 · Result", "What the customer gets", f"<p>{result}</p>"),
+        sec("part", "The part", "01 · The part", name, f"<p>{what}</p>", glance),
+        sec("made", "How it's made", "02 · How it's made", "How we make it", f"<p>{made_how}</p>"),
+        sec("result", "What the customer gets", "03 · Result", "What the customer gets", f"<p>{result}</p>"),
+        related([("All projects", "/projects.html"), ("Request a quote for a similar part", "/rfq.html")], "Read next"),
     ]
-    if extra_fig:
-        sections[0]["html"] = sections[0]["html"].replace("</article>", extra_fig + "</article>")
-    sections.append(related([("All projects", "/projects.html"), ("Request a quote for a similar part", "/rfq.html")], "Read next"))
     art = {"@context": "https://schema.org", "@type": "Article", "headline": h1, "description": desc, "author": {"@id": f"{BASE}/#org"},
            "publisher": {"@id": f"{BASE}/#org"}, "image": f"{BASE}/assets/img/{img}", "inLanguage": "en-GB", "url": f"{BASE}/{slug}.html"}
-    return page(slug, "about", title, desc, [HOME, CASES, (name, f"/{slug}.html")], f"Case study · {sector_name}", h1, lead, answer, sections, faqs_extra, art, cta_label="Quote a similar part")
+    return page(slug, "about", title, desc, [HOME, CASES, (name, f"/{slug}.html")], f"Case study · {sector_name}", h1, lead, answer, sections, None, art, cta_label="Quote a similar part", media=photo)
 
 
 made.append(case("case-mortuary-table", "mortuary",
-    "Case Study: Stainless Mortuary Preparation Table | Genex UK",
-    "How Genex laser cut, folded, TIG welded and mirror-polished a stainless steel mortuary preparation table, and supplied it complete with sink, taps and drain.",
+    "Case Study: Stainless Steel Mortuary Table | Genex UK",
+    "A stainless steel mortuary preparation table that Genex made and supplied complete, with the sink, taps and drain fitted.",
     "A mortuary preparation table, built complete.",
-    "Laser cut, folded, TIG welded, mirror polished and fitted with its sink, taps and drain: one finished product from one supplier.",
-    "Genex made a stainless steel mortuary preparation table as a complete product: laser-cut and press-brake folded stainless, TIG welded and mirror polished, with the sink, taps and drain sourced and fitted, so the customer received a finished table ready to install.",
-    "A purpose-built table for body preparation and cleaning in a mortuary. It needs a hygienic, easy-to-clean surface, a sink for cleaning, and a drain set in to remove waste fluids.",
-    ["Laser cut from stainless sheet", "Folded on the press brake", "TIG welded", "Mirror polished", "Sink, taps and drain sourced and fitted", "Inspected, packed and delivered"],
-    "Designed and built complete as a dedicated product. TIG welding keeps the welds clean on stainless, and the mirror polish leaves a surface that's easy to keep hygienic.",
-    "One finished, ready-to-install product, instead of separate metalwork, plumbing parts and a fitting job: one order, one delivery and one point of accountability."))
+    "Polished stainless steel, with the sink, taps and drain already fitted. One finished product from one supplier.",
+    "Genex made a stainless steel mortuary preparation table as one finished product, polished to a mirror finish and fitted with its sink, taps and drain, so it arrived ready to install.",
+    "A table used in a mortuary to prepare and clean the body. It needs a hygienic surface that is easy to keep clean, a sink, and a drain built in.",
+    [("Material", "Stainless steel, mirror polished"), ("Sector", "Medical"), ("Supplied", "Complete, with sink, taps and drain fitted")],
+    "We cut and folded the stainless steel sheet, welded it, polished it to a mirror finish, then fitted the sink, taps and drain.",
+    "One finished table, ready to install, instead of separate metalwork, plumbing and fitting: one order, one delivery and one supplier to deal with."))
 
 made.append(case("case-exhaust-hanger", "exhaust",
-    "Case Study: Robot-Welded Stainless Exhaust Hanger | Genex UK",
-    "How Genex makes an automotive exhaust hanger from two stainless pressings and two wire forms, robot welded, with weld penetration checked by macro section.",
+    "Case Study: Stainless Steel Exhaust Hanger | Genex UK",
+    "An automotive exhaust hanger Genex makes from two 1.5 mm stainless steel pressings and two wire forms, welded together by robot into one part.",
     "A robot-welded exhaust hanger.",
-    "Two pressings and two wire forms, robot welded into one automotive assembly, with weld quality measured, not assumed.",
-    "Genex makes an automotive exhaust hanger from two stainless steel pressings (1.5 mm) and two wire forms, robot welded into one assembly with clinch nuts fitted. Wire-form positions are held to a tight tolerance after welding, and weld penetration is checked by macro section.",
-    "The bracket wraps around the exhaust and hangs it from the vehicle on rubber mounts. It's made from two pressed components welded together with two wire forms.",
-    ["Single-action press, 100 t", "Robotic weld", "Clinch nut insert (rivet gun)", "Inspect and pack"],
-    "The critical features are the positions of the wire forms after welding, held to a tight tolerance so the rubber mounts locate correctly on the vehicle, and weld quality, checked by macro penetration measurement.",
-    "A complete, repeatable welded assembly delivered as one part number, with the evidence that every weld meets the specification."))
+    "The bracket that holds a vehicle's exhaust in place, made from four pieces welded into one part.",
+    "Genex makes an automotive exhaust hanger from two 1.5 mm stainless steel pressings and two wire forms, welded together by robot into one part, with nuts fitted.",
+    "The bracket wraps around the exhaust and hangs it from the vehicle on rubber mounts.",
+    [("Material", "Stainless steel pressings, 1.5 mm"), ("Sector", "Automotive"), ("Made from", "Two pressed parts and two wire forms, welded into one")],
+    "We press the two steel parts, a robot welds them to the wire forms, and the nuts are fitted. We check the wire-form positions after welding so the rubber mounts line up, and we check the welds against the specification.",
+    "One finished, repeatable part, with the checks to show the welds meet the specification."))
 
 made.append(case("case-raised-floor-base-plates", "floor",
-    "Case Study: Raised-Floor Base Plates on a Progression Press | Genex UK",
-    "How Genex presses mild steel base plates for raised floors in data centres and offices on a progression press, the lowest-cost route for repeat volumes.",
+    "Case Study: Raised-Floor Base Plates | Genex UK",
+    "Mild steel base plates for raised floors in data centres and offices, pressed by Genex in volume at a low price per part.",
     "Raised-floor base plates, pressed at volume.",
-    "A repeat, high-volume part made in one pass on a progression press, the lowest-cost route once volumes are steady.",
-    "Genex presses 3 mm mild steel base plates for raised-floor systems used in data centres and offices on a 100 tonne progression press, so each part is made complete in a single coil-fed pass at the lowest price per part.",
-    "Base plates form part of an assembly that raises the floor so services can run underneath the working area. Typical uses are data centres and offices, where floors are laid in large areas and parts are needed in volume.",
-    ["Progression press, 100 t"],
-    "A progression tool makes the finished plate, with its raised centre boss and four fixing holes, from coil in one pass, so there is no handling between operations.",
-    "Consistent parts at the lowest price per part, at the volumes large floor installations need."))
+    "Steel plates for raised floors in data centres and offices, made in large numbers at a low price per part.",
+    "Genex presses 3 mm mild steel base plates for raised floors in data centres and offices. Each plate comes off the press finished in one go, which keeps the price per part low.",
+    "A raised floor leaves space underneath for services. These plates form part of the assembly that raises the floor.",
+    [("Material", "Mild steel, 3 mm"), ("Sector", "Data centres and offices"), ("Made on", "A 100 tonne press, finished in one go")],
+    "Steel feeds into the press from a coil, and the press makes a finished plate, with its raised centre and four fixing holes, in one pass.",
+    "Consistent plates at a low price per part, in the numbers large floor jobs need."))
 
 # ================= projects hub =================
 proj_cards = ''.join(f'<li><a class="part" href="{u}"><img src="/assets/img/{PARTS[k][1]}" width="800" height="600" loading="lazy" alt="{PARTS[k][2]} made by Genex"><div class="part__body"><p class="label">{PARTS[k][5]}</p><h3>{PARTS[k][2]}</h3><p>{PARTS[k][3]}</p><span class="chip">{lbl}</span></div></a></li>'
