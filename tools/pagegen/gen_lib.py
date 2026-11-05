@@ -3,7 +3,8 @@ import json
 import sys
 from pathlib import Path
 
-OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(".")
+# Default to the real source folder: running with no argument used to write 18 stray pages into the cwd.
+OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parents[2] / "site" / "_src" / "pages"
 ARROW = '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg>'
 BASE = "https://genexuk.co.uk"
 
