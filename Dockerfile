@@ -3,7 +3,7 @@
 #   PREVIEW            1 = noindex preview with banner (default), 0 = live site
 #   SUPABASE_URL       e.g. https://abcd1234.supabase.co
 #   SUPABASE_ANON_KEY  the project's anon / publishable key (safe in the browser; RLS allows insert only)
-FROM python:3.12-alpine AS build
+FROM python:3.15-alpine AS build
 WORKDIR /app
 COPY site/ ./site/
 ARG PREVIEW=1
