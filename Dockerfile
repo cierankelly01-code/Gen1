@@ -9,10 +9,13 @@ COPY site/ ./site/
 ARG PREVIEW=1
 ARG SUPABASE_URL=""
 ARG SUPABASE_ANON_KEY=""
+# The live site must never be built without a form backend: it would lose every enquiry.
+RUN if [ "$PREVIEW" != "1" ] && { [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; }; then \
+      echo "ERROR: PREVIEW=0 needs SUPABASE_URL and SUPABASE_ANON_KEY set as build variables." >&2; exit 1; fi
 RUN cd site && python build.py \
- && if [ "$PREVIEW" = "1" ]; then python make_preview.py && mv /app/preview /app/out; \
-    else mkdir -p /app/out && cp -r *.html robots.txt sitemap.xml llms.txt assets .well-known /app/out/ && rm -rf /app/out/assets/img/src; fi \
- && printf "window.GENEX_CFG = { supabaseUrl: '%s', supabaseAnonKey: '%s' };\n" "$SUPABASE_URL" "$SUPABASE_ANON_KEY" > /app/out/assets/js/config.js
+ && if [ "$PREVIEW" = "1" ]; then python make_preview.py && mv /app/preview /app/out; DEMO=true; \
+    else mkdir -p /app/out && cp -r *.html robots.txt sitemap.xml llms.txt assets .well-known /app/out/ && rm -rf /app/out/assets/img/src; DEMO=false; fi \
+ && printf "window.GENEX_CFG = { supabaseUrl: '%s', supabaseAnonKey: '%s', demo: %s };\n" "$SUPABASE_URL" "$SUPABASE_ANON_KEY" "$DEMO" > /app/out/assets/js/config.js
 
 FROM nginx:1.27-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf

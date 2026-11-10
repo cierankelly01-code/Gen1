@@ -273,7 +273,12 @@
             body: JSON.stringify({ kind: val('kind'), details: val('details'), reference: val('reference'), name: anon ? null : val('name'), company: anon ? null : val('company'), email: anon ? null : val('email'), phone: anon ? null : val('phone'), anonymous: anon, source: location.href, status: 'new' })
           });
           if (!res.ok) throw new Error('insert ' + res.status);
-        } else if (!spam) await new Promise(r => setTimeout(r, 700));   /* demo mode: no backend configured */
+        } else if (!spam) {
+          /* No backend configured. Only a build that says it is a demo may show success without sending;
+             the live site must show the error with the phone and email fallback. */
+          if (cfg.demo !== true) throw new Error('no backend configured');
+          await new Promise(r => setTimeout(r, 700));
+        }
         track('concern_submit', { kind: fd.get('kind') });
         cform.hidden = true;
         const ok = document.querySelector('[data-concern-ok]'); ok.classList.add('is-shown'); ok.setAttribute('tabindex', '-1'); ok.focus();
@@ -373,8 +378,8 @@
       const btn = form.querySelector('[type=submit]');
       btn.setAttribute('aria-busy', 'true');
       try {
-        /* DEMO: no backend yet. In production this POSTs multipart to the RFQ endpoint,
-           which files the lead into the Genex dashboard and emails sales@. */
+        /* Sends to Supabase when configured. With no backend, only a build that says it is a demo
+           (config.js demo: true, preview and local only) may show success; the live site shows the error. */
         const cfg = window.GENEX_CFG || {};
         if (cfg.supabaseUrl && cfg.supabaseAnonKey) {
           await submitToSupabase(form, cfg);
@@ -382,7 +387,8 @@
           const res = await fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) });
           if (!res.ok) throw new Error(res.status);
         } else {
-          await new Promise(r => setTimeout(r, 900));   /* demo mode: no backend configured */
+          if (cfg.demo !== true) throw new Error('no backend configured');
+          await new Promise(r => setTimeout(r, 900));
         }
         track('rfq_submit', { stages: [...form.querySelectorAll('[name=stage]:checked')].map(i => i.value).join(',') });
         form.hidden = true;
