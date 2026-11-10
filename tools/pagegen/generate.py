@@ -231,7 +231,7 @@ made.append(page(
             "<p>Installed in June 2026. Five axes mean complex geometry is machined in one set-up, with greater precision and shorter lead times, because the part isn't re-clamped between operations.</p>",
             fig("hurco-5axis.webp", 560, 470, "The Hurco VM1 5-axis CNC machining centre at Genex", "Our Hurco VM1 5-axis machining centre.")),
         sec("toolroom", "Toolroom", "01b · Toolroom", "Our own toolroom",
-            "<p>Eight toolroom machines in Walsall, so press tools are built, modified and repaired in-house rather than sent out and waited for.</p>",
+            "<p>Eight toolroom machines in Walsall, so press tools are maintained and repaired in-house rather than sent out and waited for.</p>",
             '<div class="table-wrap"><table class="spec-table"><caption>Toolroom, Oct 2026</caption>'
             '<thead><tr><th scope="col">Make</th><th scope="col">Machine</th></tr></thead><tbody>'
             '<tr><td>XYZ PRO3</td><td>3D miller</td></tr>'
