@@ -630,6 +630,7 @@ h1, h2, h3, h4 {
 .rfq__side { grid-column: 9 / span 4; }
 @media (max-width: 960px) { .rfq__form, .rfq__side { grid-column: 1 / -1; } }
 .form { display: grid; gap: var(--s-6); }
+.form[hidden] { display: none; }   /* after a successful send the form goes and the thank-you takes its place */
 .fieldset { border: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4) var(--s-4); }
 .fieldset legend { grid-column: 1 / -1; font-family: var(--font-mono); font-size: var(--fs-mono-xs); letter-spacing: var(--track-mono); text-transform: uppercase; color: var(--steel-600); padding: 0 0 var(--s-3); border-bottom: 1px solid var(--ink); width: 100%; margin-bottom: var(--s-4); display: flex; gap: var(--s-3); }
 .fieldset legend b { color: var(--red); font-weight: 500; }
@@ -637,7 +638,7 @@ h1, h2, h3, h4 {
 .field--full { grid-column: 1 / -1; }
 @media (max-width: 600px) { .fieldset { grid-template-columns: 1fr; } }
 .field label, .field .flabel { font-size: var(--fs-small); font-weight: 600; }
-.field label .opt { font-weight: 400; color: var(--steel-600); font-size: var(--fs-mono-xs); font-family: var(--font-mono); margin-left: 4px; }
+.field label .opt, .field .flabel .opt { font-weight: 400; color: var(--steel-600); font-size: var(--fs-mono-xs); font-family: var(--font-mono); margin-left: 4px; }
 .input, .select, .textarea {
   width: 100%; min-height: 50px; padding: 12px 14px; background: var(--white); border: 1px solid var(--line-strong); border-radius: var(--radius);
   font-size: 1rem; transition: border-color var(--dur-micro) ease, box-shadow var(--dur-micro) ease; appearance: none;
@@ -664,6 +665,7 @@ h1, h2, h3, h4 {
 .drop svg { width: 36px; height: 36px; color: var(--blue); }
 .drop strong { font-size: 1rem; }
 .drop.is-over, .drop:focus-within { border-color: var(--blue); background: rgb(31 91 166 / .04); }
+.drop:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }   /* the real input is invisible, so the ring goes on the zone */
 .files { list-style: none; padding: 0; display: grid; gap: 6px; margin-top: var(--s-3); }
 .files li { display: flex; justify-content: space-between; gap: var(--s-3); font-family: var(--font-mono); font-size: var(--fs-mono); padding: 8px 12px; background: var(--white); border: 1px solid var(--line); min-width: 0; }
 .files li span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

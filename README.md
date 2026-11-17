@@ -52,7 +52,7 @@ Every claim below comes from Genex's own LinkedIn, their current site or their d
 | Own 3.5 t and 7.5 t vehicles | LinkedIn | Confirm |
 | Midlands Space Cluster listing; investment timeline dates | LinkedIn | Confirm |
 | Policies and T&Cs | none yet | **Send PDFs**: quality, environmental, H&S, info security, ethical trading; conditions of sale and purchase |
-| Raise-a-concern reports go to the MD | The MD's request | Confirm the email address; set up the alert (see below) |
+| Raise-a-concern reports go to the quality team, who aim to respond within 24 hours | The MD's email, 12 Nov 2026 | Wording is his. Email alert built, not yet switched on (see below) |
 | Reply within one working day | carried over from v2 | Confirm |
 | Part checker break points (pressing from about 5,000 a year; laser below 1,000) | our estimate | Ask the MD to set the numbers |
 | Photo captions (e.g. the sink is a mortuary preparation table) | Genex photos | Confirm |
@@ -61,7 +61,7 @@ Every claim below comes from Genex's own LinkedIn, their current site or their d
 
 **Not used without permission:** staff names (including the MD's), the father-and-son story, and staff photos (MACH, the retirement, the ISO celebration).
 
-**The concern form, live:** run the `concerns` section of `supabase/setup.sql`, then point the Factory OS alerts engine or a Supabase webhook at new rows, so the MD gets an email.
+**The forms, live:** run `supabase/setup.sql`, then `supabase/notifications.sql`, then switch on the `notify-enquiries` function (`supabase/functions/notify-enquiries/README.md`). It emails each concern to the quality mailbox and each quote request to sales, with attachments. Until it is live, the forms save to the database and nobody is told.
 
 ## Before going live (production checklist)
 

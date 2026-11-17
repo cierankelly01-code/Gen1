@@ -245,32 +245,80 @@
     document.querySelectorAll('button[data-video]').forEach(b => b.addEventListener('click', () => { location.href = b.dataset.video; }));
   }
 
-  /* Concern form: quality or environmental concerns go to the MD's inbox (Supabase 'concerns' table) */
+  /* Concern form: quality or environmental concerns are stored in the Supabase 'concerns' table
+     (attachments in the private 'concern-files' bucket) and emailed to the quality team by the
+     notify-enquiries function. See supabase/setup.sql and supabase/functions/notify-enquiries. */
   const cform = document.querySelector('[data-concern]');
   if (cform) {
+    /* Attachments: photos and documents. These limits mirror the storage rules in supabase/setup.sql
+       (the server is the real gate) and keep the notification email under mailbox size limits. */
+    const CF_OK = /\.(jpe?g|png|webp|heic|heif|pdf|docx?|xlsx?)$/i, CF_MAX = 5, CF_TOTAL = 20971520;
+    const cfile = cform.querySelector('input[type=file]'), clist = cform.querySelector('[data-files]'), cferr = cform.querySelector('[data-fileerr]');
+    const cfiles = () => cfile ? [...cfile.files].filter(f => f && f.name && f.size) : [];
+    const fileProblem = () => {
+      const fs = cfiles();
+      if (fs.length > CF_MAX) return 'Add up to ' + CF_MAX + ' files.';
+      const bad = fs.find(f => !CF_OK.test(f.name));
+      if (bad) return bad.name + ' is a file type we can\'t take. Use JPG, PNG, HEIC, PDF, Word or Excel.';
+      if (fs.reduce((n, f) => n + f.size, 0) > CF_TOTAL) return 'Those files are over 20 MB in total. Send fewer or smaller files.';
+      return '';
+    };
     const check = f => {
       const i = f.querySelector('input, select, textarea'); if (!i) return true;
       /* the database counts trimmed text, so the browser check must too */
       if (i.name === 'details') i.setCustomValidity(i.value.trim().length < 10 ? 'Tell us a little more' : '');
+      if (i.type === 'file') { const m = fileProblem(); i.setCustomValidity(m); if (cferr) cferr.textContent = m; }
       const ok = i.disabled || i.checkValidity(); f.classList.toggle('is-invalid', !ok); i.setAttribute('aria-invalid', String(!ok)); return ok;
     };
     cform.querySelectorAll('.field').forEach(f => f.querySelector('input, select, textarea')?.addEventListener('blur', () => check(f)));
+    if (cfile && clist) {
+      const drop = cfile.closest('.drop');
+      ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, () => drop.classList.add('is-over')));
+      ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('is-over')));
+      cfile.addEventListener('change', () => {
+        clist.innerHTML = '';
+        cfiles().forEach(f => {
+          const li = document.createElement('li'); li.innerHTML = '<span></span><span></span>';
+          li.children[0].textContent = f.name;
+          li.children[1].textContent = f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(f.size / 1024)) + ' KB';
+          clist.append(li);
+        });
+        check(cfile.closest('.field'));
+      });
+    }
     cform.setAttribute('novalidate', '');
     cform.addEventListener('submit', async e => {
       e.preventDefault();
       const bad = [...cform.querySelectorAll('.field')].filter(f => !check(f));
       if (bad.length) { bad[0].querySelector('input, select, textarea').focus(); return; }
-      const btn = cform.querySelector('[type=submit]'); btn.setAttribute('aria-busy', 'true');
+      const btn = cform.querySelector('[type=submit]');
+      if (btn.getAttribute('aria-busy') === 'true') return;   /* already sending: Enter in a field must not send it twice */
+      btn.setAttribute('aria-busy', 'true'); cform.querySelector('[data-neterr]').hidden = true;
       try {
         const cfg = window.GENEX_CFG || {}, fd = new FormData(cform);
         const spam = !!(fd.get('website_url') || '').toString().trim();   /* bots get the success screen; nothing is sent */
         if (!spam && cfg.supabaseUrl && cfg.supabaseAnonKey) {
           const val = k => (fd.get(k) || '').toString().trim() || null;
           const anon = fd.get('anonymous') !== null;   /* anonymous reports never carry contact details */
-          const res = await fetch(cfg.supabaseUrl.replace(/\/$/, '') + '/rest/v1/concerns', {
+          const base = cfg.supabaseUrl.replace(/\/$/, '');
+          const auth = { apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey };
+          /* Attachments go up first, into one random folder per report; the row then lists their paths.
+             The public key can only add files: it cannot list, read or replace them. */
+          const folder = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)), paths = [];
+          for (const [n, file] of cfiles().entries()) {
+            const path = folder + '/' + (n + 1) + '-' + file.name.replace(/[^\w.\-]+/g, '_').slice(-100);
+            const up = await fetch(base + '/storage/v1/object/concern-files/' + path, {
+              method: 'POST', headers: { ...auth, 'x-upsert': 'false', 'Content-Type': file.type || 'application/octet-stream' }, body: file
+            });
+            if (!up.ok) throw new Error('upload ' + up.status);
+            paths.push(path);
+          }
+          const row = { kind: val('kind'), details: val('details'), reference: val('reference'), name: anon ? null : val('name'), company: anon ? null : val('company'), email: anon ? null : val('email'), phone: anon ? null : val('phone'), anonymous: anon, source: location.href.slice(0, 500), status: 'new' };
+          if (paths.length) row.files = paths;
+          const res = await fetch(base + '/rest/v1/concerns', {
             method: 'POST',
-            headers: { apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-            body: JSON.stringify({ kind: val('kind'), details: val('details'), reference: val('reference'), name: anon ? null : val('name'), company: anon ? null : val('company'), email: anon ? null : val('email'), phone: anon ? null : val('phone'), anonymous: anon, source: location.href, status: 'new' })
+            headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+            body: JSON.stringify(row)
           });
           if (!res.ok) throw new Error('insert ' + res.status);
         } else if (!spam) {
@@ -289,10 +337,16 @@
     /* "Report anonymously" makes the contact fields optional */
     const anon = cform.querySelector('[name=anonymous]');
     /* anonymous: contact fields are switched off (disabled fields aren't validated or sent) */
-    anon && anon.addEventListener('change', () => cform.querySelectorAll('[data-contact] .field').forEach(f => {
-      const i = f.querySelector('input'); i.disabled = anon.checked; f.classList.toggle('is-off', anon.checked);
-      if (anon.checked) { f.classList.remove('is-invalid'); i.removeAttribute('aria-invalid'); }
-    }));
+    const syncAnon = () => {
+      cform.querySelectorAll('[data-contact] .field').forEach(f => {
+        const i = f.querySelector('input'); i.disabled = anon.checked; f.classList.toggle('is-off', anon.checked);
+        if (anon.checked) { f.classList.remove('is-invalid'); i.removeAttribute('aria-invalid'); }
+      });
+      /* nobody to contact on an anonymous report, so the "within 24 hours" promise comes off */
+      const note = cform.querySelector('[data-reply-note]'); if (note) note.hidden = anon.checked;
+    };
+    /* the browser can bring the tick back (Back button, a reloaded tab) without a change event */
+    if (anon) { anon.addEventListener('change', syncAnon); syncAnon(); addEventListener('pageshow', syncAnon); }
   }
 
   /* Supabase: upload drawings to the private 'rfq-files' bucket, then insert the RFQ row.
@@ -311,9 +365,10 @@
     }
     const folder = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36));
     const paths = [];
-    for (const file of files) {
-      const safe = file.name.replace(/[^\w.\-]+/g, '_').slice(-120);
-      const path = `${folder}/${safe}`;
+    for (const [n, file] of files.entries()) {
+      /* numbered, so two files whose names clean up to the same text can't collide and fail the upload */
+      const safe = file.name.replace(/[^\w.\-]+/g, '_').slice(-100);
+      const path = `${folder}/${n + 1}-${safe}`;
       const up = await fetch(`${base}/storage/v1/object/rfq-files/${path}`, {
         method: 'POST', headers: { ...auth, 'x-upsert': 'false', 'Content-Type': file.type || 'application/octet-stream' }, body: file
       });
@@ -325,7 +380,7 @@
       name: val('name'), company: val('company'), email: val('email'), phone: val('phone'), country: val('country'),
       part: val('part'), annual_volume: val('volume'), prototype_qty: val('protoqty'), material: val('material'),
       finish: val('finish'), stages: fd.getAll('stage').map(String), ppap: val('ppap'), needed_by: val('sop'),
-      notes: val('notes'), nda_requested: fd.get('nda') !== null, files: paths, source: location.href, status: 'new'
+      notes: val('notes'), nda_requested: fd.get('nda') !== null, files: paths, source: location.href.slice(0, 500), status: 'new'
     };
     const res = await fetch(`${base}/rest/v1/rfqs`, {
       method: 'POST', headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'return=minimal' }, body: JSON.stringify(row)
@@ -376,6 +431,7 @@
       const bad = fields.filter(f => !validate(f));
       if (bad.length) { bad[0].querySelector('input, select, textarea').focus(); track('rfq_error', { count: bad.length }); return; }
       const btn = form.querySelector('[type=submit]');
+      if (btn.getAttribute('aria-busy') === 'true') return;   /* already sending: don't send the same request twice */
       btn.setAttribute('aria-busy', 'true');
       try {
         /* Sends to Supabase when configured. With no backend, only a build that says it is a demo

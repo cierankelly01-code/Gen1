@@ -23,9 +23,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap">
 <link rel="stylesheet" href="/assets/css/tokens.css?v=137439079a">
-<link rel="stylesheet" href="/assets/css/site.css?v=49a1c677a0">
+<link rel="stylesheet" href="/assets/css/site.css?v=e5929190d9">
 <link rel="stylesheet" href="/assets/css/finder.css?v=b14304f0b8">
-<link rel="stylesheet" href="/assets/css/corp.css?v=5fe2489f7b">
+<link rel="stylesheet" href="/assets/css/corp.css?v=851c0405a4">
 <link rel="stylesheet" href="/assets/css/brand.css?v=b5b513f77f">
 <script>/[?&]static/.test(location.search)||document.documentElement.classList.replace('no-js','js')</script>
 <script type="application/ld+json">
@@ -119,10 +119,9 @@
         <li class="has-mm has-mm--end">
           <button class="mm-btn" type="button" aria-expanded="false" aria-controls="mm-q">Quality <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
           <div class="mm" id="mm-q">
-            <a href="/quality.html"><strong>Quality &amp; accreditations</strong><span>ISO 9001, ISO 14001, Achilles</span></a>
-            <a href="/quality.html#certificates"><strong>Certificates</strong><span>Download our current certificates</span></a>
+            <a href="/quality.html"><strong>Quality &amp; accreditations</strong><span>ISO 9001, ISO 14001 and Achilles, with certificates to download</span></a>
             <a href="/documents.html"><strong>Policies &amp; terms</strong><span>Quality and environmental policies, sales and purchase terms</span></a>
-            <a href="/concern.html"><strong>Raise a concern</strong><span>Quality or environmental, straight to our MD</span></a>
+            <a href="/concern.html"><strong>Raise a concern</strong><span>Quality or environmental, to our quality team</span></a>
           </div>
         </li>
         <li class="has-mm has-mm--end">
@@ -205,17 +204,17 @@
           </div>
           <div class="field">
             <label for="part">Part name / number</label>
-            <input class="input" id="part" name="part" autocomplete="off" required>
+            <input class="input" id="part" name="part" autocomplete="off" maxlength="2000" required>
             <span class="err" id="part-e">Tell us which part this is.</span>
           </div>
           <div class="field">
             <label for="volume">Parts per year in production</label>
-            <input class="input" id="volume" name="volume" inputmode="numeric" placeholder="e.g. 12,000" required>
+            <input class="input" id="volume" name="volume" inputmode="numeric" placeholder="e.g. 12,000" maxlength="80" required>
             <span class="err">Enter an estimate. It decides the tooling route.</span>
           </div>
           <div class="field">
             <label for="protoqty">Prototypes needed first <span class="opt">optional</span></label>
-            <input class="input" id="protoqty" name="protoqty" inputmode="numeric" placeholder="e.g. 50">
+            <input class="input" id="protoqty" name="protoqty" inputmode="numeric" placeholder="e.g. 50" maxlength="80">
             <span class="hint">Usually laser cut and folded, with no tooling cost.</span>
           </div>
           <details class="more field--full">
@@ -223,7 +222,7 @@
             <div class="more__grid">
           <div class="field">
             <label for="material">Material &amp; thickness <span class="opt">optional</span></label>
-            <input class="input" id="material" name="material" placeholder="e.g. Mild steel, 2 mm">
+            <input class="input" id="material" name="material" placeholder="e.g. Mild steel, 2 mm" maxlength="200">
           </div>
           <div class="field">
             <label for="finish">Finish <span class="opt">optional</span></label>
@@ -249,11 +248,11 @@
           </div>
           <div class="field">
             <label for="sop">When do you need parts? <span class="opt">optional</span></label>
-            <input class="input" id="sop" name="sop" placeholder="e.g. 50 prototypes by 20 Nov, production from Q3 2027">
+            <input class="input" id="sop" name="sop" placeholder="e.g. 50 prototypes by 20 Nov, production from Q3 2027" maxlength="80">
           </div>
           <div class="field field--full">
             <label for="notes">Anything else? <span class="opt">optional</span></label>
-            <textarea class="textarea" id="notes" name="notes" placeholder="Inserts, welding, assembly, packaging, delivery location…"></textarea>
+            <textarea class="textarea" id="notes" name="notes" maxlength="5000" placeholder="Inserts, welding, assembly, packaging, delivery location…"></textarea>
           </div>
             </div>
           </details>
@@ -263,22 +262,22 @@
           <legend><b>02</b> You</legend>
           <div class="field">
             <label for="name">Full name</label>
-            <input class="input" id="name" name="name" autocomplete="name" required>
+            <input class="input" id="name" name="name" autocomplete="name" maxlength="120" required>
             <span class="err">We need a name to address the quote to.</span>
           </div>
           <div class="field">
             <label for="company">Company</label>
-            <input class="input" id="company" name="company" autocomplete="organization" required>
+            <input class="input" id="company" name="company" autocomplete="organization" maxlength="160" required>
             <span class="err">Which company is the quote for?</span>
           </div>
           <div class="field">
             <label for="email">Work email</label>
-            <input class="input" id="email" name="email" type="email" autocomplete="email" required>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" maxlength="320" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
             <span class="err">Enter an email like name@company.com.</span>
           </div>
           <div class="field">
             <label for="phone">Phone <span class="opt">optional</span></label>
-            <input class="input" id="phone" name="phone" type="tel" autocomplete="tel">
+            <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
           </div>
           <div class="field field--full">
             <label for="country">Delivery country</label>
@@ -370,8 +369,7 @@
       <div>
         <h2>Quality &amp; documents</h2>
         <ul>
-          <li><a href="/quality.html">Quality statement</a></li>
-          <li><a href="/quality.html#certificates">Certificates</a></li>
+          <li><a href="/quality.html">Quality &amp; certificates</a></li>
           <li><a href="/documents.html#policies">Policies</a></li>
           <li><a href="/documents.html#terms">Sales terms</a></li>
           <li><a href="/documents.html#terms">Purchase terms</a></li>
@@ -411,7 +409,7 @@
   <a class="btn btn--ghost mbar__call" href="tel:+441922710050" aria-label="Call Genex on 01922 710050"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5.5 2.5h3l1.5 4-2 1.2a9 9 0 0 0 4.3 4.3l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A14 14 0 0 1 4 4.1 1.5 1.5 0 0 1 5.5 2.5z" stroke="currentColor" stroke-width="1.5"/></svg></a>
 </nav>
 <script src="/assets/js/config.js"></script>
-<script src="/assets/js/site.js?v=da335dd0c7" defer></script>
+<script src="/assets/js/site.js?v=1f377a605b" defer></script>
 <script src="/assets/js/finder.js?v=7d21b16c1d" defer></script>
 </body>
 </html>

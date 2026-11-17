@@ -28,10 +28,10 @@ RFQ_SWAPS = [
 ]
 
 CONCERN_SWAPS = [
-    ('<span>Read by our Managing Director</span><span>Anonymous if you prefer</span>',
+    ('<span>Reviewed by our quality team</span><span data-reply-note>We aim to contact you within 24 hours</span><span>Anonymous if you prefer</span>',
      '<span>Preview: this form is for trying out and is not monitored yet</span>'),
-    ('<p class="muted">Your report has gone to our Managing Director.',
-     '<p class="muted">This is a preview, so nobody is reading reports from it yet. On the live site, this goes to our Managing Director.'),
+    ('<p class="muted">Your report has gone to our quality team. If you left contact details, we aim to contact you about your concern within 24 hours.',
+     '<p class="muted">This is a preview, so nobody is reading reports from it yet. On the live site, this goes to our quality team.'),
 ]
 
 if OUT.exists():

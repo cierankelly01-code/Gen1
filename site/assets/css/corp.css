@@ -55,7 +55,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spac
 /* anything that used the mono face becomes clean sans with tabular figures */
 .mono, .chip, .micro, .crumbs, .hint, .spec-table td, .spec-table caption, .spec-table thead th, .snap__head, .snap dt, .snap ol,
 .titleblock, .tz__head, .tz__city span, .tz__foot, .press__bar, .pip span, .finder__facts dt, .gband__facts b, .footer h2, .utility,
-.toc a span, .roof__list li::before, .global__list li b, .fieldset legend, .field label .opt, .files li, .handoff__k, .handoff__n, .pill-s, .qa summary {
+.toc a span, .roof__list li::before, .global__list li b, .fieldset legend, .field label .opt, .field .flabel .opt, .files li, .handoff__k, .handoff__n, .pill-s, .qa summary {
   font-family: var(--font-body); font-variant-numeric: tabular-nums; letter-spacing: normal;
 }
 .spec-table thead th, .spec-table caption, .snap__head, .snap dt, .finder__facts dt, .tz__head, .footer h2, .fieldset legend, .handoff__k, .pill-s {

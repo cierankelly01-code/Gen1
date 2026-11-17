@@ -42,17 +42,17 @@
           </div>
           <div class="field">
             <label for="part">Part name / number</label>
-            <input class="input" id="part" name="part" autocomplete="off" required>
+            <input class="input" id="part" name="part" autocomplete="off" maxlength="2000" required>
             <span class="err" id="part-e">Tell us which part this is.</span>
           </div>
           <div class="field">
             <label for="volume">Parts per year in production</label>
-            <input class="input" id="volume" name="volume" inputmode="numeric" placeholder="e.g. 12,000" required>
+            <input class="input" id="volume" name="volume" inputmode="numeric" placeholder="e.g. 12,000" maxlength="80" required>
             <span class="err">Enter an estimate. It decides the tooling route.</span>
           </div>
           <div class="field">
             <label for="protoqty">Prototypes needed first <span class="opt">optional</span></label>
-            <input class="input" id="protoqty" name="protoqty" inputmode="numeric" placeholder="e.g. 50">
+            <input class="input" id="protoqty" name="protoqty" inputmode="numeric" placeholder="e.g. 50" maxlength="80">
             <span class="hint">Usually laser cut and folded, with no tooling cost.</span>
           </div>
           <details class="more field--full">
@@ -60,7 +60,7 @@
             <div class="more__grid">
           <div class="field">
             <label for="material">Material &amp; thickness <span class="opt">optional</span></label>
-            <input class="input" id="material" name="material" placeholder="e.g. Mild steel, 2 mm">
+            <input class="input" id="material" name="material" placeholder="e.g. Mild steel, 2 mm" maxlength="200">
           </div>
           <div class="field">
             <label for="finish">Finish <span class="opt">optional</span></label>
@@ -86,11 +86,11 @@
           </div>
           <div class="field">
             <label for="sop">When do you need parts? <span class="opt">optional</span></label>
-            <input class="input" id="sop" name="sop" placeholder="e.g. 50 prototypes by 20 Nov, production from Q3 2027">
+            <input class="input" id="sop" name="sop" placeholder="e.g. 50 prototypes by 20 Nov, production from Q3 2027" maxlength="80">
           </div>
           <div class="field field--full">
             <label for="notes">Anything else? <span class="opt">optional</span></label>
-            <textarea class="textarea" id="notes" name="notes" placeholder="Inserts, welding, assembly, packaging, delivery location…"></textarea>
+            <textarea class="textarea" id="notes" name="notes" maxlength="5000" placeholder="Inserts, welding, assembly, packaging, delivery location…"></textarea>
           </div>
             </div>
           </details>
@@ -100,22 +100,22 @@
           <legend><b>02</b> You</legend>
           <div class="field">
             <label for="name">Full name</label>
-            <input class="input" id="name" name="name" autocomplete="name" required>
+            <input class="input" id="name" name="name" autocomplete="name" maxlength="120" required>
             <span class="err">We need a name to address the quote to.</span>
           </div>
           <div class="field">
             <label for="company">Company</label>
-            <input class="input" id="company" name="company" autocomplete="organization" required>
+            <input class="input" id="company" name="company" autocomplete="organization" maxlength="160" required>
             <span class="err">Which company is the quote for?</span>
           </div>
           <div class="field">
             <label for="email">Work email</label>
-            <input class="input" id="email" name="email" type="email" autocomplete="email" required>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" maxlength="320" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
             <span class="err">Enter an email like name@company.com.</span>
           </div>
           <div class="field">
             <label for="phone">Phone <span class="opt">optional</span></label>
-            <input class="input" id="phone" name="phone" type="tel" autocomplete="tel">
+            <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
           </div>
           <div class="field field--full">
             <label for="country">Delivery country</label>

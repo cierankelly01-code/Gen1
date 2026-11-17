@@ -1,4 +1,5 @@
 # generated / local only
+node_modules/
 preview/
 site-v1/
 __pycache__/

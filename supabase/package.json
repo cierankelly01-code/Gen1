@@ -1,0 +1,12 @@
+{
+  "name": "genex-website-supabase",
+  "private": true,
+  "type": "module",
+  "description": "Tests for the website's form database rules and enquiry notification emails",
+  "scripts": {
+    "test": "node --test tests/notify.test.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8"
+  }
+}

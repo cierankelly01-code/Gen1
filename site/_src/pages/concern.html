@@ -1,4 +1,4 @@
-<!--meta {"title": "Raise a Quality or Environmental Concern | Genex UK", "description": "Report a quality or environmental concern to the Genex UK Managing Director. It takes two minutes and you can stay anonymous.", "path": "/concern.html", "nav": "quality"} -->
+<!--meta {"title": "Raise a Quality or Environmental Concern | Genex UK", "description": "Report a quality or environmental concern to the Genex UK quality team. It takes two minutes and you can stay anonymous.", "path": "/concern.html", "nav": "quality"} -->
 <!--schema-->
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://genexuk.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Quality", "item": "https://genexuk.co.uk/quality.html"}, {"@type": "ListItem", "position": 3, "name": "Raise a concern", "item": "https://genexuk.co.uk/concern.html"}]}
@@ -14,7 +14,7 @@
         <h1 class="display">Raise a quality or environmental concern.</h1>
       </div>
       <div class="phero__d">
-        <p class="lead">This goes straight to our Managing Director, not to a general inbox. It takes two minutes, and you can stay anonymous.</p>
+        <p class="lead">This goes straight to our quality team, not to a general inbox. It takes two minutes, and you can stay anonymous.</p>
       </div>
     </div>
   </div>
@@ -45,34 +45,45 @@
             <label for="reference">Order, part or delivery reference <span class="opt">optional</span></label>
             <input class="input" id="reference" name="reference" maxlength="200" placeholder="e.g. delivery note, PO or part number">
           </div>
+          <div class="field field--full">
+            <span class="flabel" id="cfiles-l">Photos or documents <span class="opt">optional</span></span>
+            <div class="drop">
+              <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M18 24V8m0 0-6 6m6-6 6 6" stroke="currentColor" stroke-width="1.8"/><path d="M6 22v6h24v-6" stroke="currentColor" stroke-width="1.8"/></svg>
+              <strong>Add photos or documents</strong>
+              <span class="hint" id="cfiles-hint">JPG · PNG · PDF · Word · Excel — up to 5 files, 20 MB in total. Choose them all in one go.</span>
+              <input type="file" name="files" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.doc,.docx,.xls,.xlsx" aria-labelledby="cfiles-l" aria-describedby="cfiles-hint cfiles-err">
+            </div>
+            <ul class="files" data-files aria-live="polite"></ul>
+            <span class="err" id="cfiles-err" data-fileerr role="alert"></span>
+          </div>
         </fieldset>
 
         <fieldset class="fieldset" data-contact>
           <legend><b>02</b> You</legend>
-          <label class="check field--full"><input type="checkbox" name="anonymous"> Report anonymously (we won't be able to reply to you)</label>
+          <label class="check field--full"><input type="checkbox" name="anonymous"> Report anonymously (we won't be able to reply to you). Photos and documents can carry your name or location in their file details.</label>
           <div class="field">
             <label for="cname">Name</label>
-            <input class="input" id="cname" name="name" autocomplete="name" required data-req>
+            <input class="input" id="cname" name="name" autocomplete="name" maxlength="120" required data-req>
             <span class="err">Add your name, or tick "report anonymously".</span>
           </div>
           <div class="field">
             <label for="cemail">Email</label>
-            <input class="input" id="cemail" name="email" type="email" autocomplete="email" required data-req>
-            <span class="err">Add an email so we can reply, or tick "report anonymously".</span>
+            <input class="input" id="cemail" name="email" type="email" autocomplete="email" maxlength="320" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required data-req>
+            <span class="err">Add a full email address so we can reply, or tick "report anonymously".</span>
           </div>
           <div class="field">
             <label for="ccompany">Company <span class="opt">optional</span></label>
-            <input class="input" id="ccompany" name="company" autocomplete="organization">
+            <input class="input" id="ccompany" name="company" autocomplete="organization" maxlength="160">
           </div>
           <div class="field">
             <label for="cphone">Phone <span class="opt">optional</span></label>
-            <input class="input" id="cphone" name="phone" type="tel" autocomplete="tel">
+            <input class="input" id="cphone" name="phone" type="tel" autocomplete="tel" maxlength="40">
           </div>
         </fieldset>
 
         <div class="form__submit">
-          <button class="btn btn--submit" type="submit"><span class="btn__txt">Send to the Managing Director</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></button>
-          <p class="micro"><span>Read by our Managing Director</span><span>Anonymous if you prefer</span></p>
+          <button class="btn btn--submit" type="submit"><span class="btn__txt">Send to our quality team</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          <p class="micro"><span>Reviewed by our quality team</span><span data-reply-note>We aim to contact you within 24 hours</span><span>Anonymous if you prefer</span></p>
           <p class="err" data-neterr hidden>Couldn't send. Nothing you typed is lost. Try again, or call 01922 710050.</p>
         </div>
       </form>
@@ -80,7 +91,7 @@
       <div class="success" data-concern-ok role="status">
         <p class="label">Concern received</p>
         <h2>Thank you for telling us.</h2>
-        <p class="muted">Your report has gone to our Managing Director. If you left contact details, we'll be in touch. If it's urgent, call <a class="link" href="tel:+441922710050">01922 710050</a>.</p>
+        <p class="muted">Your report has gone to our quality team. If you left contact details, we aim to contact you about your concern within 24 hours. If it's urgent, call <a class="link" href="tel:+441922710050">01922 710050</a>.</p>
       </div>
     </div>
 
@@ -88,9 +99,9 @@
       <div class="side-card">
         <h2>What happens next</h2>
         <ol>
-          <li>Our Managing Director reads your report.</li>
-          <li>The concern is logged and investigated under our ISO 9001 and ISO 14001 systems.</li>
-          <li>If you gave contact details, we tell you what we found and what we changed.</li>
+          <li>A member of our quality team will review your concern.</li>
+          <li>The concern is logged within our system and an investigation will commence.</li>
+          <li>Our team will aim to respond to you within 24 hours.</li>
         </ol>
       </div>
       <div class="side-card">
