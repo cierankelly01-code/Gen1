@@ -212,7 +212,7 @@ export function concernEmail(row, files, cfg) {
       ? { text: 'Reported anonymously. No contact details were given, so there is nobody to reply to.' }
       : { text: named ? 'Replying to this email goes to the person who raised the concern.' : 'No usable email address was given.' },
     ...fileNotes(files, cfg),
-    { text: 'Sent automatically by the genexuk.co.uk website. The site tells people the quality team aims to respond within 24 hours.' },
+    { text: 'Sent automatically by the genexuk.co.uk website. The site tells people the quality team aims to respond within 24 hours, Monday to Friday.' },
   ];
   const body = render('A concern was raised on the website', [], [
     ['Type', kind], ['Received', when(row.created_at)], ['Reference', row.reference], ['What happened', row.details],
