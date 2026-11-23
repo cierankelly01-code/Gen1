@@ -245,6 +245,11 @@ made.append(sector(
      ("How do you handle documentation?", "Each job's manufacturing and documentation needs are reviewed at enquiry. Every order is traceable from enquiry to delivery, with customer-specific reports if you need them.")],
     [("Quality &amp; accreditations", "/quality.html"), ("Materials", "/materials.html")],
     img=("f-laserfold.webp", 1280, 580, "A laser-cut panel after folding at Genex", "A laser-cut panel after folding."),
+    # Michael's own parts sheet (26 Oct 2026) gives this part's sector as Aerospace: panels for airport scanner lanes.
+    story={"toc": "Airport access panels", "h2": "Access panels for airport scanner lanes",
+           "prose": "<p>Made in a range of sizes to finish the framework of security scanner lanes in airports. Mild steel, 1.5 mm, with an undercoat and powder topcoat by our approved coating partner.</p>",
+           "extra": fig("part-access-panel.webp", 800, 600, "Powder-coated steel scanner-lane access panel made by Genex", "An access panel for an airport scanner lane, powder coated.")
+                    + route(["Laser cut", "Press brake", "MIG weld", "Polish", "CD stud weld", "Undercoat and powder topcoat, by our approved coating partner"])},
     needs=[("Review", "Reviewed at enquiry", "Each job's manufacturing and documentation needs are reviewed at enquiry."),
            ("Inspection", "Our own CMM", "A Mitutoyo CNC coordinate measuring machine, measuring back to the 3D CAD model."),
            ("Traceability", "Enquiry to delivery", "Every stage recorded against your order, with material certificates held against the batch.")]))
