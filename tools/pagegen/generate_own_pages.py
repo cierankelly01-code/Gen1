@@ -13,9 +13,19 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from gen_lib import page, sec, fig, cards, table, service, parts_block, HOME, CAP  # noqa: E402
+from gen_lib import page, sec, fig, cards, table, service, HOME, CAP
+from gen_lib import parts_block as _parts_block  # noqa: E402
 
 SEC = ("Sectors", "/industries.html")
+
+
+def parts_block(keys, heading):
+    """Part cards; the three parts with a case study link to it rather than to the sectors hub."""
+    h = _parts_block(keys, heading)
+    for k, v in (('/industries.html#p-exhaust', '/case-exhaust-hanger.html'), ('/industries.html#p-mortuary', '/case-mortuary-table.html'),
+                 ('/industries.html#p-floor', '/case-raised-floor-base-plates.html')):
+        h = h.replace(f'href="{k}"', f'href="{v}"')
+    return h
 
 
 def ul(items):
@@ -47,7 +57,7 @@ QUALITY = sec("quality", "Quality checks", "Quality", "How every part is checked
                   "<strong>Final inspection</strong> before packing, with material certificates held against the batch",
                   "<strong>Traceability</strong> from enquiry to delivery, with customer-specific reports if you need them",
                   "<strong>PPAP</strong> Levels 1 to 5 when your customer requires it"]) +
-              '<p>Certified to ISO 9001 and ISO 14001, and re-audited by BSI in 2026 with zero non-conformances. <a class="link" href="/quality.html">More on quality</a>.</p>')
+              '<p>Certified to ISO 9001 and ISO 14001. BSI\'s 2026 audit of our ISO 9001 system found zero non-conformances. <a class="link" href="/quality.html">More on quality</a>.</p>')
 
 def route(steps):
     return '<div class="prose"><p>The route:</p><ol>' + "".join(f"<li>{s}</li>" for s in steps) + "</ol></div>"

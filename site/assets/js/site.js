@@ -452,7 +452,14 @@
         ok.classList.add('is-shown'); ok.setAttribute('tabindex', '-1'); ok.focus();
       } catch (err) {
         btn.removeAttribute('aria-busy');
-        const msg = form.querySelector('[data-neterr]'); msg.hidden = false;
+        const msg = form.querySelector('[data-neterr]');
+        if (!msg.dataset.base) msg.dataset.base = msg.innerHTML;
+        /* a file broke a rule: say which, so the visitor doesn't think the site is down */
+        const m = String((err && err.message) || '');
+        if (m === 'too many files') msg.textContent = 'Please attach no more than 10 files. Nothing you typed is lost.';
+        else if (m.indexOf('file type or size: ') === 0) msg.textContent = 'We can\'t take "' + m.slice(19) + '". Files must be STEP, IGES, X_T, DXF, DWG, PDF or ZIP, and under 50 MB each. Nothing you typed is lost.';
+        else msg.innerHTML = msg.dataset.base;
+        msg.hidden = false;
       }
     });
   }
