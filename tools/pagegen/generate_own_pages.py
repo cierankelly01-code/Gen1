@@ -227,7 +227,7 @@ made.append(sector(
      ("How is weld quality checked?", "Weld quality is checked against your specification. On our robot-welded exhaust hangers, for example, penetration is measured by macro section."),
      ("Can you supply assemblies finished?", "Yes. Coatings are applied by our approved, audited finishing partners and managed by us, so you deal with one supplier.")],
     [("How we work", "/how-we-work.html"), ("Quality &amp; accreditations", "/quality.html")],
-    img=("f-mig.webp", 1280, 580, "A welder MIG welding a folded steel panel at Genex", "MIG welding a folded steel panel."), core=False,
+    img=("stock-rail.webp", 1280, 720, "A passenger train at a station platform", "Passenger rail."), core=False,
     make_h2="What we offer rail suppliers",
     materials="<p>Mild steel, stainless steel and aluminium. Robotic MIG suits repeatable seam welds on steel assemblies; TIG suits stainless, aluminium and cosmetic welds. "
               'Coatings are applied by our approved finishing partners and managed by us: see <a class="link" href="/finishing-and-coating.html">finishing and coating</a>.</p>'))
@@ -311,7 +311,7 @@ made.append(sector(
      ("Which weld process suits frames and guards?", "Manual MIG suits fabrications, frames, guards and larger parts, from one-off to medium volumes."),
      ("Can guards have safe edges?", "Yes. A hemmed edge folds the sheet back on itself: no sharp edge, a stiffer panel, and no deburring operation.")],
     [("Hemmed edges explained", "/hemmed-edges.html"), ("Design guide", "/design-guide.html"), ("How we work", "/how-we-work.html")],
-    img=("f-hemming.webp", 1280, 720, "A hemming tool folding a closed edge on the Amada press brake at Genex", "A hemmed edge: no sharp edge, and a stiffer panel."), core=False,
+    img=("stock-automation.webp", 1280, 720, "A robot arm working in a production cell", "Robotic automation."), core=False,
     materials="<p>Mild steel suits brackets, panels and frames: lowest cost, easy to form and weld. It needs a coating against corrosion: e-coat, zinc or zinc-nickel plating, or powder coat. "
               'Powder coating gives a coloured, hard-wearing finish for visible parts. See <a class="link" href="/metal-finishes-explained.html">metal finishes explained</a>.</p>'))
 
@@ -329,7 +329,7 @@ made.append(sector(
      ("How are parts protected against corrosion?", "Mild steel usually needs protection: e-coat, zinc or zinc-nickel plating, or powder coat, applied by our approved finishing partners and managed by us."),
      ("What volumes do you press?", "From a few hundred to hundreds of thousands of parts a year.")],
     [("Metal finishes explained", "/metal-finishes-explained.html"), ("Materials", "/materials.html"), ("Machinery, food &amp; packaging", "/machinery.html")],
-    img=("f-progression.webp", 1280, 580, "A progression tool running on a Genex press", "A progression tool running on one of our presses."), core=False,
+    img=("stock-agriculture.webp", 1280, 720, "A tractor working in a hay field", "Agricultural machinery at work."), core=False,
     materials="<p>Coated steels, such as pre-galvanised, suit outdoor parts; cut edges and welds may need touching up. Mild steel usually needs protection: e-coat, zinc or zinc-nickel plating, or powder coat. "
               "E-coat gives an even, thin corrosion-resistant coat that reaches into recesses.</p>"))
 
@@ -368,7 +368,7 @@ made.append(sector(
      ("Which weld process suits cosmetic parts?", "TIG welding suits stainless, aluminium and cosmetic welds."),
      ("Can you supply a finished product?", "Yes. We bring our own parts together with inserts, bought-in components and finishing, then assemble, inspect and pack the finished product under one part number.")],
     [("Tube manipulation", "/tube-manipulation.html"), ("Metal finishes explained", "/metal-finishes-explained.html"), ("Materials", "/materials.html")],
-    img=("f-tube2.webp", 1280, 580, "Racks of bent stainless tube frames at Genex", "Bent stainless tube frames, racked for welding."),
+    img=("stock-aftermarket.webp", 1280, 720, "A chrome luggage rack on the back of a classic car", "A luggage rack on a classic car."),
     materials="<p>Stainless steel is often left bare, polished or passivated, and polishing gives a cosmetic finish. Aluminium can be left bare or powder coated. "
               "Powder coating gives a coloured, hard-wearing finish for visible parts.</p>"))
 
