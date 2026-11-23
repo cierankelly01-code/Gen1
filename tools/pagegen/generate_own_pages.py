@@ -13,17 +13,13 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from gen_lib import page, sec, fig, cards, service, parts_block, HOME, CAP  # noqa: E402
+from gen_lib import page, sec, fig, cards, table, service, parts_block, HOME, CAP  # noqa: E402
 
 SEC = ("Sectors", "/industries.html")
 
 
 def ul(items):
     return "<ul>" + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
-
-
-def ol_steps(items):
-    return '<ol class="steps">' + "".join(f"<li><div><h3>{h}</h3><p>{p}</p></div></li>" for h, p in items) + "</ol>"
 
 
 def linklist(links):
@@ -53,32 +49,55 @@ QUALITY = sec("quality", "Quality checks", "Quality", "How every part is checked
                   "<strong>PPAP</strong> Levels 1 to 5 when your customer requires it"]) +
               '<p>Certified to ISO 9001 and ISO 14001, and re-audited by BSI in 2026 with zero non-conformances. <a class="link" href="/quality.html">More on quality</a>.</p>')
 
-RUN_STD = [("Enquiry and review", "Send the drawing, volumes and specification; we review manufacturability and flag cost risks."),
-           ("Quote", "Route, piece price, any tooling and lead time, in writing."),
-           ("First parts", "First-article inspection report, or PPAP to the level required."),
-           ("Production", "Parts made to your schedule, with in-process and final checks."),
-           ("Delivery", "Packed to your specification and delivered on our own vehicles.")]
-
-ONE_SUPPLIER = ("Supply chain", "Fewer hand-offs", "Presswork, welding, folding, finishing and assembly from one supplier.")
-OWN_VEHICLES = ("Delivery", "Our own vehicles", "Packed to your specification and delivered on our own vehicles.")
+def route(steps):
+    return '<div class="prose"><p>The route:</p><ol>' + "".join(f"<li>{s}</li>" for s in steps) + "</ol></div>"
 
 
-def sector(slug, name, title, desc, h1, lead, answer, makes, needs, caps, parts, faqs, guides, img=None, core=True, make_h2=None):
-    """Same six blocks, in the same order, as the existing sector pages."""
+HOW_IT_RUNS = ('<p>Send the drawing, volumes and specification. We review it for manufacturability, quote the route, piece price, any tooling '
+               'and lead time in writing, and prove the first parts with a first-article inspection report, or PPAP to the level you need, '
+               'before production starts. <a class="link" href="/how-we-work.html">How we work, stage by stage</a>.</p>')
+
+
+def sector(slug, name, title, desc, h1, lead, answer, makes, kit, caps, parts, faqs, guides, img=None, core=True,
+           make_h2=None, needs=None, story=None, materials=None):
+    """Sector page. Every block below is specific to the sector: what we make, the real machines it runs on,
+    a real part where we have one, and the materials and finishes. No block is repeated word for word across pages
+    except the short 'how a project runs' paragraph."""
     lname = name.lower().replace('&', '&amp;')
     art = "an" if lname[0] in "aeiou" else "a"
-    sections = [
-        sec("make", "What we make", "01 · Products", make_h2 or f"What we make for {lname}", ul(makes), fig(*img) if img else ""),
-        sec("needs", "What you need from a supplier", "02 · Requirements", "What you need from a supplier, and how we meet it", "", cards(needs)),
-        sec("run", "How a project runs", "03 · Process", f"How {art} {lname} project runs with Genex", "", ol_steps(RUN_STD)),
-        sec("capabilities", "Capabilities used", "04 · Capabilities", "Capabilities we use", "", linklist(caps)),
-    ]
+    sections = [sec("make", "What we make", "Products", make_h2 or f"What we make for {lname}", ul(makes), fig(*img) if img else "")]
+    if story:
+        sections.append(sec("part", story["toc"], "A real part", story["h2"], story["prose"], story.get("extra", "")))
+    kit_caption, kit_rows, kit_intro = kit
+    sections.append(sec("kit", "Plant on site", "Plant", "Plant on site", kit_intro,
+                        table(kit_caption, kit_rows).replace('class="spec-table"', 'class="spec-table spec-table--fit"')))  # wraps on a phone
+    if materials:
+        sections.append(sec("materials", "Materials and finishes", "Materials", "Materials and finishes", materials))
+    if needs:
+        sections.append(sec("needs", "What you get", "Supply", "What you get from us", "", cards(needs)))
+    sections.append(sec("run", "How a project runs", "Process", f"How {art} {lname} project runs with Genex", HOW_IT_RUNS))
+    sections.append(sec("capabilities", "Capabilities used", "Capabilities", "Capabilities we use", "", linklist(caps)))
     if parts:
         sections.append({"id": "examples", "toc": "Examples", "html": parts_block(parts, "Examples")})
     sections.append(related(guides))
     return page(slug, "industries", title, desc, [HOME, SEC, (name, f"/{slug}.html")],
                 ("Core sector · " if core else "Sector · ") + name.replace('&', '&amp;'), h1, lead, answer, sections, faqs,
                 cta_label="Discuss your project")
+
+
+# Real plant, from Genex's own plant list (Oct 2026) as already published on the capability pages.
+K_PRESS = ("Presses", "Twelve mechanical presses, 40 to 200 tonnes, with coil feed for progression tools")
+K_PRESS_THICK = ("Material on the presses", "Up to 5 mm")
+K_LASER = ("Laser cutting", "Up to 25 mm, depending on material")
+K_FOLD = ("Folding", "Amada HRB1003 press brake: up to 6 mm thick at 3 m long, programmed offline from your 3D model")
+K_FOLD_ACC = ("Fold accuracy", "Automatic crowning and digital angle inspection")
+K_HEM = ("Safe edges", "Hemmed edges closed in a single hit: no sharp edge, a stiffer panel")
+K_ROBOT = ("Robotic welding", "Fanuc robotic MIG arm")
+K_MANUAL = ("Manual welding", "Thermal Arc MIG and Jasic TIG stations")
+K_RESIST = ("Resistance welding", "Four British Federal resistance welders, 75 to 150 kVA, for projection, spot, stud and nut welding")
+K_STUD = ("Stud welding", "A dedicated stud welder")
+K_CMM = ("Inspection", "Mitutoyo CNC coordinate measuring machine, 500 × 700 × 400 mm, checking parts back to the 3D CAD model")
+K_TOOLROOM = ("Toolroom", "Eight toolroom machines on site, so press tools are maintained and repaired in-house")
 
 
 PRESS = ("Metal pressings", "/metal-pressings.html")
@@ -166,7 +185,7 @@ made.append(page(
     "Dedicated Genex UK transport fleet ensure your goods are delivered safely.",
     "Genex packs orders to the customer's specification and delivers on its own 3.5 tonne and 7.5 tonne vehicles, with custom racking and crates, and labels, reports and container tickets to suit your goods-in.",
     [
-        sec("fleet", "Our own vehicles", "01 · Transport", "Our own vehicles", "",
+        sec("fleet", "Transport, packing and paperwork", "01 · Transport", "Transport, packing and paperwork", "",
             cards([("Transport", "Our own vehicles", "A 3.5 tonne and a 7.5 tonne vehicle, so large orders arrive in one trip."),
                    ("Packing", "Racking &amp; crates", "Custom racks and crates protect parts from our door to your dock."),
                    ("Paperwork", "Traceable to the order", "Labels, reports and container tickets to suit your goods-in.")])),
@@ -190,16 +209,17 @@ made.append(sector(
     "Pressings plus welded assemblies, robotic MIG and manual MIG and TIG, with full finishing, for rolling-stock and rail-infrastructure suppliers who want a shorter vendor list.",
     "Genex offers rolling-stock and rail-infrastructure suppliers pressings and welded assemblies (robotic MIG, manual MIG and TIG), finished through approved partners and packed complete.",
     ["Pressings", "Welded assemblies: robotic MIG, and manual MIG and TIG", "Welded assemblies, finished and packed complete"],
-    [("Welding", "Robotic MIG, manual MIG and TIG", "Verified, repeatable processes."),
-     ("Finishing", "Full finishing", "Through our approved finishing partners, managed by us on one order."),
-     ("Supply chain", "A shorter vendor list", "Presswork, welding, finishing and assembly from one supplier."),
-     OWN_VEHICLES],
+    ("Presswork and welding at Genex", [K_PRESS, K_PRESS_THICK, K_ROBOT, K_MANUAL, K_RESIST, K_CMM],
+     "<p>Pressing and welding happen on the same site in Walsall, so pressed parts don't have to go to another supplier to be welded.</p>"),
     [PRESS, WELD, FINISH], [],
     [("What do you offer rail suppliers?", "Pressings and welded assemblies (robotic MIG, manual MIG and TIG), with full finishing, packed complete."),
+     ("How is weld quality checked?", "Weld quality is checked against your specification. On our robot-welded exhaust hangers, for example, penetration is measured by macro section."),
      ("Can you supply assemblies finished?", "Yes. Coatings are applied by our approved, audited finishing partners and managed by us, so you deal with one supplier.")],
     [("How we work", "/how-we-work.html"), ("Quality &amp; accreditations", "/quality.html")],
     img=("f-mig.webp", 1280, 580, "A welder MIG welding a folded steel panel at Genex", "MIG welding a folded steel panel."), core=False,
-    make_h2="What we offer rail suppliers"))
+    make_h2="What we offer rail suppliers",
+    materials="<p>Mild steel, stainless steel and aluminium. Robotic MIG suits repeatable seam welds on steel assemblies; TIG suits stainless, aluminium and cosmetic welds. "
+              'Coatings are applied by our approved finishing partners and managed by us: see <a class="link" href="/finishing-and-coating.html">finishing and coating</a>.</p>'))
 
 made.append(sector(
     "aerospace-and-space", "Aerospace & space", "Aerospace & Space: Precision Fabrication | Genex UK",
@@ -208,15 +228,16 @@ made.append(sector(
     "Precision fabrication and complete assemblies, with each job's manufacturing and documentation needs reviewed at enquiry.",
     "Genex supplies precision fabrication and complete assemblies for aerospace and space, reviews each job's manufacturing and documentation needs at enquiry, and is listed on the Midlands Space Cluster.",
     ["Precision fabrication", "Complete assemblies", "Advanced alloys and specialist coatings through approved partners"],
-    [("Review", "Reviewed at enquiry", "Each job's manufacturing and documentation needs are reviewed at enquiry."),
-     ("Network", "Midlands Space Cluster", "Genex is listed on the Midlands Space Cluster, which supports regional firms moving into the space sector."),
-     ONE_SUPPLIER,
-     OWN_VEHICLES],
+    ("Cutting, folding and inspection at Genex", [K_LASER, K_FOLD, K_FOLD_ACC, K_CMM],
+     "<p>Folding is programmed offline from your 3D model, so the bend sequence is worked out on screen before any metal is cut. Dimensional checks run on our own Mitutoyo CMM, measuring back to the 3D CAD model.</p>"),
     [LASER, WELD], [],
-    [("Is Genex part of the Midlands Space Cluster?", "Genex is listed on the Midlands Space Cluster, which supports regional firms moving into the space sector."),
-     ("How do you handle documentation?", "Each job's manufacturing and documentation needs are reviewed at enquiry.")],
+    [("Is Genex listed on the Midlands Space Cluster?", "Genex is listed on the Midlands Space Cluster, which supports regional firms moving into the space sector."),
+     ("How do you handle documentation?", "Each job's manufacturing and documentation needs are reviewed at enquiry. Every order is traceable from enquiry to delivery, with customer-specific reports if you need them.")],
     [("Quality &amp; accreditations", "/quality.html"), ("Materials", "/materials.html")],
-    img=("f-laserfold.webp", 1280, 580, "A laser-cut panel after folding at Genex", "A laser-cut panel after folding.")))
+    img=("f-laserfold.webp", 1280, 580, "A laser-cut panel after folding at Genex", "A laser-cut panel after folding."),
+    needs=[("Review", "Reviewed at enquiry", "Each job's manufacturing and documentation needs are reviewed at enquiry."),
+           ("Inspection", "Our own CMM", "A Mitutoyo CNC coordinate measuring machine, measuring back to the 3D CAD model."),
+           ("Traceability", "Enquiry to delivery", "Every stage recorded against your order, with material certificates held against the batch.")]))
 
 made.append(sector(
     "security", "Security", "Panels for Security Equipment & Scanner Lanes | Genex UK",
@@ -225,15 +246,19 @@ made.append(sector(
     "Laser-cut, folded and welded panels for security equipment, including the scanner-lane access panels we make for airport security lanes.",
     "Genex makes laser-cut, folded and welded panels for security equipment in mild steel, including scanner-lane access panels for airport security lanes in a range of sizes, with undercoat and powder topcoat through approved finishing partners.",
     ["Laser-cut, folded and welded panels", "Scanner-lane access panels, in a range of sizes, that finish the framework of security scanner lanes in airports"],
-    [("Fabrication", "Cut, folded and welded", "Mild steel, laser cut, folded and welded."),
-     ("Finish", "Undercoat and powder topcoat", "Through our approved finishing partners."),
-     ("Range", "A range of sizes", "Access panels made in a range of sizes to finish the installation."),
-     OWN_VEHICLES],
-    [LASER, WELD, FINISH], ["panel"],
+    ("Sheet-metal fabrication at Genex", [K_LASER, K_FOLD, K_MANUAL, K_STUD],
+     "<p>The panels are cut, folded and welded, then coated by our approved coating partner. We manage the coating, so they arrive finished on one order.</p>"),
+    [LASER, WELD, FINISH], [],
     [("What do you make for security equipment?", "Laser-cut, folded and welded panels, including scanner-lane access panels for airport security lanes."),
-     ("How are the panels finished?", "With an undercoat and powder topcoat, through our approved finishing partners.")],
-    [("Pressing or laser cut and fold?", "/pressing-vs-laser-cut-and-fold.html"), ("Metal finishes explained", "/metal-finishes-explained.html")],
-    img=("part-access-panel.webp", 800, 600, "Powder-coated steel scanner-lane access panel made by Genex", "A scanner-lane access panel, powder coated.")))
+     ("How are the panels finished?", "With an undercoat and powder topcoat, through our approved finishing partners."),
+     ("Can you make a range of sizes?", "Yes. The scanner-lane access panels are made in a range of sizes to finish the installation.")],
+    [("Pressing or laser cut and fold?", "/pressing-vs-laser-cut-and-fold.html"), ("Hemmed edges explained", "/hemmed-edges.html"), ("Metal finishes explained", "/metal-finishes-explained.html")],
+    img=("part-access-panel.webp", 800, 600, "Powder-coated steel scanner-lane access panel made by Genex", "A scanner-lane access panel, powder coated."),
+    story={"toc": "Scanner-lane access panels", "h2": "Scanner-lane access panels, step by step",
+           "prose": "<p>Made in a range of sizes to finish the framework of security scanner lanes in airports. Mild steel, 1.5 mm, with an undercoat and powder topcoat by our approved coating partner.</p>",
+           "extra": route(["Laser cut", "Press brake", "MIG weld", "Polish", "CD stud weld", "Undercoat and powder topcoat, by our approved coating partner"])},
+    materials="<p>Mild steel for the access panels, with an undercoat and powder topcoat. Powder coating gives a thicker, coloured, hard-wearing finish for visible parts. "
+              "We also cut and fold stainless steel and aluminium.</p>"))
 
 made.append(sector(
     "machinery", "Machinery, food & packaging", "Machinery, Food & Packaging Metalwork | Genex UK",
@@ -242,14 +267,19 @@ made.append(sector(
     "Machine frames, guards, brackets, panels and sub-assemblies for machine builders, including food-processing and packaging equipment that has to be strong and easy to clean.",
     "Genex supplies machine builders, including makers of food-processing and packaging equipment, with frames, guards, brackets, panels and sub-assemblies, formed, welded and finished by one supplier.",
     ["Machine frames and guards", "Brackets and panels", "Sub-assemblies, including for food-processing and packaging equipment that has to be strong and easy to clean"],
-    [("Fabrication", "Formed, welded and finished", "Formed, welded and finished components."),
-     ONE_SUPPLIER,
-     ("Finish", "E-coat", "The lawn mower rear roller is e-coated by our approved coating partner."),
-     OWN_VEHICLES],
-    [LASER, WELD, FINISH], ["roller"],
-    [("What do you make for machine builders?", "Machine frames, guards, brackets, panels and sub-assemblies, including for food-processing and packaging equipment.")],
-    [("How we work", "/how-we-work.html"), ("Metal finishes explained", "/metal-finishes-explained.html")],
-    img=("part-rear-roller.webp", 800, 600, "Black e-coated rolled steel lawn mower rear roller", "A lawn mower rear roller: rolled, seam-welded and e-coated."), core=False))
+    ("Fabrication at Genex", [K_LASER, K_FOLD, K_HEM, K_ROBOT, K_MANUAL, K_PRESS],
+     "<p>Frames, guards and panels can be cut, folded and welded on one site, and pressed where the volume justifies a tool.</p>"),
+    [LASER, WELD, FINISH], [],
+    [("What do you make for machine builders?", "Machine frames, guards, brackets, panels and sub-assemblies, including for food-processing and packaging equipment."),
+     ("Can you weld stainless for food equipment?", "Yes. TIG welding suits stainless, aluminium, cosmetic and food-safe welds, and stainless can be polished or passivated."),
+     ("Do you only make one-offs, or volume too?", "Both. Laser cutting and folding run from one-off prototypes to repeat batches, and pressing takes over when volumes justify a tool.")],
+    [("Pressing or laser cut and fold?", "/pressing-vs-laser-cut-and-fold.html"), ("Hemmed edges explained", "/hemmed-edges.html"), ("Medical &amp; catering", "/medical-and-catering.html")],
+    img=("part-rear-roller.webp", 800, 600, "Black e-coated rolled steel lawn mower rear roller", "A lawn mower rear roller: rolled, seam-welded and e-coated."), core=False,
+    story={"toc": "A lawn mower roller", "h2": "A lawn mower rear roller, from flat sheet",
+           "prose": "<p>The roller at the back of a lawn mower. We start from flat steel sheet, roll it and weld it to shape. Mild steel, 1.5 mm, e-coated by our approved coating partner. It is one real example of our rolled and welded work.</p>",
+           "extra": route(["Roll", "Seam weld", "MIG weld", "Hydraulic press"])},
+    materials="<p>Mild steel is the lowest-cost choice for frames, brackets and panels, and needs a coating against corrosion. Stainless steel resists corrosion and suits food use: "
+              'it is often left bare, polished or passivated. See <a class="link" href="/materials.html">materials</a>.</p>'))
 
 made.append(sector(
     "automation", "Automation & intralogistics", "Automation & Intralogistics Metalwork | Genex UK",
@@ -258,14 +288,16 @@ made.append(sector(
     "Conveyor frames, machine guards, safety gates, fabricated bases and support structures that have to arrive right first time, because the installation date is already fixed.",
     "Genex supplies automation and intralogistics firms with conveyor frames, machine guards, safety gates, fabricated bases and support structures, with presswork, welding, folding, finishing and assembly from one supplier.",
     ["Conveyor frames", "Machine guards and safety gates", "Fabricated bases and support structures"],
-    [ONE_SUPPLIER,
-     ("Approval", "First parts checked", "First-article inspection report, or PPAP to the level required."),
-     ("Finishing", "Managed by us", "Through our approved finishing partners, on one order."),
-     OWN_VEHICLES],
+    ("Cutting, folding and welding at Genex", [K_LASER, K_FOLD, K_FOLD_ACC, K_HEM, K_MANUAL, K_CMM],
+     "<p>Folded parts are programmed offline from your 3D model, so set-up time drops and the first part is right. Automatic crowning keeps long folds true along the full 3 metres.</p>"),
     [LASER, WELD, FINISH], [],
-    [("What do you make for automation?", "Conveyor frames, machine guards, safety gates, fabricated bases and support structures.")],
-    [("How we work", "/how-we-work.html"), ("Pressing or laser cut and fold?", "/pressing-vs-laser-cut-and-fold.html")],
-    img=("f-laserfold.webp", 1280, 580, "A laser-cut panel after folding at Genex", "A laser-cut panel after folding."), core=False))
+    [("What do you make for automation?", "Conveyor frames, machine guards, safety gates, fabricated bases and support structures."),
+     ("Which weld process suits frames and guards?", "Manual MIG suits fabrications, frames, guards and larger parts, from one-off to medium volumes."),
+     ("Can guards have safe edges?", "Yes. A hemmed edge folds the sheet back on itself: no sharp edge, a stiffer panel, and no deburring operation.")],
+    [("Hemmed edges explained", "/hemmed-edges.html"), ("Design guide", "/design-guide.html"), ("How we work", "/how-we-work.html")],
+    img=("f-hemming.webp", 1280, 720, "A hemming tool folding a closed edge on the Amada press brake at Genex", "A hemmed edge: no sharp edge, and a stiffer panel."), core=False,
+    materials="<p>Mild steel suits brackets, panels and frames: lowest cost, easy to form and weld. It needs a coating against corrosion: e-coat, zinc or zinc-nickel plating, or powder coat. "
+              'Powder coating gives a coloured, hard-wearing finish for visible parts. See <a class="link" href="/metal-finishes-explained.html">metal finishes explained</a>.</p>'))
 
 made.append(sector(
     "agriculture", "Agriculture & off-highway", "Agricultural & Off-Highway Metalwork | Genex UK",
@@ -274,31 +306,37 @@ made.append(sector(
     "Rollers, brackets, guards and welded assemblies for agricultural and off-highway equipment, in coated steels.",
     "Genex supplies makers of agricultural and off-highway equipment with rollers, brackets, guards and welded assemblies in coated steels, formed, welded and finished by one supplier.",
     ["Rollers", "Brackets and guards", "Welded assemblies, in coated steels"],
-    [("Fabrication", "Formed, welded and finished", "Formed, welded and finished components."),
-     ONE_SUPPLIER,
-     ("Finishing", "Managed by us", "Through our approved finishing partners, on one order."),
-     OWN_VEHICLES],
+    ("Presswork and welding at Genex", [K_PRESS, K_PRESS_THICK, K_ROBOT, K_MANUAL, K_RESIST, K_TOOLROOM],
+     "<p>Pressing and welding are on the same site in Walsall. Production tools are maintained in our own toolroom, so a worn punch or a breakdown is dealt with on site.</p>"),
     [PRESS, WELD, FINISH], [],
-    [("Do you make parts for agricultural equipment?", "Yes. Rollers, brackets, guards and welded assemblies for agricultural and off-highway equipment, in coated steels.")],
-    [("How we work", "/how-we-work.html"), ("Metal finishes explained", "/metal-finishes-explained.html")],
-    img=("f-mig.webp", 1280, 580, "A welder MIG welding a folded steel panel at Genex", "MIG welding a folded steel panel."), core=False))
+    [("Do you make parts for agricultural equipment?", "Yes. Rollers, brackets, guards and welded assemblies for agricultural and off-highway equipment, in coated steels."),
+     ("How are parts protected against corrosion?", "Mild steel usually needs protection: e-coat, zinc or zinc-nickel plating, or powder coat, applied by our approved finishing partners and managed by us."),
+     ("What volumes do you press?", "From a few hundred to hundreds of thousands of parts a year.")],
+    [("Metal finishes explained", "/metal-finishes-explained.html"), ("Materials", "/materials.html"), ("Machinery, food &amp; packaging", "/machinery.html")],
+    img=("f-progression.webp", 1280, 580, "A progression tool running on a Genex press", "A progression tool running on one of our presses."), core=False,
+    materials="<p>Coated steels, such as pre-galvanised, suit outdoor parts; cut edges and welds may need touching up. Mild steel usually needs protection: e-coat, zinc or zinc-nickel plating, or powder coat. "
+              "E-coat gives an even, thin corrosion-resistant coat that reaches into recesses.</p>"))
 
 made.append(sector(
-    "electrical-hardware", "Electrical hardware", "Electrical Hardware: Brackets, Fixings & Enclosure Parts | Genex UK",
+    "electrical-hardware", "Electrical hardware", "Electrical Hardware: Brackets & Fixings | Genex UK",
     "Brackets, fixings and enclosure parts for electrical installations, including the cable-basket brackets used in commercial buildings. Walsall, UK.",
     "Brackets and fixings for electrical installations.",
     "Brackets, fixings and enclosure parts for electrical installations, including the cable-basket brackets used in commercial buildings.",
     "Genex makes brackets and fixings for electrical installations, including pressed pre-galvanised cable-basket brackets in ceiling and wall-mount versions and different lengths.",
     ["Brackets and fixings for electrical installations", "Cable-basket brackets in ceiling and wall-mount versions, in different lengths to suit the job"],
-    [("Volume", "High-volume pressing", "The cable basket ceiling bracket is a high-volume production part."),
-     ("Material", "Pre-galvanised steel", "Our cable basket ceiling bracket is pre-galvanised steel, 3 mm."),
-     ONE_SUPPLIER,
-     OWN_VEHICLES],
-    [PRESS], ["ceiling"],
+    ("Presswork at Genex", [K_PRESS, K_PRESS_THICK, ("Volumes", "A few hundred to hundreds of thousands of parts a year"), K_TOOLROOM],
+     "<p>Brackets can run on the presses at high volume. We also laser cut and fold copper and brass.</p>"),
+    [PRESS, LASER], [],
     [("Do you make cable-basket brackets?", "Yes. A pre-galvanised ceiling bracket and a wall-mount version, in different lengths to suit the job."),
+     ("Do you work in copper and brass?", "Yes, for laser-cut and folded parts. Tell us the grade and send the drawing to confirm."),
      ("Which materials do you press?", "Mild steel, stainless steel, aluminium and coated steels such as pre-galvanised.")],
-    [("Construction", "/construction.html"), ("Materials", "/materials.html")],
-    img=("part-ceiling-bracket.webp", 800, 600, "Pre-galvanised steel ceiling bracket for hanging electrical cable basket", "A pre-galvanised cable basket ceiling bracket."), core=False))
+    [("Construction", "/construction.html"), ("Materials", "/materials.html"), ("Data centres &amp; power", "/data-centres.html")],
+    img=("part-ceiling-bracket.webp", 800, 600, "Pre-galvanised steel ceiling bracket for hanging electrical cable basket", "A pre-galvanised cable basket ceiling bracket."), core=False,
+    story={"toc": "Cable basket bracket", "h2": "The cable basket ceiling bracket",
+           "prose": "<p>Hangs cable basket from the ceiling for electrical installations in buildings. A wall-mount version is made too, and both come in different lengths to suit the job. "
+                    "Pre-galvanised steel, 3 mm, and a high-volume production part.</p>",
+           "extra": route(["Single-action press, 100 t", "Inspect and pack"])},
+    materials="<p>Pre-galvanised steel is coated before forming, so this bracket goes straight from the press to inspection and packing. Cut edges and welds may need touching up. We laser cut and fold copper and brass for electrical and decorative parts.</p>"))
 
 made.append(sector(
     "aftermarket", "Aftermarket", "Aftermarket, Consumer & Architectural Metalwork | Genex UK",
@@ -307,13 +345,15 @@ made.append(sector(
     "Aftermarket accessories, consumer goods and architectural metalwork, including our own classic-car boot racks in stainless and aluminium.",
     "Genex makes aftermarket accessories, consumer goods and architectural metalwork, including its own classic-car boot racks in stainless and aluminium.",
     ["Our own classic-car boot racks, in stainless and aluminium", "Aftermarket accessories, consumer goods and architectural metalwork"],
-    [("Materials", "Stainless and aluminium", "Our own boot racks are made in stainless and aluminium."),
-     ("Finish", "Cosmetic finishes", "Polishing gives a cosmetic finish. Powder coating gives a coloured, hard-wearing finish for visible parts."),
-     ONE_SUPPLIER,
-     OWN_VEHICLES],
+    ("Tube, welding and folding at Genex", [("Tube", "Bent tube frames and assemblies in stainless and mild steel"), K_MANUAL, K_LASER, K_FOLD, K_HEM],
+     "<p>Our classic-car boot racks started with our tube manipulation work. The same bending, welding and folding is available for your own product.</p>"),
     [TUBE, WELD, FINISH], [],
     [("Do you make a product of your own?", "Yes. Our own classic-car boot racks are made in stainless and aluminium."),
+     ("Which weld process suits cosmetic parts?", "TIG welding suits stainless, aluminium and cosmetic welds."),
      ("Can you supply a finished product?", "Yes. We bring our own parts together with inserts, bought-in components and finishing, then assemble, inspect and pack the finished product under one part number.")],
-    [("Metal finishes explained", "/metal-finishes-explained.html"), ("Materials", "/materials.html")]))
+    [("Tube manipulation", "/tube-manipulation.html"), ("Metal finishes explained", "/metal-finishes-explained.html"), ("Materials", "/materials.html")],
+    img=("f-tube2.webp", 1280, 580, "Racks of bent stainless tube frames at Genex", "Bent stainless tube frames, racked for welding."),
+    materials="<p>Stainless steel is often left bare, polished or passivated, and polishing gives a cosmetic finish. Aluminium can be left bare or powder coated. "
+              "Powder coating gives a coloured, hard-wearing finish for visible parts.</p>"))
 
 print("wrote", len(made), "pages:", ", ".join(made))
