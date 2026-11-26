@@ -5,7 +5,7 @@
 #   SUPABASE_ANON_KEY  the project's anon / publishable key (safe in the browser; RLS allows insert only)
 #   STATS_URL          optional: the Umami address, e.g. https://stats.example.com (must also be in security-headers.conf)
 #   STATS_ID           optional: the website id Umami gives this site (not a secret)
-FROM python:3.12-alpine AS build
+FROM python:3.15-alpine AS build
 WORKDIR /app
 COPY site/ ./site/
 ARG PREVIEW=1
