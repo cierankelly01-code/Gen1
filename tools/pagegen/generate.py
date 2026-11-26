@@ -117,8 +117,8 @@ made.append(page(
 
 made.append(page(
     "laser-cutting-and-folding", "capabilities",
-    "Laser Cutting & CNC Folding up to 6 mm × 3 m, Walsall | Genex UK",
-    "Laser cutting up to 25 mm and CNC press-brake folding up to 6 mm thick at 3 metres on an Amada HRB1003 with offline programming and hemming. Mild steel, stainless, aluminium, copper and brass.",
+    "Laser Cutting & Sheet Metal Folding, Walsall | Genex UK",
+    "Sheet metal laser cutting up to 25 mm and CNC press-brake folding up to 6 mm thick at 3 metres on an Amada HRB1003 with offline programming and hemming. Mild steel, stainless, aluminium, copper and brass.",
     [HOME, CAP, ("Laser cutting & folding", "/laser-cutting-and-folding.html")],
     "Laser cutting &amp; folding", "Cut to 25 mm. Folded to 6 mm at 3 metres.",
     "Laser cutting and CNC folding for prototypes, low to medium volumes and parts too large or thick for a press, with hemmed safety edges in a single hit.",
@@ -164,8 +164,8 @@ made.append(page(
 
 made.append(page(
     "welding-and-fabrication", "capabilities",
-    "Robotic & Manual Welding, Fabrication, Walsall | Genex UK",
-    "Robotic MIG, manual MIG and TIG, spot and projection welding for fabrications and welded assemblies in mild steel, stainless and aluminium, from one-offs to jigged volume work. Walsall, UK.",
+    "Welding & Sheet Metal Fabrication, Walsall | Genex UK",
+    "Robotic MIG, manual MIG and TIG, spot and projection welding for sheet metal fabrications and welded assemblies in mild steel, stainless and aluminium, from one-offs to jigged volume work. Walsall, UK.",
     [HOME, CAP, ("Welding & fabrication", "/welding-and-fabrication.html")],
     "Welding &amp; fabrication", "The right weld for the part.",
     "Robotic MIG for repeatable volume, skilled manual MIG and TIG for complex or cosmetic welds, and spot and projection welding for sheet assemblies and weld nuts.",
