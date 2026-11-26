@@ -2,8 +2,29 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Analytics hook — swap the body for GA4 / Plausible without touching call sites */
-  window.track = (name, props = {}) => { (window.dataLayer = window.dataLayer || []).push({ event: name, ...props }); };
+  /* Visit statistics (Umami, no cookies). Loaded only when the build sets STATS_URL and STATS_ID (see Dockerfile),
+     so previews and local copies count nothing. The script itself only counts on the live hostnames and
+     respects the browser's Do Not Track setting. If the stats server is down the page is unaffected. */
+  const stats = (window.GENEX_CFG || {}).stats;
+  const statsOn = !!(stats && stats.url && stats.id);
+  const early = [];                       // events fired before the stats script has loaded
+  const send = (name, props) => { try { window.umami.track(name, props); } catch (e) { /* statistics must never break the page */ } };
+  if (statsOn) {
+    const s = document.createElement('script');
+    s.defer = true; s.src = stats.url.replace(/\/$/, '') + '/script.js';
+    s.dataset.websiteId = stats.id;
+    s.dataset.domains = 'genexuk.co.uk,www.genexuk.co.uk';
+    s.dataset.doNotTrack = 'true';
+    s.dataset.excludeSearch = 'true';     // never record what follows the ? in an address
+    s.onload = () => { if (window.umami) early.splice(0).forEach(([n, p]) => send(n, p)); };
+    document.head.appendChild(s);
+  }
+  /* Event hook: every call site uses track(); events go to Umami, queued until it has loaded */
+  window.track = (name, props = {}) => {
+    (window.dataLayer = window.dataLayer || []).push({ event: name, ...props });
+    if (window.umami) send(name, props);
+    else if (statsOn && early.length < 20) early.push([name, props]);
+  };
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href*="rfq"], a[href^="tel:"], a[href^="mailto:"]');
     if (a) track('cta_click', { href: a.getAttribute('href'), where: a.closest('section,header,footer')?.className.split(' ')[0] || 'page' });

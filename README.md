@@ -68,7 +68,7 @@ Every claim below comes from Genex's own LinkedIn, their current site or their d
 1. **Photography.** This is the biggest upgrade available. The current photos are 400–800 px, so they blur on large and retina screens. Shoot tight close-ups of the toolroom, die steel, press line, weld cell and parts in stillages at 2000 px+, then add `srcset`.
 2. **RFQ backend.** The form currently runs in demo mode. Set `data-endpoint` on the form to post multipart data to the lead pipeline (the dashboard and AI outreach build plug in here), and send a copy to sales@.
 3. **Self-host fonts.** Use subset WOFF2 files and preload the display face. This removes the Google Fonts dependency, which helps both performance and EU GDPR.
-4. **Analytics.** `window.track()` is already wired for CTA clicks, RFQ submit/errors and press interactions. Point it at GA4 or Plausible, and add a consent banner only if trackers need one.
+4. **Analytics.** `window.track()` is already wired for CTA clicks, RFQ submit/errors and press interactions. Done 26 Nov 2026: it reports to our own self-hosted Umami (no cookies) when the build variables `STATS_URL` and `STATS_ID` are set; see the Dockerfile.
 5. **Platform.** Decide whether to keep this as a static site (fast, secure, cheap) with a headless CMS, or port it to WordPress for in-house editing.
 6. **301 redirects** from the old `?page_id=` URLs to the new pages. Submit `sitemap.xml` in Search Console and Bing Webmaster Tools.
 7. **Fix on the current WordPress site:** close the public user-list endpoint (`?rest_route=/wp/v2/users`), which exposes the admin login name.

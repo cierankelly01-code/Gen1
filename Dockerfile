@@ -3,19 +3,35 @@
 #   PREVIEW            1 = noindex preview with banner (default), 0 = live site
 #   SUPABASE_URL       e.g. https://abcd1234.supabase.co
 #   SUPABASE_ANON_KEY  the project's anon / publishable key (safe in the browser; RLS allows insert only)
+#   STATS_URL          optional: the Umami address, e.g. https://stats.example.com (must also be in security-headers.conf)
+#   STATS_ID           optional: the website id Umami gives this site (not a secret)
 FROM python:3.12-alpine AS build
 WORKDIR /app
 COPY site/ ./site/
 ARG PREVIEW=1
 ARG SUPABASE_URL=""
 ARG SUPABASE_ANON_KEY=""
+# Visit statistics (Umami, no cookies). Leave both empty and the site counts nothing.
+ARG STATS_URL=""
+ARG STATS_ID=""
 # The live site must never be built without a form backend: it would lose every enquiry.
 RUN if [ "$PREVIEW" != "1" ] && { [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; }; then \
       echo "ERROR: PREVIEW=0 needs SUPABASE_URL and SUPABASE_ANON_KEY set as build variables." >&2; exit 1; fi
+# Statistics must never be able to break the site. A stray quote in either value would break config.js and
+# with it the forms, and a stats address the browser's security policy doesn't allow would count nothing
+# without anyone being told. So both are checked here and a bad value stops the build (the old site stays up).
+COPY security-headers.conf /tmp/security-headers.conf
+RUN if [ -n "$STATS_URL$STATS_ID" ]; then \
+      echo "$STATS_URL" | grep -Eq '^https://[A-Za-z0-9.-]+$' || { echo "ERROR: STATS_URL must look like https://host with no path or trailing slash." >&2; exit 1; }; \
+      echo "$STATS_ID" | grep -Eq '^[A-Za-z0-9-]+$' || { echo "ERROR: STATS_ID must be letters, digits and dashes only." >&2; exit 1; }; \
+      grep -qF "$STATS_URL/script.js" /tmp/security-headers.conf && grep -qF "$STATS_URL/api/send" /tmp/security-headers.conf \
+        || { echo "ERROR: STATS_URL is not allowed in security-headers.conf (script.js and api/send)." >&2; exit 1; }; \
+    fi
 RUN cd site && python build.py \
  && if [ "$PREVIEW" = "1" ]; then python make_preview.py && mv /app/preview /app/out && DEMO=true; \
     else mkdir -p /app/out && cp -r *.html robots.txt sitemap.xml llms.txt assets .well-known /app/out/ && rm -rf /app/out/assets/img/src && DEMO=false; fi \
- && printf "window.GENEX_CFG = { supabaseUrl: '%s', supabaseAnonKey: '%s', demo: %s };\n" "$SUPABASE_URL" "$SUPABASE_ANON_KEY" "$DEMO" > /app/out/assets/js/config.js
+ && if [ "$PREVIEW" = "1" ]; then STATS_URL=""; STATS_ID=""; fi \
+ && printf "window.GENEX_CFG = { supabaseUrl: '%s', supabaseAnonKey: '%s', demo: %s, stats: { url: '%s', id: '%s' } };\n" "$SUPABASE_URL" "$SUPABASE_ANON_KEY" "$DEMO" "$STATS_URL" "$STATS_ID" > /app/out/assets/js/config.js
 
 FROM nginx:1.27-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf

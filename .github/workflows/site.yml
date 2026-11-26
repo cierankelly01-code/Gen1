@@ -39,14 +39,25 @@ jobs:
         run: npm ci --no-audit --no-fund && npm test
       - name: Live build path works, and refuses to build without a form backend
         run: |
-          docker build --build-arg PREVIEW=0 --build-arg SUPABASE_URL=https://ci-example.supabase.co --build-arg SUPABASE_ANON_KEY=ci-placeholder -t genex-site-ci .
+          docker build --build-arg PREVIEW=0 --build-arg SUPABASE_URL=https://ci-example.supabase.co --build-arg SUPABASE_ANON_KEY=ci-placeholder --build-arg STATS_URL=https://stats.5.222.15.118.sslip.io --build-arg STATS_ID=ci-site-id -t genex-site-ci .
           docker run -d --rm --name genex-site-ci -p 8089:80 genex-site-ci
           curl -sf --retry 15 --retry-delay 1 --retry-all-errors http://127.0.0.1:8089/ > /tmp/home.html
           if grep -qi 'noindex' /tmp/home.html; then echo "live build is marked noindex"; exit 1; fi
           curl -sf http://127.0.0.1:8089/assets/js/config.js | grep -q 'demo: false'
+          curl -sf http://127.0.0.1:8089/assets/js/config.js | grep -q "stats: { url: 'https://stats.5.222.15.118.sslip.io', id: 'ci-site-id' }"
+          curl -sf http://127.0.0.1:8089/assets/js/site.js | grep -q "dataset.websiteId"
+          curl -sI http://127.0.0.1:8089/ | grep -i content-security-policy | grep -q "https://stats.5.222.15.118.sslip.io/script.js"
+          if curl -sf http://127.0.0.1:8089/privacy.html | grep -qi "don't currently use cookies or analytics"; then echo "privacy page still says no analytics"; exit 1; fi
           curl -sf http://127.0.0.1:8089/concern.html | grep -q 'Send to our quality team'
           docker stop genex-site-ci
           if docker build --build-arg PREVIEW=0 -t genex-site-ci-nobackend . ; then echo "live build without a backend should have failed"; exit 1; fi
+      - name: Statistics never count on a preview, and a bad stats setting stops the build
+        run: |
+          docker build --build-arg PREVIEW=1 --build-arg STATS_URL=https://stats.5.222.15.118.sslip.io --build-arg STATS_ID=ci-site-id -t genex-site-ci-preview .
+          docker run --rm genex-site-ci-preview cat /usr/share/nginx/html/assets/js/config.js | grep -q "stats: { url: '', id: '' }"
+          B="--build-arg PREVIEW=0 --build-arg SUPABASE_URL=https://ci-example.supabase.co --build-arg SUPABASE_ANON_KEY=ci-placeholder"
+          if docker build $B --build-arg STATS_URL=https://not-allowed.example --build-arg STATS_ID=ci-site-id -t genex-site-ci-bad . ; then echo "a stats address outside the security policy should have failed"; exit 1; fi
+          if docker build $B --build-arg STATS_URL=https://stats.5.222.15.118.sslip.io --build-arg "STATS_ID=a'b" -t genex-site-ci-bad . ; then echo "a stats id with a quote should have failed"; exit 1; fi
       - name: nginx config is valid (redirects, headers)
         run: >
           docker run --rm
