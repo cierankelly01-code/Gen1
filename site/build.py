@@ -131,5 +131,48 @@ def build():
         print(f"built {out.name}")
 
 
+def sitemap_dates():
+    """Set each <lastmod> in sitemap.xml to the day that page's own source last changed (from git).
+
+    Search engines only trust lastmod when it tracks real content changes, so the date comes from the
+    page source in _src/pages, not from the built file (a layout or script change rebuilds every page).
+    A page with uncommitted edits gets today's date. Outside a full git checkout (the Docker build, or
+    a shallow CI clone where every file shares one date) the committed sitemap is left exactly as it is.
+    """
+    import subprocess
+    from datetime import date
+
+    def git(*args):
+        r = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
+        return r.stdout.strip() if r.returncode == 0 else None
+
+    try:
+        if git("rev-parse", "--is-inside-work-tree") != "true" or git("rev-parse", "--is-shallow-repository") != "false":
+            return
+    except OSError:
+        return
+    path = ROOT / "sitemap.xml"
+    with open(path, encoding="utf-8", newline="") as f:
+        text = f.read()
+
+    def fix(m):
+        name = m.group(1) or "index.html"
+        src = "_src/pages/" + name
+        if not (ROOT / src).exists():
+            return m.group(0)
+        if git("status", "--porcelain", "--", src):
+            when = date.today().isoformat()
+        else:
+            when = git("log", "-1", "--format=%cs", "--", src)
+        return m.group(0) if not when else "%s<lastmod>%s</lastmod>" % (m.group(0)[: m.group(0).index("<lastmod>")], when)
+
+    new = re.sub(r"<loc>https://genexuk\.co\.uk/([^<]*)</loc><lastmod>[^<]*</lastmod>", fix, text)
+    if new != text:
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(new)
+        print("updated sitemap.xml dates")
+
+
 if __name__ == "__main__":
     build()
+    sitemap_dates()

@@ -399,7 +399,8 @@
     const val = k => (fd.get(k) || '').toString().trim() || null;
     const row = {
       name: val('name'), company: val('company'), email: val('email'), phone: val('phone'), country: val('country'),
-      part: val('part'), annual_volume: val('volume'), prototype_qty: val('protoqty'), material: val('material'),
+      /* optional on the form, but the database column is required: say plainly that none was given */
+      part: val('part'), annual_volume: val('volume') || 'Not given', prototype_qty: val('protoqty'), material: val('material'),
       finish: val('finish'), stages: fd.getAll('stage').map(String), ppap: val('ppap'), needed_by: val('sop'),
       notes: val('notes'), nda_requested: fd.get('nda') !== null, files: paths, source: location.href.slice(0, 500), status: 'new'
     };
