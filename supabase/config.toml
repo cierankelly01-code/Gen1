@@ -1,0 +1,7 @@
+# Supabase CLI settings for this repo. No secrets live here.
+
+# notify-enquiries checks its own shared secret (x-notify-secret) and serves a public health
+# check, so Supabase's JWT gate is off for it. Same as deploying with the no-verify-jwt flag,
+# but written down so a later deploy can't forget it.
+[functions.notify-enquiries]
+verify_jwt = false

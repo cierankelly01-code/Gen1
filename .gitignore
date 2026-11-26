@@ -37,3 +37,6 @@ AGENTS.md
 !.env.example
 *.pem
 *.key
+
+# Supabase CLI scratch files
+supabase/.temp/
