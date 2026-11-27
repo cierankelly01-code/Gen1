@@ -59,6 +59,7 @@ jobs:
         run: |
           docker build --build-arg PREVIEW=1 --build-arg STATS_URL=https://stats.5.222.15.118.sslip.io --build-arg STATS_ID=ci-site-id -t genex-site-ci-preview .
           docker run --rm genex-site-ci-preview cat /usr/share/nginx/html/assets/js/config.js | grep -q "stats: { url: '', id: '' }"
+          test "$(docker run --rm genex-site-ci-preview cat /usr/share/nginx/html/version.txt)" = "unknown"
           B="--build-arg PREVIEW=0 --build-arg SUPABASE_URL=https://ci-example.supabase.co --build-arg SUPABASE_ANON_KEY=ci-placeholder"
           if docker build $B --build-arg STATS_URL=https://not-allowed.example --build-arg STATS_ID=ci-site-id -t genex-site-ci-bad . ; then echo "a stats address outside the security policy should have failed"; exit 1; fi
           if docker build $B --build-arg STATS_URL=https://stats.5.222.15.118.sslip.io --build-arg "STATS_ID=a'b" -t genex-site-ci-bad . ; then echo "a stats id with a quote should have failed"; exit 1; fi
@@ -67,7 +68,7 @@ jobs:
           docker run --rm
           -v "$PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
           -v "$PWD/security-headers.conf:/etc/nginx/snippets/security-headers.conf:ro"
-          nginx:1.29-alpine nginx -t
+          nginx:1.30-alpine nginx -t
 
   secrets:
     name: Secret scan (gitleaks, full history)
