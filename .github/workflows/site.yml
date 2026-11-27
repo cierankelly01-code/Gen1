@@ -30,6 +30,8 @@ jobs:
         run: cd site && python build.py
       - name: Built pages must match their sources (edit _src, then run build.py)
         run: git diff --exit-code -- site/*.html
+      - name: Page generators still reproduce the generated pages in _src (no hand edits lost on the next generate)
+        run: python tools/pagegen/check.py
       - name: Preview build (noindex, robots blocked)
         run: cd site && python make_preview.py
       - name: Links, anchors, titles, JSON-LD, sitemap, private files

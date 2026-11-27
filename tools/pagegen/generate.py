@@ -1,12 +1,27 @@
 """Genex v5 pages: deeper capability and sector pages, plus how-we-work, materials, case studies,
 glossary and resources. Facts come only from what Genex has published (site, LinkedIn) or is on
-the README confirm list. Rules of thumb are general industry guidance, flagged for engineer sign-off."""
+the README confirm list. Rules of thumb are general industry guidance, flagged for engineer sign-off.
+
+Writes 17 pages. assembly-and-finishing.html is no longer one of them: it was split into the hand-written
+inserting.html and value-added.html (Nov 2026; nginx.conf redirects the old address).
+python tools/pagegen/check.py confirms the output still matches site/_src/pages (CI runs it)."""
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from gen_lib import *  # noqa: F401,F403  (page, sec, table, fig, cards, vbtn, service, parts_block, PARTS, HOME, CAP, BASE, ARROW, strip_tags)
+from gen_lib import parts_block as _parts_block  # noqa: E402
 
 made = []
+
+
+def parts_block(keys, heading="Parts we make this way"):
+    """Part cards; the three parts with a case study link to it rather than to the sectors hub
+    (same rule as generate_own_pages.py). The projects hub builds its own cards and is not affected."""
+    h = _parts_block(keys, heading)
+    for k, v in (('/industries.html#p-exhaust', '/case-exhaust-hanger.html'), ('/industries.html#p-mortuary', '/case-mortuary-table.html'),
+                 ('/industries.html#p-floor', '/case-raised-floor-base-plates.html')):
+        h = h.replace(f'href="{k}"', f'href="{v}"')
+    return h
 
 
 def ul(items):
@@ -39,7 +54,7 @@ QUALITY = sec("quality", "Quality checks", "Quality", "How every part is checked
                   "<strong>Final inspection</strong> before packing, with material certificates held against the batch",
                   "<strong>Traceability</strong> from enquiry to delivery, with customer-specific reports if you need them",
                   "<strong>PPAP</strong> Levels 1 to 5 when your customer requires it"]) +
-              '<p>Certified to ISO 9001 and ISO 14001, and re-audited by BSI in 2026 with zero non-conformances. <a class="link" href="/quality.html">More on quality</a>.</p>')
+              '<p>Certified to ISO 9001 and ISO 14001. BSI\'s 2026 audit of our ISO 9001 system found zero non-conformances. <a class="link" href="/quality.html">More on quality</a>.</p>')
 
 DIE = '''<figure class="media die3d" data-die>
           <div class="press__stage"><img src="/assets/img/f-progression.webp" width="1280" height="580" loading="lazy" alt="A progression tool running on a Genex press"></div>
@@ -58,12 +73,12 @@ made.append(page(
     [
         sec("capacity", "Capacity", "01 · Capacity", "What our press shop runs",
             "<p>Repeatable pressed components at medium to high volume, for customers in automotive, construction, defence, data centres and more. Production tools are maintained in our own toolroom, so a worn punch or a breakdown is dealt with on site, fast, and your parts keep coming.</p>",
-            fig("chin-fong-200t.webp", 1000, 1500, "A Chin Fong 200 tonne mechanical press at Genex", "One of our 200 tonne Chin Fong mechanical presses.") + table("Presswork", [
+            fig("chin-fong-200t.webp", 1000, 1500, "A Chin Fong 200 tonne mechanical press at Genex", "Our 200 tonne Chin Fong mechanical press.") + table("Presswork", [
                 ("Press capacity", "Mechanical presses up to 200 tonnes"), ("Tool types run", "Progression (coil-fed), single action, multi-stage"),
                 ("Material thickness", "Up to 5 mm"), ("Materials", "Mild steel, stainless steel, aluminium, coated steels (e.g. pre-galvanised)"),
                 ("Volumes", "A few hundred to hundreds of thousands of parts a year"), ("In-press operations", "Pierce, notch, form, nut and stud insertion"),
                 ("After pressing", "Projection and spot welding, robotic MIG, inserting, coating, assembly")])),
-        sec("plant", "Our press list", "01b · Fleet", "Our mechanical press list",
+        sec("plant", "Our press list", "Press list", "Our mechanical press list",
             "<p>Twelve mechanical presses from 40 to 200 tonnes, so we can match the right press to your part rather than running everything on one machine. A production tool moves to whichever press suits its bed size and tonnage, with coil feed for progression tooling.</p>",
             '<div class="table-wrap"><table class="spec-table"><caption>Mechanical presses, Oct 2026</caption>'
             '<thead><tr><th scope="col">Make</th><th scope="col">Capacity</th><th scope="col">Process</th><th scope="col">Bed size</th><th scope="col">Feed</th></tr></thead><tbody>'
@@ -186,7 +201,7 @@ made.append(page(
             '<tr><th scope="row">Spot</th><td>Joining overlapping sheets quickly, no filler</td><td>Medium to high</td></tr>'
             '<tr><th scope="row">Projection</th><td>Weld nuts and studs onto pressings</td><td>Medium to high, jigged</td></tr>'
             '</tbody></table></div>'),
-        sec("equipment", "Welding equipment", "02b · Fleet", "Our welding cells",
+        sec("equipment", "Welding equipment", "Welding cells", "Our welding cells",
             "<p>Four resistance welders for projection, spot, stud and nut welding, a robotic MIG arm, and manual MIG and TIG stations, plus mechanical clinch, rivnut and stud-welding for parts that don't need a weld.</p>",
             '<div class="table-wrap"><table class="spec-table"><caption>Welding, Oct 2026</caption>'
             '<thead><tr><th scope="col">Make</th><th scope="col">Capacity</th><th scope="col">Process</th></tr></thead><tbody>'
@@ -230,7 +245,7 @@ made.append(page(
         sec("five-axis", "5-axis machining", "01 · Investment", "A Hurco VM1 5-axis machining centre",
             "<p>Installed in June 2026. Five axes mean complex geometry is machined in one set-up, with greater precision and shorter lead times, because the part isn't re-clamped between operations.</p>",
             fig("hurco-5axis.webp", 560, 470, "The Hurco VM1 5-axis CNC machining centre at Genex", "Our Hurco VM1 5-axis machining centre.")),
-        sec("toolroom", "Toolroom", "01b · Toolroom", "Our own toolroom",
+        sec("toolroom", "Toolroom", "Toolroom", "Our own toolroom",
             "<p>Eight toolroom machines in Walsall, so press tools are maintained and repaired in-house rather than sent out and waited for.</p>",
             '<div class="table-wrap"><table class="spec-table"><caption>Toolroom, Oct 2026</caption>'
             '<thead><tr><th scope="col">Make</th><th scope="col">Machine</th></tr></thead><tbody>'
@@ -268,57 +283,21 @@ made.append(page(
      ("Why 5-axis?", "It machines complex geometry in a single set-up, which improves accuracy and shortens lead times.")],
     service("CNC machining", "5-axis CNC milling, turning and grinding.", "cnc-machining")))
 
-made.append(page(
-    "assembly-and-finishing", "capabilities",
-    "Complete Assemblies, Inserting & Finishing, Walsall | Genex UK",
-    "PEM, stud and nut inserting, bought-in components, tube manipulation, managed coatings and complete assemblies, inspected, packed and delivered on our own vehicles. One supplier, one part number.",
-    [HOME, CAP, ("Assembly & finishing", "/assembly-and-finishing.html")],
-    "Assembly &amp; finishing", "A finished assembly is worth more than a box of parts.",
-    "Inserts, bought-in parts, tube work, coatings and assembly brought together by one supplier, then inspected, packed and delivered on our own vehicles.",
-    "Genex turns pressed, folded, welded and machined parts into finished products: PEM, stud and nut inserting, tube manipulation, coatings managed through approved partners, assembly and customer-specified testing, then inspection, packing and delivery on its own 3.5 t and 7.5 t vehicles, under one part number.",
-    [
-        sec("assembly", "Complete assembly", "01 · Build", "One part number instead of many",
-            "<p>When presswork, welding, fabrication, finishing and assembly are coordinated through one manufacturing partner, you buy, inspect and receive one thing. That means less supplier administration, less assembly work on your line and clearer accountability.</p>",
-            fig("medical-sink.webp", 817, 937, "A stainless steel mortuary preparation table with built-in sink, supplied by Genex as a complete assembly", "A mortuary preparation table, supplied complete with sink, taps and drain.") +
-            '<p><a class="link" href="/case-mortuary-table.html">Read the case study →</a></p>'),
-        sec("bring", "What we bring together", "02 · Scope", "What we bring together",
-            ul(["Our own pressed, laser-cut, folded, welded and machined parts",
-                "Fasteners: PEM nuts, studs and standoffs, clinch nuts and weld nuts",
-                "Bought-in components: fittings, plastics, rubber mounts, hardware",
-                "Coatings and finishes through approved partners",
-                "Customer-specified tests and checks",
-                "Packing, labelling and documentation to your specification"])),
-        sec("inserting", "Inserting", "03 · Inserting", "Inserting fasteners",
-            "<p>PEM nuts, studs and standoffs, clinch nuts and weld nuts fitted by us, so fasteners arrive in the part rather than loose in a bag, and your line doesn't need to fit them.</p>"),
-        sec("tube", "Tube manipulation", "04 · Tube", "Tube manipulation",
-            "<p>Bent tube frames and wire-form assemblies in stainless and mild steel, welded to pressings and brackets where the design needs it.</p>",
-            fig("f-tube.webp", 1280, 580, "Racks of bent stainless tube frames at Genex", "Bent stainless tube frames, racked for welding.")),
-        sec("finishing", "Finishing", "05 · Protection", "Finishing, managed by us",
-            "<p>E-coat, zinc and zinc-nickel plating, powder coating, passivation and more, through our approved, audited finishing partners. We manage the logistics, the specification and the inspection, so your parts arrive finished on one order. Not sure which finish? See <a class=\"link\" href=\"/metal-finishes-explained.html\">metal finishes explained</a>.</p>"),
-        sec("delivery", "Delivery", "06 · Delivered", "Packed, traceable and delivered",
-            "", cards([("Transport", "Our own vehicles", "A 3.5 tonne and a 7.5 tonne vehicle, so large orders arrive in one trip."),
-                       ("Packing", "Racking &amp; crates", "Custom racks and crates protect parts from our door to your dock."),
-                       ("Paperwork", "Traceable to the order", "Labels, reports and container tickets to suit your goods-in.")])),
-        QUALITY,
-        send_block("Bills of materials for any bought-in parts"),
-    ],
-    [("Can you supply a finished assembly?", "Yes. We bring our own parts together with inserts, bought-in components and finishing, then assemble, inspect and pack the finished product under one part number."),
-     ("Do you do the coating yourselves?", "Coatings are applied by our approved, audited finishing partners and managed by us, so you deal with one supplier."),
-     ("Do you deliver?", "Yes, on our own 3.5 tonne and 7.5 tonne vehicles, with racking and crates to protect your parts."),
-     ("Can you source bought-in parts?", "Yes. Send the bill of materials and we'll source, check and fit them as part of the assembly.")],
-    service("Assembly, inserting and finishing", "Complete assemblies with inserting, tube manipulation, managed coatings and delivery.", "assembly-and-finishing")))
 
 # ================= sector pages =================
 SEC = ("Sectors", "/industries.html")
 
 
-def sector(slug, name, title, desc, h1, lead, answer, makes, needs, run, caps, parts, faqs, guides, img=None, img_alt="", img_cap="", core=True):
+def sector(slug, name, title, desc, h1, lead, answer, makes, needs, run, caps, parts, faqs, guides, img=None, img_alt="", img_cap="", core=True, project=None):
     caps_html = '<ul class="linklist">' + ''.join(f'<li><a href="/{s}.html">{n} →</a></li>' for s, n in caps) + '</ul>'
     lname = name.lower().replace('&', '&amp;')
+    # "How a/an <sector> project runs": project= overrides the wording where the sector name doesn't read well (data centres).
+    project = project or lname
+    art = "an" if project[0] in "aeiou" else "a"
     sections = [
         sec("make", "What we make", "01 · Products", f"What we make for {lname}", ul(makes), fig(*img, img_alt, img_cap) if img else ""),
         sec("needs", "What you need from a supplier", "02 · Requirements", "What you need from a supplier, and how we meet it", "", cards(needs)),
-        sec("run", "How a project runs", "03 · Process", f"How a {lname} project runs with Genex", "", ol_steps(run)),
+        sec("run", "How a project runs", "03 · Process", f"How {art} {project} project runs with Genex", "", ol_steps(run)),
         sec("capabilities", "Capabilities used", "04 · Capabilities", "Capabilities we use", "", caps_html),
     ]
     if parts:
@@ -349,7 +328,7 @@ made.append(sector("automotive", "Automotive", "Automotive Pressings & Welded As
      ("Launch", "Tooling arranged, first-off samples with a dimensional report."),
      ("PPAP", "Submission to the level your customer requires, with control plan and capability evidence."),
      ("Serial supply", "Parts to your call-offs, packed to line-side specification, with full traceability.")],
-    [("metal-pressings", "Metal pressings"), ("welding-and-fabrication", "Welding & fabrication"), ("assembly-and-finishing", "Assembly & finishing")],
+    [("metal-pressings", "Metal pressings"), ("welding-and-fabrication", "Welding & fabrication"), ("value-added", "Value added: complete assemblies")],
     ["fuel", "door", "exhaust"],
     [("Do you supply automotive Tier 1s?", "Yes. Automotive has been a core sector for decades, including parts for BMW, JLR, Nissan and Toyota programmes."),
      ("Are you IATF 16949 certified?", "We're working towards IATF 16949. Today our automotive work runs under ISO 9001 with the AIAG core tools: APQP, PPAP, FMEA, MSA and SPC."),
@@ -367,16 +346,16 @@ made.append(sector("defence", "Defence", "Defence Metal Assemblies & Fabrication
     [("Security", "Controlled access", "Drawings are seen only by the Genex team and the approved partners who need them."),
      ("Traceability", "Order to delivery", "Every stage recorded against your order, with material certificates."),
      ("Sovereign supply", "Made in the UK", "Manufactured in Walsall, with fast reaction when requirements change."),
-     ("Quality", "ISO 9001 &amp; 14001", "Re-audited by BSI in 2026 with zero non-conformances.")],
+     ("Quality", "ISO 9001 &amp; 14001", "Zero non-conformances at BSI's 2026 ISO 9001 audit.")],
     RUN_STD,
-    [("metal-pressings", "Metal pressings"), ("welding-and-fabrication", "Welding & fabrication"), ("cnc-machining", "CNC machining"), ("assembly-and-finishing", "Assembly & finishing")],
+    [("metal-pressings", "Metal pressings"), ("welding-and-fabrication", "Welding & fabrication"), ("cnc-machining", "CNC machining"), ("value-added", "Value added: complete assemblies")],
     [],
     [("Do you work in defence?", "Yes. Defence is one of our major sectors."),
      ("Which materials do you use for defence work?", "Aluminium, stainless steel and titanium, with customer-specified coatings."),
      ("How do you protect our drawings?", "Drawings are seen only by the Genex team and the approved partners who need them. Cyber Essentials is a work in progress."),
      ("Can you handle one-off and low-volume work?", "Yes, from one-off parts to repeat production.")],
     [("How we work", "/how-we-work.html"), ("Quality and certificates", "/quality.html"), ("Materials", "/materials.html")],
-    img=("f-mig.webp", 1280, 580), img_alt="MIG welding a fabricated steel panel at Genex", img_cap="Manual MIG welding a fabricated panel."))
+    img=("stock-defence.webp", 1280, 720), img_alt="Close-up of an armoured vehicle", img_cap="An armoured vehicle."))
 
 made.append(sector("construction", "Construction", "Construction Brackets, Fixings & Assemblies | Genex UK",
     "High-volume brackets, fixings and structural and modular metal assemblies for construction, with traceability for the golden thread. ISO 9001, ISO 14001. Walsall, UK.",
@@ -389,7 +368,7 @@ made.append(sector("construction", "Construction", "Construction Brackets, Fixin
      ("Environment", "ISO 14001", "Environmental management, with eco-conscious coatings available."),
      ("Speed", "Quick turnaround", "Procured, produced and delivered fast when a site needs parts.")],
     RUN_STD,
-    [("metal-pressings", "Metal pressings"), ("laser-cutting-and-folding", "Laser cutting & folding"), ("assembly-and-finishing", "Assembly & finishing")],
+    [("metal-pressings", "Metal pressings"), ("laser-cutting-and-folding", "Laser cutting & folding"), ("value-added", "Value added: complete assemblies")],
     ["ceiling", "floor"],
     [("What do you make for construction?", "High-volume brackets and fixings, such as cable basket ceiling and wall brackets, plus prefabricated frames and modular assemblies."),
      ("Can you support the golden thread?", "Yes. Every order is traceable, with material certificates and records from enquiry to delivery."),
@@ -413,7 +392,7 @@ made.append(sector("data-centres", "Data centres", "Data Centre & Power Metalwor
     [("Do you make parts for raised floors?", "Yes. We press raised-floor base plates on a progression press, for data centres and offices."),
      ("Can you make enclosures?", "Yes: laser cut, folded, welded and finished, as individual parts or complete assemblies.")],
     [("Case study: raised-floor base plates", "/case-raised-floor-base-plates.html"), ("Pressing or laser cut and fold?", "/pressing-vs-laser-cut-and-fold.html")],
-    img=("part-floor-base-plates.webp", 800, 600), img_alt="Pressed raised-floor base plates made by Genex", img_cap="Raised-floor base plates, run on a progression press.", core=False))
+    img=("part-floor-base-plates.webp", 800, 600), img_alt="Pressed raised-floor base plates made by Genex", img_cap="Raised-floor base plates, run on a progression press.", core=False, project="data-centre"))
 
 made.append(sector("medical-and-catering", "Medical & catering", "Stainless Steel Medical & Catering Fabrication | Genex UK",
     "Food-safe and hygienic stainless steel assemblies for medical and catering, TIG welded and polished, built complete with sinks, taps and fittings. Walsall, UK.",
@@ -426,7 +405,7 @@ made.append(sector("medical-and-catering", "Medical & catering", "Stainless Stee
      ("Complete", "Fittings included", "Sinks, taps and drains sourced and fitted."),
      ("Delivery", "Ready to install", "Inspected, packed and delivered on our own vehicles.")],
     RUN_STD,
-    [("laser-cutting-and-folding", "Laser cutting & folding"), ("welding-and-fabrication", "Welding & fabrication"), ("assembly-and-finishing", "Assembly & finishing")],
+    [("laser-cutting-and-folding", "Laser cutting & folding"), ("welding-and-fabrication", "Welding & fabrication"), ("value-added", "Value added: complete assemblies")],
     ["mortuary"],
     [("Do you make stainless steel medical equipment?", "Yes, such as mortuary preparation tables built complete with a sink and drain."),
      ("What finish can you give stainless steel?", "Mirror polish or a brushed finish, to suit the application."),
@@ -615,7 +594,7 @@ made.append(page("glossary", "about", "Sheet Metal & Pressings Glossary | Genex 
     "Glossary", "The words, in plain English.",
     "The terms you'll meet in pressing, fabrication, finishing and supplier quality, explained simply.",
     "This glossary explains the terms used in metal pressing, sheet metal fabrication, welding, finishing and supplier quality, from progression tools and hemmed edges to PPAP, PPM and OTIF, in plain English.",
-    [sec("terms", "Terms", "A–Z", "Terms", "", gl)], None, defined, cta_label="Ask us a question"))
+    [sec("terms", "Terms", "Terms", "Terms", "", gl)], None, defined, cta_label="Ask us a question"))
 
 # ================= resources hub =================
 res = lambda items: '<div class="res">' + ''.join(f'<a href="{u}"><span class="kind">{k}</span><h3>{h}</h3><p>{p}</p><span class="go">{g} →</span></a>' for k, h, p, u, g in items) + '</div>'

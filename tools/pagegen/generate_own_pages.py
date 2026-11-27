@@ -1,13 +1,13 @@
 """Own page for every capability and sector (Michael Beese, 18 Nov 2026).
 
-Writes ONLY the eleven pages below. generate.py is not run for this: four of its pages have been
-hand-edited since and running it would overwrite them. The small helpers are copied from
-generate.py for that reason (importing it would run it).
+Writes ONLY the eleven pages below. The small helpers are copied from generate.py, because
+importing it would run it.
 
-Every fact here is already on the site (industries.html, capabilities.html, assembly-and-finishing.html,
+Every fact here is already on the site (industries.html, capabilities.html, the old assembly-and-finishing.html,
 metal-finishes-explained.html) or is Michael's own wording. Nothing new is claimed.
 
 Run from the repo root:  python tools/pagegen/generate_own_pages.py   then   cd site && python build.py
+python tools/pagegen/check.py confirms this file and generate.py still reproduce site/_src/pages (CI runs it).
 """
 import sys
 from pathlib import Path
