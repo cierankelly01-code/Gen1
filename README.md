@@ -30,7 +30,7 @@ Then open http://localhost:8420. Pages use root-relative paths (`/assets/...`), 
 - Genex's new logo: navy `#022442`, red `#E30817` (action only), grey `#787A82`. Re-skin layer: `assets/css/brand.css`, loaded last. Logo masters are in `assets/img/src/brand/` (not deployed).
 - Positioning: **pressings, fabrication and complete assemblies. Genex are not toolmakers** (Genex's MD, 20 Oct 2026). The tooling pages are retired with 301s in `nginx.conf`.
 - Hero: real-time 3D progression tool (`press3d.js`), now with a full die set (four guide pillars running into bushes in the upper shoe, punches over each station). The film band under it plays `assets/video/inside-genex.mp4`, a 30 s reel cut only from Genex's own footage.
-- The capability PDF source is `_src/pack.html`. Print it with headless Edge: `msedge --headless=new --no-pdf-header-footer --print-to-pdf=site/assets/genex-capability-pack.pdf http://localhost:8431/_src/pack.html`
+- The capability PDF source is `_src/pack.html`. Print it with headless Edge: `msedge --headless=new --no-pdf-header-footer --print-to-pdf=site/assets/genex-capability-pack.pdf http://localhost:8431/_src/pack.html`. Edge stores the photos uncompressed (3.7 MB), so shrink it afterwards with `python tools/shrink_pdf.py <printed.pdf> site/assets/genex-capability-pack.pdf` (needs `pypdf` and `Pillow`; about 0.5 MB). The script stops if the text changed, an image no longer opens or a reference points at nothing. Then open the PDF in a browser and look for the logo before committing.
 
 ## Generated pages
 
