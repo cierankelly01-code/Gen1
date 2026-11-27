@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
       - name: Rebuild pages from _src
@@ -39,7 +39,7 @@ jobs:
         run: npm ci --no-audit --no-fund && npm test
       - name: Live build path works, and refuses to build without a form backend
         run: |
-          docker build --build-arg PREVIEW=0 --build-arg SUPABASE_URL=https://ci-example.supabase.co --build-arg SUPABASE_ANON_KEY=ci-placeholder --build-arg STATS_URL=https://stats.5.222.15.118.sslip.io --build-arg STATS_ID=ci-site-id -t genex-site-ci .
+          docker build --build-arg PREVIEW=0 --build-arg SUPABASE_URL=https://ci-example.supabase.co --build-arg SUPABASE_ANON_KEY=ci-placeholder --build-arg STATS_URL=https://stats.5.222.15.118.sslip.io --build-arg STATS_ID=ci-site-id --build-arg SOURCE_COMMIT=${{ github.sha }} -t genex-site-ci .
           docker run -d --rm --name genex-site-ci -p 8089:80 genex-site-ci
           curl -sf --retry 15 --retry-delay 1 --retry-all-errors http://127.0.0.1:8089/ > /tmp/home.html
           if grep -qi 'noindex' /tmp/home.html; then echo "live build is marked noindex"; exit 1; fi
@@ -49,6 +49,10 @@ jobs:
           curl -sI http://127.0.0.1:8089/ | grep -i content-security-policy | grep -q "https://stats.5.222.15.118.sslip.io/script.js"
           if curl -sf http://127.0.0.1:8089/privacy.html | grep -qi "don't currently use cookies or analytics"; then echo "privacy page still says no analytics"; exit 1; fi
           curl -sf http://127.0.0.1:8089/concern.html | grep -q 'Send to our quality team'
+          test "$(curl -sf http://127.0.0.1:8089/version.txt)" = "${{ github.sha }}"
+          # the pages built inside the image (its own Python version) must be the pages checked in above
+          mkdir /tmp/built && docker cp genex-site-ci:/usr/share/nginx/html/. /tmp/built/
+          for f in site/*.html; do cmp -s "$f" "/tmp/built/$(basename "$f")" || { echo "image page differs from repo: $f"; exit 1; }; done
           docker stop genex-site-ci
           if docker build --build-arg PREVIEW=0 -t genex-site-ci-nobackend . ; then echo "live build without a backend should have failed"; exit 1; fi
       - name: Statistics never count on a preview, and a bad stats setting stops the build
@@ -63,7 +67,7 @@ jobs:
           docker run --rm
           -v "$PWD/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
           -v "$PWD/security-headers.conf:/etc/nginx/snippets/security-headers.conf:ro"
-          nginx:1.27-alpine nginx -t
+          nginx:1.29-alpine nginx -t
 
   secrets:
     name: Secret scan (gitleaks, full history)

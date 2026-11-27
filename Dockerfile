@@ -5,7 +5,9 @@
 #   SUPABASE_ANON_KEY  the project's anon / publishable key (safe in the browser; RLS allows insert only)
 #   STATS_URL          optional: the Umami address, e.g. https://stats.example.com (must also be in security-headers.conf)
 #   STATS_ID           optional: the website id Umami gives this site (not a secret)
-FROM python:3.12-alpine AS build
+#   SOURCE_COMMIT      set by Coolify to the commit being deployed; written to /version.txt so anyone can
+#                      check which commit is live. Empty outside Coolify, and the file then says "unknown".
+FROM python:3.15-alpine AS build
 WORKDIR /app
 COPY site/ ./site/
 ARG PREVIEW=1
@@ -33,9 +35,13 @@ RUN cd site && python build.py \
  && if [ "$PREVIEW" = "1" ]; then STATS_URL=""; STATS_ID=""; fi \
  && printf "window.GENEX_CFG = { supabaseUrl: '%s', supabaseAnonKey: '%s', demo: %s, stats: { url: '%s', id: '%s' } };\n" "$SUPABASE_URL" "$SUPABASE_ANON_KEY" "$DEMO" "$STATS_URL" "$STATS_ID" > /app/out/assets/js/config.js
 
-FROM nginx:1.27-alpine
+FROM nginx:1.29-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY security-headers.conf /etc/nginx/snippets/security-headers.conf
 COPY --from=build /app/out /usr/share/nginx/html
+# Which commit is this? Declared last, so a new commit never throws away the cached build above.
+# Anything that is not a commit id (or nothing at all) is written as "unknown".
+ARG SOURCE_COMMIT=""
+RUN if echo "$SOURCE_COMMIT" | grep -Eqx '[0-9a-f]{7,40}'; then echo "$SOURCE_COMMIT"; else echo unknown; fi > /usr/share/nginx/html/version.txt
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD wget -qO- http://127.0.0.1/ >/dev/null || exit 1
